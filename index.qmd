@@ -2,15 +2,14 @@
 title: "Shaun's website and data analysis portfolio"
 ---
 
-
 # Hello everyone!
 
 ### I am Shaun van den Hurk.
 
-Welcome to **my website** and _data analysis portfolio._ 
+Welcome to **my website** and *data analysis portfolio* for the Modern Applied Data Analysis (MADA) course at UGA
 
+-   Please use the `Menu Bar` above to look around.
 
-* Please use the `Menu Bar` above to look around.
-* Have fun!
+Have fun and stay warm!
 
-
+Shaun
