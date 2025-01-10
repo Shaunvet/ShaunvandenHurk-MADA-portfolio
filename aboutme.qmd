@@ -4,17 +4,17 @@ title: "About me"
 
 ![](ssv83602_2x2.jpg){width="213"}
 
-#### **Who am I?** 
+#### **Who am I?**
 
 I am a second year PhD student in the Comparative Biomedical Sciences program in the College of Veterinary Medicine. I am a veterinarian from South Africa and I lived and worked in South Africa until 2023, when I came to UGA!
 
-#### **My background and hopes for the course:** 
+#### **My background and hopes for the course:**
 
 My professional background is mainly as a clinical veterinarian, with particular interests in cattle production and medicine (I taught these topics at the University of Pretoria in South Africa previously), and so programming and data analysis is quite new to me.
 
 As a veterinarian we get taught some basics in epidemiology but I did not learn anything about real data anaylsis and application. I am interested in learning more about data analysis and statistics to apply this to infectious disease studies in animals (particularly cattle) and my current research projects focus on bovine respiratory disease complex agents. I hope that this course will give me exposure and hands-on experience with working woth different tools (box is already getting ticked with this exercise) and performing data analysis on real-world data.
 
-#### **Something interesting about myself:** 
+#### **Something interesting about myself:**
 
 As you might expect, I love animals and wildlife and my favourite holiday destination is the Kruger National Park in South Africa which is one of the biggest nature reserves in the world. I aim to stay in every camp and to do every bush trail offered, I have big plans!
 
