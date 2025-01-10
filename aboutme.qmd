@@ -2,6 +2,30 @@
 title: "About me"
 ---
 
-Add some text and a figure describing myself.
+![](ssv83602_2x2.jpg){width="213"}
 
-For details, see the exercise instructions. 
+#### **Who am I?** 
+
+I am a second year PhD student in the Comparative Biomedical Sciences program in the College of Veterinary Medicine. I am a veterinarian from South Africa and I lived and worked in South Africa until 2023, when I came to UGA!
+
+#### **My background and hopes for the course:** 
+
+My professional background is mainly as a clinical veterinarian, with particular interests in cattle production and medicine (I taught these topics at the University of Pretoria in South Africa previously), and so programming and data analysis is quite new to me.
+
+As a veterinarian we get taught some basics in epidemiology but I did not learn anything about real data anaylsis and application. I am interested in learning more about data analysis and statistics to apply this to infectious disease studies in animals (particularly cattle) and my current research projects focus on bovine respiratory disease complex agents. I hope that this course will give me exposure and hands-on experience with working woth different tools (box is already getting ticked with this exercise) and performing data analysis on real-world data.
+
+#### **Something interesting about myself:** 
+
+As you might expect, I love animals and wildlife and my favourite holiday destination is the Kruger National Park in South Africa which is one of the biggest nature reserves in the world. I aim to stay in every camp and to do every bush trail offered, I have big plans!
+
+This picture is a typical view of the landscape.
+
+![](Sabi_River_Kruger_National_Park_(38678759621).jpg){fig-align="center" width="379"}
+
+#### **Something interesting related to data analysis:**
+
+I am sharing a link to a research study that was published by other researchers investigating bovine respiratory disease complex.
+
+"<https://www.nature.com/articles/s41598-021-02343-7>"
+
+This study is very cool as the researchers are looking at genes and regulatroy mechanisms that are associated with bovine respiratory disease, and they made use of machine learning models for this. I hope to develop my skills with data analysis and machine learning to process similar data and research questions.

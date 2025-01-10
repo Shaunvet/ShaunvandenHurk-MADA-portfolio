@@ -1,16 +1,16 @@
 ---
-title: "My website and data analysis portfolio"
+title: "Shaun's website and data analysis portfolio"
 ---
 
-**Feel free to change the text below any way you want 😁!**
 
-# Hello
+# Hello everyone!
 
-### And hello again
+### I am Shaun van den Hurk.
 
 Welcome to **my website** and _data analysis portfolio._ 
 
 
 * Please use the `Menu Bar` above to look around.
 * Have fun!
+
 
