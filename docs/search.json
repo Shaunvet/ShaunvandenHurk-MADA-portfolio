@@ -116,7 +116,7 @@
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#description-of-data-and-data-source",
     "title": "Manuscript/Report Template for a Data Analysis Project",
     "section": "2.2 Description of data and data source",
-    "text": "2.2 Description of data and data source\nDescribe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section."
+    "text": "2.2 Description of data and data source\nThe data contains a combination of numeric and categorical data related to people. There are four columns, these look into height, gender, minutes of daily exercise, and star/zodiac sign."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#questionshypotheses-to-be-addressed",
