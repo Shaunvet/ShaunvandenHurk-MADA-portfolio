@@ -105,6 +105,23 @@ figure_file = here("starter-analysis-exercise","results","figures","height-weigh
 ggsave(filename = figure_file, plot=p4) 
 ```
 
+MJ: Boxplot of star sign and height
+
+```{r}
+p5 <- mydata %>% ggplot(aes(x=Sign, y=Height)) + geom_boxplot()
+plot(p5)
+figure_file = here("starter-analysis-exercise","results","figures","sign-height.png")
+ggsave(filename = figure_file, plot=p5)
+```
+
+MJ: Scatterplot of weight and exercise
+
+```{r}
+p6 <- mydata %>% ggplot(aes(x=Weight, y=Exercise)) + geom_point()
+plot(p6)
+figure_file = here("starter-analysis-exercise","results","figures","weight-exercise.png")
+ggsave(filename = figure_file, plot=p6)
+```
 
 
 # Notes
