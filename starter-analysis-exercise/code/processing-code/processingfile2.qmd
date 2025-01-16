@@ -109,6 +109,12 @@ d4 <- d3 %>% dplyr::filter( !(Gender %in% c("NA","N")) ) %>% droplevels()
 skimr::skim(d4)
 ```
 
+M.Y: The column Daily Exercise minutes is read as character by R. Here I will convert it back to integer. 
+```{r}
+d4$`Daily Exercise minutes` <- as.integer(d4$`Daily Exercise minutes`)  
+skimr::skim(d4)
+class(d4$`Daily Exercise minutes`)
+```
 
 All done, data is clean now. 
 

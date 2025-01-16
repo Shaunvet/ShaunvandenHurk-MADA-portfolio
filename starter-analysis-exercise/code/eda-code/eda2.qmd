@@ -104,6 +104,8 @@ plot(p4)
 figure_file = here("starter-analysis-exercise","results","figures","height-weight-stratified.png")
 ggsave(filename = figure_file, plot=p4) 
 ```
+M.Y: Here is the scattter plot with weight on the x-axis and daily exercise minutes on the y-axis.
+
 ```{r}
 p5 <- mydata %>% ggplot(aes(x=Weight, y= `Daily Exercise minutes`)) + geom_point() + geom_smooth(method='lm')
 plot(p5)
@@ -112,7 +114,7 @@ ggsave(filename = figure_file, plot=p5)
 ```
 
 
-
+M.Y: This is a Boxplot with star sign plotted against Height with star sign on the x-axis and height on the y-axis.
 
 ```{r}
 p6 <- mydata %>% ggplot(aes(x=`Star sign`, y= Height)) + geom_boxplot() + geom_smooth(method='lm')
