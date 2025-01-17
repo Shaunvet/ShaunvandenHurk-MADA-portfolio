@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Shaun van den Hurk">
-<meta name="dcterms.date" content="2025-01-14">
+<meta name="author" content="Shaun van den Hurk, Murtaza Yaqubi contributed to this exercise. Murphy John contributed to a previous version.">
+<meta name="dcterms.date" content="2025-01-16">
 
 <title>Manuscript/Report Template for a Data Analysis Project – Shaun van den Hurk’s Data Analysis Portfolio</title>
 <style>
@@ -163,14 +163,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Shaun van den Hurk </p>
+             <p>Shaun van den Hurk, Murtaza Yaqubi contributed to this exercise. Murphy John contributed to a previous version. </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 14, 2025</p>
+      <p class="date">January 16, 2025</p>
     </div>
   </div>
   
@@ -241,21 +241,26 @@ Table&nbsp;1: Data summary table.
 <div class="cell-output-display">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 7%">
+<col style="width: 3%">
 <col style="width: 8%">
-<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 5%">
 <col style="width: 6%">
+<col style="width: 7%">
 <col style="width: 5%">
 <col style="width: 5%">
 <col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -263,6 +268,11 @@ Table&nbsp;1: Data summary table.
 <th style="text-align: left;">skim_variable</th>
 <th style="text-align: right;">n_missing</th>
 <th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">character.min</th>
+<th style="text-align: right;">character.max</th>
+<th style="text-align: right;">character.empty</th>
+<th style="text-align: right;">character.n_unique</th>
+<th style="text-align: right;">character.whitespace</th>
 <th style="text-align: left;">factor.ordered</th>
 <th style="text-align: right;">factor.n_unique</th>
 <th style="text-align: left;">factor.top_counts</th>
@@ -278,10 +288,37 @@ Table&nbsp;1: Data summary table.
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">Star sign</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">factor</td>
 <td style="text-align: left;">Gender</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: left;">M: 4, F: 3, O: 2</td>
@@ -294,16 +331,21 @@ Table&nbsp;1: Data summary table.
 <td style="text-align: right;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">numeric</td>
 <td style="text-align: left;">Height</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: right;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: right;">165.66667</td>
-<td style="text-align: right;">15.97655</td>
+<td style="text-align: right;">15.976545</td>
 <td style="text-align: right;">133</td>
 <td style="text-align: right;">156</td>
 <td style="text-align: right;">166</td>
@@ -311,22 +353,49 @@ Table&nbsp;1: Data summary table.
 <td style="text-align: right;">183</td>
 <td style="text-align: left;">▂▁▃▃▇</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">numeric</td>
 <td style="text-align: left;">Weight</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: right;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: right;">70.11111</td>
-<td style="text-align: right;">21.24526</td>
+<td style="text-align: right;">21.245261</td>
 <td style="text-align: right;">45</td>
 <td style="text-align: right;">55</td>
 <td style="text-align: right;">70</td>
 <td style="text-align: right;">80</td>
 <td style="text-align: right;">110</td>
 <td style="text-align: left;">▇▂▃▂▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Daily Exercise minutes</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">5.00000</td>
+<td style="text-align: right;">2.738613</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">▇▇▃▇▇</td>
 </tr>
 </tbody>
 </table>
@@ -345,7 +414,7 @@ Table&nbsp;1: Data summary table.
 <div id="fig-result" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-result-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../results/figures/height-weight-stratified.png" class="img-fluid figure-img" width="1050">
+<img src="../../results/figures/height-weight-stratified.png" class="img-fluid figure-img" width="1094">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-result-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Height and weight stratified by gender.
@@ -354,6 +423,38 @@ Figure&nbsp;1: Height and weight stratified by gender.
 </div>
 </div>
 </div>
+<p><a href="#fig-result2" class="quarto-xref">Figure&nbsp;2</a> shows a scatterplot figure evaluating weight and daily exercise minutes as produced by one of the R scripts.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-result2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-result2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../results/figures/weight-daily exercise minutes.png" class="img-fluid figure-img" width="1094">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-result2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Weight and daily exercise minutes.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The figure seems to demonstrate a negative correlation between daily exercise and weight, as daily exercise minutes increase, weight decreases.</p>
+<p><a href="#fig-result3" class="quarto-xref">Figure&nbsp;3</a> shows a boxplot figure evaluating star sign and height as produced by one of the R scripts.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-result3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-result3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../results/figures/star sign-height.png" class="img-fluid figure-img" width="1094">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-result3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Star sign and height.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The box plot does not indicate much information regarding a relationship between star (zodiac) sign and height, and this is likely because there are too few data points to evaluate this effectively. We do see that most participants (except for one) were over 155cm in height and that Virgo was the most common star sign in the dataset.</p>
 </section>
 <section id="full-analysis" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="full-analysis"><span class="header-section-number">4.3</span> Full analysis</h2>
@@ -413,6 +514,97 @@ Table&nbsp;2: Linear model fit table.
 </figure>
 </div>
 </div>
+<p>Example <a href="#tbl-resulttable3" class="quarto-xref">Table&nbsp;3</a> shows a summary of a linear model fit for height as an outcome with daily exercise minutes and star sign as predictors.</p>
+<div class="cell">
+<div id="tbl-resulttable3" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-resulttable3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Linear model fit table.
+</figcaption>
+<div aria-describedby="tbl-resulttable3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">139.341463</td>
+<td style="text-align: right;">6.0014622</td>
+<td style="text-align: right;">23.217919</td>
+<td style="text-align: right;">0.0274024</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Daily Exercise minutes</code></td>
+<td style="text-align: right;">-1.268293</td>
+<td style="text-align: right;">0.4146341</td>
+<td style="text-align: right;">-3.058823</td>
+<td style="text-align: right;">0.2011529</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Star sign</code>Aries</td>
+<td style="text-align: right;">51.451220</td>
+<td style="text-align: right;">8.2693269</td>
+<td style="text-align: right;">6.221936</td>
+<td style="text-align: right;">0.1014510</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Star sign</code>Capricorn</td>
+<td style="text-align: right;">16.658537</td>
+<td style="text-align: right;">8.2302528</td>
+<td style="text-align: right;">2.024061</td>
+<td style="text-align: right;">0.2921329</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Star sign</code>Libra</td>
+<td style="text-align: right;">66.024390</td>
+<td style="text-align: right;">10.1055112</td>
+<td style="text-align: right;">6.533503</td>
+<td style="text-align: right;">0.0966889</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Star sign</code>Pisces</td>
+<td style="text-align: right;">52.536585</td>
+<td style="text-align: right;">8.0079155</td>
+<td style="text-align: right;">6.560582</td>
+<td style="text-align: right;">0.0962959</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Star sign</code>Scorpio</td>
+<td style="text-align: right;">102.756098</td>
+<td style="text-align: right;">24.1557754</td>
+<td style="text-align: right;">4.253894</td>
+<td style="text-align: right;">0.1469870</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Star sign</code>Virgo</td>
+<td style="text-align: right;">55.195122</td>
+<td style="text-align: right;">10.0115044</td>
+<td style="text-align: right;">5.513170</td>
+<td style="text-align: right;">0.1142306</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>There does not seem to be a statistically significant association between these factors.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
