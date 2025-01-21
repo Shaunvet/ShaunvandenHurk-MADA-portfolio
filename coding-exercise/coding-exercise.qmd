@@ -2,4 +2,182 @@
 title: "R Coding Exercise"
 ---
 
-Placeholder file for the future R coding exercise.
+### **Module 3 - R Coding Exercise**
+
+**Done by: Shaun van den Hurk**
+
+Getting started and set up with packages and retrieving dataset.
+
+```{r}
+#Installing required packages ("dslabs", "tidyverse")
+options(repos = c(CRAN = "https://cran.rstudio.com/")) #Attempting to address issue with downloading dslabs script at render
+install.packages("dslabs") #for dataset
+install.packages("tidyverse") #for tools for analysis
+
+#load required libraries ("dslabs", "tidyverse", "ggplot2", "here")
+library("dslabs")
+library("tidyverse")
+library("ggplot2") #for generated plots
+
+```
+
+#Getting an overview of the data
+
+#Look at the gapminder data help file help(gapminder)
+
+```{r}
+#Get an overview of the gapminder data structure
+str(gapminder)
+
+#Get a summary of the gapminder data
+summary(gapminder)
+
+```
+
+#Determine the type of the object gapminder
+
+class(gapminder)
+
+######################### 
+
+#Getting started with data processing
+
+#Filter out data from African countries by filtering by continent
+
+```{r}
+#Filter out African data
+africadata <- gapminder |> filter(continent =="Africa")
+#View the newly filtered data
+View(africadata)
+```
+
+#From the filtered Africa data, create two new objects, one with the two columns "infant_mortality" and "life_expectancy", and second object with the two columns "population" and "life_expectancy".
+
+#Creating the first object named "africa_1" and looking at the overview and summary of the newly created object
+
+```{r}
+#Using the "select" function to select the columns from the previous "africadata" dataset
+africa_1 <- africadata |> select(infant_mortality, life_expectancy)
+#get an overview of the new africa_1 datset
+str(africa_1)
+#see a summary of the new africa_1 dataset
+summary(africa_1)
+#View the resulting object more closely
+view(africa_1)
+
+```
+
+#Creating the second object named "africa_2" with the columns "population" and "life_expectancy" following the same approach as before
+
+```{r}
+#Using the "select" function to select the columns from the previous "africadata" dataset
+africa_2 <- africadata |> select(population, life_expectancy)
+#get an overview of the new africa_1 datset
+str(africa_2)
+#see a summary of the new africa_1 dataset
+summary(africa_2)
+#View the resulting object more closely
+view(africa_2)
+
+```
+
+#Create two different plots to evaluate the data from the objects arica_1 and africa_2 using the ggplot2 package - previously loaded.
+
+#Generate a plot demonstrating life expectancy as a function of infant mortality.
+
+```{r}
+#Generate the plot as a scatter plot with the variables associated with the approiate axes, reduce point size to 1, set colour to blue, label different areas of the graph
+ggplot(africa_1, aes(x = infant_mortality, y = life_expectancy)) +   
+  geom_point(size = 1, color = "blue") +
+  labs(title = "Infant mortality vs Life expectancy", x = "Infant mortality", y = "Life expectancy" ) 
+
+#Save the generated plot
+ggsave("africa_1_Life_expectancy_vs_infant_mortality.png", width = 8, height =6)
+```
+
+The data shows shows a negative correlation between infant mortality and life expectancy. This is intuitive.
+
+#Generate a second plot demonstrating life expectancy as a function of population size, where the x-axis (population) is plotted on a log scale
+
+```{r}
+#Generate the plot as a scatter plot with the variables associated with the approiate axes,set the x-axis (population) to be in the log-scale, reduce point size to 1, set colour to red, label different areas of the graph
+ggplot(africa_2, aes(x = population, y = life_expectancy)) +   
+  geom_point(size = 1, color = "red") +
+  scale_x_log10() +
+  labs(title = "Population vs Life expectancy", x = "Population (Log-scale)", y = "Life expectancy" ) 
+
+#Save the generated plot
+ggsave("africa_2_Life_expectancy_vs_population_log_scale.png", width = 8, height =6)
+```
+
+The plots generated are a bit messy and difficult to interpret as they currently are. The strange appearance is most likely a result of the repition of the data (collected data) that has occured by reporting the variables from 1962 to 2016. Therefore, there is a great deal of overlap and it is hard to see any real relationships or trends. This is amplified by the fact that the life expectancy and certainly the populaion changes each year and so the points are being shifted. It might be best to focus on a particular country or region over a period of time, or to focus on one particular year to reduce this overlap. T
+
+#Search for years with missing (NA) data points for infant mortality.
+
+```{r}
+#I used the textbook and ChatGPT to help me generate and correct my code. I tried the select function with & first which is not apprpriate for rows
+missing_infant_mortality <- africadata |> #Assigning new variable and searching in the dataset
+filter(is.na(infant_mortality)) |>  #continuing with pipe and filtering for where infant mortality is "NA"
+select(year)  #continuing pipe and keeping the years where infant mortality is NA"
+
+```
+
+#Create a new object "africa_3_y2000" with the extracted data from the year 2000 from "africadata" and view the summary of the data
+
+```{r}
+#Use the filter function to select the columns where the year is 2000
+africa_3_y2000 <- africadata |> filter(year==2000)
+#view the data structure of the new object africa_3_y2000
+str(africa_3_y2000)
+#view a summary of the new object africa_3_y2000
+summary(africa_3_y2000)
+```
+
+#Make new plots for the data from the year 2000 following the same approach and similar code as before
+
+#Generate a plot to view infant mortality vs life expectancy from the year 2000 by using the filtered object created for the year 2000 from the Africa dataset that was originally created.
+
+```{r}
+#Generate the plot as a scatter plot with the variables associated with the approiate axes, reduce point size to 1, set colour to black, label different areas of the graph
+ggplot(africa_3_y2000, aes(x = infant_mortality, y = life_expectancy)) +   
+  geom_point(size = 1, color = "black") +
+  labs(title = "Infant mortality vs Life expectancy from the year 2000", x = "Infant mortality", y = "Life expectancy" ) 
+
+#Save the generated plot
+ggsave("africa_3_y2000_Life_expectancy_vs_infant_mortality.png", width = 8, height =6)
+```
+
+#Generate a simialr plot to view population (on a log-scale) vs life expectancy from the year 2000 by using the filtered object created for the year 2000 from the Africa dataset that was originally created.
+
+```{r}
+#Generate the plot as a scatter plot with the variables associated with the approiate axes,set the x-axis (population) to be in the log-scale, reduce point size to 1, set colour to red, label different areas of the graph
+ggplot(africa_3_y2000, aes(x = population, y = life_expectancy)) +   
+  geom_point(size = 1, color = "red") +
+  scale_x_log10() +
+  labs(title = "Population vs Life expectancy for the year 2000", x = "Population (Log-scale)", y = "Life expectancy" ) 
+
+#Save the generated plot
+ggsave("africa_3_y2000_Life_expectancy_vs_population_log_scale.png", width = 8, height =6)
+```
+
+#Fit a linear model to the data to help with further interpretation. Use the "lm" function to fit life expectancy as the outcome, with infant mortality as the predictor. This is based on the data from the year 2000 in Africa only.
+
+```{r}
+fit1 <- lm(life_expectancy ~ infant_mortality, data = africa_3_y2000)
+#View the summary of the model
+summary(fit1)
+
+```
+
+From this fit it appears that infant moratlity has a strong and highly significant association with life expectancy (p value is 2.83e-08). We see that higher infant mortality is associated with a lower life expectancy.
+
+#Generate a similar linear fit with life expectancy as the outcome and population size as the predictor. This is based on the data from the year 2000 in Africa only.
+
+```{r}
+fit2 <- lm(life_expectancy ~ population, data = africa_3_y2000)
+#View the summary of the model
+summary(fit2)
+
+```
+
+There does not appear to be any statistical significance in the relationship between population size and life expectancy in this dataset modelled. The p-value was 0.6159, which is not significant. This indicates that population size is not an effective predictor of life expectancy in this dataset.
