@@ -181,3 +181,148 @@ summary(fit2)
 ```
 
 There does not appear to be any statistical significance in the relationship between population size and life expectancy in this dataset modelled. The p-value was 0.6159, which is not significant. This indicates that population size is not an effective predictor of life expectancy in this dataset.
+
+
+
+
+
+```{r}
+<!-- This section contributed by Asmith Joseph -->
+
+```
+
+
+
+```{r}
+# Taking a look at the dslabs to identify which dataset I want to choose for the assignment
+library(dslabs)
+data(package = "dslabs")
+
+```
+
+```{r}
+# I chose us_contagious_diseases dataset
+# Loading the  us_contagious_diseases datasetthe Dataset
+library(dslabs)
+data("us_contagious_diseases")
+
+```
+
+
+```{r}
+#The dataset contains the following columns:
+
+#disease: The name of the disease (e.g., "Measles," "Polio").
+#state: The U.S. state where the data was recorded.
+#year: The year the data was reported.
+#weeks_reporting: The number of weeks during the year in which the state reported data.
+#count: The number of reported cases of the disease.
+#population: The population of the state in the respective year.
+#rate: The number of disease cases per 10,000 people
+```
+
+
+```{r}
+#Exploring the datasets to identify variables and so on 
+head(us_contagious_diseases)
+
+
+#checking the structure 
+str(us_contagious_diseases)
+
+
+# Exploring the summary 
+summary(us_contagious_diseases)
+
+```
+
+
+
+```{r}
+#Processing and cleaning the Data. First I am filtering out diseases with missing data, mostly focusing on one specific diseases, Measles. 
+### Data Processing I focus on measles data for this analysis. The dataset is cleaned to remove rows with missing values, and a new variable, `rate_per_100k`, is calculated to represent cases per 100,000 people.
+
+
+# filtering out the data for measles
+measles <- us_contagious_diseases %>%
+  filter(disease == "Measles") %>%
+  drop_na()  # Remove rows with missing values
+
+# Adding a column for the cases per 100,000 population
+measles <- measles %>%
+  mutate(rate_per_100k = (count / population) * 100000)
+
+# Previewing the cleaned dataset
+head(measles)
+
+# Checking for missing values
+sum(is.na(measles))
+
+```
+
+
+
+
+
+```{r}
+### In the next part, I am doing exploratory Figures by visualizing the trends of measles cases over time and across states. 1) figure shows the number of cases over the years, 2) second figure is a heatmap of cases by state and year.
+```
+
+
+```{r}
+#Creating exploratory figures, such as Visualize trends, distributions, or summaries.
+
+# Plot the total number of measles cases over time
+ggplot(measles, aes(x = year, y = count)) +
+  geom_line(color = "pink") +
+  labs(title = "Measles Cases Over Time",
+       x = "Year",
+       y = "Number of Cases") +
+  theme_minimal()
+
+```
+
+```{r}
+#  2nd figure Measles Cases by State (Heatmap)
+# Creating a heatmap of cases by state and year
+measles_heatmap <- measles %>%
+  group_by(state, year) %>%
+  summarize(total_cases = sum(count, na.rm = TRUE))
+
+ggplot(measles_heatmap, aes(x = year, y = reorder(state, total_cases), fill = total_cases)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(title = "Measles Cases Heatmap by State and Year",
+       x = "Year",
+       y = "State",
+       fill = "Total Cases") +
+  theme_minimal()
+
+```
+
+
+
+
+```{r}
+Next Part, I am focusing on Statistical Model. fitting a simple linear regression model to examine the trend of measles cases over time. The model uses `year` as the predictor and `count` (number of cases) as the outcome variable.
+```
+
+
+```{r}
+# Fitting a linear model to examine the trend of measles cases over time
+measles_lm <- lm(count ~ year, data = measles)
+
+# Summarizing the model
+summary(measles_lm)
+
+```
+
+```{r}
+### Results from the Linear Model
+#The summary of the linear regression model shows the following:
+# 1) The slope coefficient for `year` is negative, indicating a decline in measles cases over time, 2) The model's p-value suggests that this decline is statistically significant.
+
+```
+
+
+
