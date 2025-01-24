@@ -4,7 +4,7 @@ title: "R Coding Exercise"
 
 ### **Module 3 - R Coding Exercise**
 
-**Done by: Shaun van den Hurk**
+#### **Done by: Shaun van den Hurk**
 
 Getting started and set up with packages and retrieving dataset.
 
@@ -182,16 +182,13 @@ summary(fit2)
 
 There does not appear to be any statistical significance in the relationship between population size and life expectancy in this dataset modelled. The p-value was 0.6159, which is not significant. This indicates that population size is not an effective predictor of life expectancy in this dataset.
 
+########################################################## 
 
+.................................................................................................
 
+######################################################### 
 
-
-```{r}
-<!-- This section contributed by Asmith Joseph -->
-
-```
-
-
+### **This section contributed by Asmith Joseph**
 
 ```{r}
 # Taking a look at the dslabs to identify which dataset I want to choose for the assignment
@@ -208,7 +205,6 @@ data("us_contagious_diseases")
 
 ```
 
-
 ```{r}
 #The dataset contains the following columns:
 
@@ -220,7 +216,6 @@ data("us_contagious_diseases")
 #population: The population of the state in the respective year.
 #rate: The number of disease cases per 10,000 people
 ```
-
 
 ```{r}
 #Exploring the datasets to identify variables and so on 
@@ -235,8 +230,6 @@ str(us_contagious_diseases)
 summary(us_contagious_diseases)
 
 ```
-
-
 
 ```{r}
 #Processing and cleaning the Data. First I am filtering out diseases with missing data, mostly focusing on one specific diseases, Measles. 
@@ -260,14 +253,9 @@ sum(is.na(measles))
 
 ```
 
-
-
-
-
 ```{r}
 ### In the next part, I am doing exploratory Figures by visualizing the trends of measles cases over time and across states. 1) figure shows the number of cases over the years, 2) second figure is a heatmap of cases by state and year.
 ```
-
 
 ```{r}
 #Creating exploratory figures, such as Visualize trends, distributions, or summaries.
@@ -300,13 +288,7 @@ ggplot(measles_heatmap, aes(x = year, y = reorder(state, total_cases), fill = to
 
 ```
 
-
-
-
-```{r}
 Next Part, I am focusing on Statistical Model. fitting a simple linear regression model to examine the trend of measles cases over time. The model uses `year` as the predictor and `count` (number of cases) as the outcome variable.
-```
-
 
 ```{r}
 # Fitting a linear model to examine the trend of measles cases over time
@@ -323,6 +305,3 @@ summary(measles_lm)
 # 1) The slope coefficient for `year` is negative, indicating a decline in measles cases over time, 2) The model's p-value suggests that this decline is statistically significant.
 
 ```
-
-
-
