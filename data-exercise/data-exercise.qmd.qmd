@@ -1,0 +1,236 @@
+---
+title: "Data Exercise"
+---
+
+## Data exercise to generate synthetic data.
+
+Load the required packages:
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+
+```
+
+We are looking to generate a synthetic dataset that evaluates the relationship between vaccination status and history of disease within and to compare thi between different cattle breeds (beef vs dairy breeds). We are going to generate a dataset with 330 individual animals from the age of 6 months to 3 years. Since females are found in higher numbers in cattle production systems we are generating the dataset with 70% females (30% males). We are looking at vaccination as yes or no without specifying specific diseases or vaccines. We will generate columns for history of respiratory disease and history of diarrheal disease (either yes or no).
+
+We first need to set the seed to that our random generation of variables is repeatable
+
+```{r}
+set.seed(123)
+
+```
+
+We will start to generate our dataset as described:
+
+```{r}
+#Start by assigning the number of cattle (observations)
+n <- 330
+
+#We will assign ages to the animals between 6 months and 3 years (18 months). Age can only be integers (whole numbers in months)
+age <- sample(6:36, n, replace = TRUE)
+
+#we will assign the sex with 70% as females as mentioned
+sex <- sample(c("Female", "Male"), n, replace= TRUE, prob = c(0.7, 0.3))
+
+#We will assign the cattle breeds with an equal split using Angus as the beef breed and Holstein as the dairy breed
+breed <- sample(c("Angus", "Holstein"), n, replace = TRUE)
+
+#We will classify these breeds to help with further interpretation and analysis downstream. This would be particularly helpful if we had multiple different breeds for each category in the dataset. We will use the if else function in R.
+breed_type <- ifelse(breed=="Angus", "Beef", "Dairy")
+
+#Double check that our breed data worked
+View(breed_type)
+print(breed_type)
+```
+
+We must now generate the vaccination and disease history data before we can produce our dataframe.
+
+We will make the incidence of respiratory disease slightly higher in beef animals than in dairy animals, and the opposite (slightly higher incidence of diarrheal disease in dairy animals than beef animals).
+
+```{r}
+#We will assign vaccination status (yes/no) randomly
+vaccination <- sample (c("Yes","No"), n, replace = TRUE)
+
+#Assign history of diseases based on our assumptions
+#Start by generating a vector for the history of disease - diarrhea or respiratory
+history_diarrhea <- rep("No", n)
+history_respiratory <- rep("No", n)
+
+#Using a loop function to change the incidence of the different diseases in beef and dairy breeds as mentioned above
+#I had chatGPT help me to generate the code for this
+
+for (i in 1:n) {
+  if (breed[i] == "Holstein") {
+    if (runif(1) < 0.35) history_diarrhea[i] <- "Yes"
+    if (runif(1) < 0.25) history_respiratory[i] <- "Yes"
+  } else {
+    if (runif(1) < 0.30) history_diarrhea[i] <- "Yes"
+    if (runif(1) < 0.35) history_respiratory[i] <- "Yes"
+  }
+}
+
+#We are applying the conditions above if the breed is Holstein and if it is not then we apply the conditions below the else.
+
+
+#We now want to make sure that animals that are not vaccinated have a higher incidence of disease (vaccination is correlated with freedom from or reduced incidence of disease)
+#We will use another loop funciton for this.
+# I had ChatGPT assist with this code for the loop
+
+for (i in 1:n) {
+  if (vaccination[i] == "No" && history_diarrhea[i] == "No" && history_respiratory[i] == "No") {
+    if (runif(1) < 0.5) {
+      history_diarrhea[i] <- "Yes"
+    } else {
+      history_respiratory[i] <- "Yes"
+    }
+  }
+}
+
+
+```
+
+We want to make four different categories that will help us to evaluate the different disease states that are possible. Different states are "Respiratory disease", "Diarrhea disease", "Both diseases", and "No disease". We will create an additional column for this to make it easier for us to call back to this for later models and plots. This could have been done as a second or separate dataframe without including it in the main datframe if we preferred. For ease it has been done now for less separate steps.
+
+Create disease history classification:
+
+```{r}
+disease_history <- case_when(history_respiratory == "Yes" & history_diarrhea == "No" ~ "Respiratory Only", history_respiratory == "No" & history_diarrhea == "Yes" ~ "Diarrhea Only", history_respiratory == "yes" & history_diarrhea == "Yes" ~ "Both Diseases", TRUE ~ "No Disease")
+
+```
+
+We then create a dataframe with all of these variables that we have assigned. We will call this cattle_data. We change the font of the column names to help use define searches and functions more directly.
+
+```{r}
+cattle_data <- data.frame(Age = age, Sex = sex, Breed = breed, Breed_Type = breed_type, Vaccination = vaccination, History_Diarrhea = history_diarrhea, History_Respiratory = history_respiratory, Disease_History = factor(disease_history, levels = c("No Disease", "Respiratory Only", "Diarrhea Only", "Both Diseases")))
+
+summary(cattle_data)
+print(cattle_data)
+
+```
+
+We want to changed the categorical variables (most of our variables) to factors
+
+```{r}
+cattle_data$Vaccination <- as.factor(cattle_data$Vaccination)
+cattle_data$History_Diarrhea <- as.factor(cattle_data$History_Diarrhea)
+cattle_data$History_Respiratory <- as.factor(cattle_data$History_Respiratory)
+cattle_data$Breed <- as.factor(cattle_data$Breed)
+
+```
+
+We will now use logistic regression models to evaluate our data and hopefully see the patterns that we expect. We will also produce some plots to evaluate the data.
+
+First model: geometric logistic regression to test the association between vaccination and disease history (our main association of interest)
+
+```{r}
+model1 <- glm(Vaccination ~ Disease_History + Breed, data = cattle_data, family = binomial)
+summary(model1)
+
+```
+
+From the results of this model we can see that the absence of vaccination is strongly and statistically associated with the presence of both respiratory and diarrheal disease in caatle in the dataset. However there is not a statistically significant association/effect between breed and vaccination.
+
+Second model: geometric logistic regression to test the effect of breed on respiratory disease (we expect beef breeds to have a higher incidence than dairy)
+
+Logistic regression testing the effect of breed on disease history. We would need to use a multinomial regression here if we want to test disease history with both respiratory and diarrheal disease in the same model, so instead we will evaluate diarrheal disease and respiratory disease separately using binomial models.
+
+Second model: Geometric logistic regression testing the effect of breed on respiratory disease history (we expect respiratory disease to be slightly higher in beef breeds).
+
+```{r}
+model2 <- glm(History_Respiratory ~ Breed + Age, data = cattle_data, family = binomial)
+summary(model2)
+
+```
+
+Third model: geometric logistic regression to test the effect of breed on diarrhea disease (we expect dairy breeds to have a higher incidence than beef)
+
+```{r}
+model3 <- glm(History_Diarrhea ~ Breed + Age, data = cattle_data, family = binomial)
+summary(model3)
+
+```
+
+Fourth model: linear logistic regression to test age differences across vaccination status (we do not expect correlation in our dataset)
+
+```{r}
+model4 <- lm(Age ~ Vaccination, data = cattle_data)
+summary(model4)
+
+```
+
+Fifth model: linear logistic regression to test age differences across disease history (we do not expect correlation in our dataset)
+
+```{r}
+model5 <- lm(Age ~ Disease_History, data = cattle_data)
+summary(model5)
+
+```
+
+Plotting our graphs to see how they compare with our associations seen in the linear regression models
+
+First plot: Violin plot to compare disease history with the vaccination status per breed
+
+```{r}
+p1 <- ggplot(cattle_data, aes(x = Disease_History, y = Vaccination, fill = Breed)) +
+  geom_violin() +
+  labs(x = "Disease History", y = "Vaccination Status", fill = "Breed") +
+  theme_minimal()
+
+print(p1)
+
+```
+
+This violin plot doesn't really display this data well. We will produce a bar plot instead.
+
+Generate a bar plot to evaluate the relationship between vaccination status and disease history by comparing the proportions of animals with history of disease and vaccination status. We are working with proportion instead of count to make interpretation easier.
+
+```{r}
+p2 <- ggplot(cattle_data, aes(x = Disease_History, fill = Vaccination)) +
+    geom_bar(position = "fill") +  
+    labs(x = "Disease History", y = "Proportion", fill = "Vaccination Status") +
+    theme_minimal()
+
+print(p2)
+```
+
+Third plot: Scatter plot of age vs vaccination status
+
+```{r}
+p3 <- ggplot(cattle_data, aes(x = Vaccination, y = Age, color = Vaccination)) +
+  geom_jitter(width = 0.2, alpha = 0.6) +
+  labs(x = "Vaccination Status", y = "Age (Months)") +
+  theme_minimal()
+
+print(p3)
+
+```
+
+Vaccination status does not show any obvious relationship with age.
+
+Fourth plot: Scatter plot of age vs History of infection (respiratory and diarrheal)
+
+```{r}
+p4 <- ggplot(cattle_data, aes(x = Disease_History, y = Age, color = Disease_History)) +
+  geom_jitter(width = 0.2, alpha = 0.6) +
+  labs(x = "History of Disease", y = "Age (Months)", color = "Disease History") +
+  theme_minimal()
+
+print(p4)
+```
+
+Fifth plot: Bar plot comparing disease history across all breeds
+
+```{r}
+p5 <- ggplot(cattle_data, aes(x = Breed, fill = Disease_History)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Breed", y = "Count", fill = "History of Disease") +
+  theme_minimal()
+
+print(p5)
+```
+
+From the graphs we once again see that there is no obvious relationship between disease status and age (as we created in the synthetic data, which might differ from real life evaluations). We do see that there is slightly higher incidence of respiratory disease in beef animals, and diarrhea disease in dairy animals.
+
+In summary, our models used for evalaution work well and we produce the expected results from this synthetic dataset. There are some aspects of the synthetic dataset that could be worked on further to make it more closely resemble and model a real-world situation, and then we might need more evaluation. However, as a proof of concept this is helpful at this stage.
