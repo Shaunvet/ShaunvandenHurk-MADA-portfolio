@@ -18,7 +18,7 @@ website:
             file: cdcdata-exercise/cdcdata-exercise.qmd
     right:
       - icon: github 
-        href: https://github.com/Shaunvet/ShaunvandenHurk-MADA-portfolio     
+        href: https://github.com/Shaunvet/ShaunvandenHurk-MADA-portfolio.git    
 format:
   html:
     theme: sandstone

@@ -148,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/Shaunvet/ShaunvandenHurk-MADA-portfolio"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/Shaunvet/ShaunvandenHurk-MADA-portfolio.git"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -1222,6 +1222,27 @@ date  (1): Week Ending Date
 <pre><code>[1] 31.62036</code></pre>
 </div>
 </div>
+<p>We see very similar values for influenza and COVID-19, although we realize that the 0 values in the influenza cases might be an artifact carried by the original creators from the NA values. We will create a new variable looking at the number of hospitals reporting influenza cases without these entries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#We are using a loop function to first select for rows where there are no NA values, this is based on using one of the columsn that we previously saw had an NA value. We then select the rows to only keep the influenza data</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>filtered_infuenza_cases<span class="ot">&lt;-</span> cdc_ga_mandatory_refined <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Weekly Total Influenza Admissions</span><span class="st">`</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Week Ending Date</span><span class="st">`</span>, <span class="st">`</span><span class="at">Number Hospitals Reporting Influenza Admissions</span><span class="st">`</span>, <span class="st">`</span><span class="at">Weekly Total Influenza Admissions</span><span class="st">`</span>,<span class="st">`</span><span class="at">Weekly Average Hospitalized Influenza ICU Patients</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now run the previous summary of the influenza reported cases by hospitals again and comapre results</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(filtered_infuenza_cases<span class="sc">$</span><span class="st">`</span><span class="at">Number Hospitals Reporting Influenza Admissions</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    1.0   135.0   137.0   130.6   139.0   139.0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#We will calculate the standard deviation </span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(filtered_infuenza_cases<span class="sc">$</span><span class="st">`</span><span class="at">Number Hospitals Reporting Influenza Admissions</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 24.22654</code></pre>
+</div>
+</div>
+<p>We see that the values did change, with the standard deviation decreasing by around 7, but it perhaps did not decrease by as much as expected because the minimum value is now 1 instead of 0.</p>
 
 
 </section>
