@@ -291,3 +291,24 @@ summary(cdc_ga_mandatory_refined$`Number Hospitals Reporting Influenza Admission
 sd(cdc_ga_mandatory_refined$`Number Hospitals Reporting Influenza Admissions`)
 ```
 
+We see very similar values for influenza and COVID-19, although we realize that the 0 values in the influenza cases might be an artifact carried by the original creators from the NA values.
+We will create a new variable looking at the number of hospitals reporting influenza cases without these entries.
+
+```{r}
+#We are using a loop function to first select for rows where there are no NA values, this is based on using one of the columsn that we previously saw had an NA value. We then select the rows to only keep the influenza data
+
+filtered_infuenza_cases<- cdc_ga_mandatory_refined |> filter(!is.na(`Weekly Total Influenza Admissions`)) |> 
+  select(`Week Ending Date`, `Number Hospitals Reporting Influenza Admissions`, `Weekly Total Influenza Admissions`,`Weekly Average Hospitalized Influenza ICU Patients`)
+
+```
+
+We can now run the previous summary of the influenza reported cases by hospitals again and comapre results
+
+```{r}
+summary(filtered_infuenza_cases$`Number Hospitals Reporting Influenza Admissions`)
+#We will calculate the standard deviation 
+sd(filtered_infuenza_cases$`Number Hospitals Reporting Influenza Admissions`)
+```
+
+We see that the values did change, with the standard deviation decreasing by around 7, but it perhaps did not decrease by as much as expected because the minimum value is now 1 instead of 0.
+
