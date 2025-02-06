@@ -29,9 +29,7 @@ library(patchwork)
 
 ```
 
-Let us load and get a summary of the CDC dataset. 
-Note that the name of the file was changed at download to have a more user friendly name. Change the name at download to the same name used below or change the name of the file when loading the data to the name 
-We will name this full dataset as cdc_datsset in R and work with that variable name.
+Let us load and get a summary of the CDC dataset. Note that the name of the file was changed at download to have a more user friendly name. Change the name at download to the same name used below or change the name of the file when loading the data to the name We will name this full dataset as cdc_datsset in R and work with that variable name.
 
 ```{r}
 cdc_dataset <- read_csv("cdc_data_weekly_respiratory_hospitalizations_2020-2024.csv")
@@ -46,22 +44,15 @@ The summary of the dataset is valuable but it helps to actually view and scroll 
 
 We can see that this is a very large dataset. There are 12597 observations in this dataset and 82 columns. We have to do a lot of scrolling to see much, including our summary, which is not very helpful. This is very big for us to evaluate and so we might want to cut it down a bit before we spend time filtering through and cleaning all of the data that is not of interest to us.
 
-For this evaluation we want to have an idea of how COVID-19 and infuenza affected the population by evaluating the hospitilization rates. We are interested in knowing how this affected the healthcare system so we will include the information related to how many hospitals reported data and the occupancy of these hospitals. 
-From viewing the data there seems to be overlap and repetition of some of the data, as well as categories and definitions that are not necessary for us, so we will reduce our columns to those of greatest interest to us. 
-We will focus on adult data as the reporting of pediatric data seems to be limited to COVID-19 and thus will limit any comparisons to influenza. 
-
+For this evaluation we want to have an idea of how COVID-19 and infuenza affected the population by evaluating the hospitilization rates. We are interested in knowing how this affected the healthcare system so we will include the information related to how many hospitals reported data and the occupancy of these hospitals. From viewing the data there seems to be overlap and repetition of some of the data, as well as categories and definitions that are not necessary for us, so we will reduce our columns to those of greatest interest to us. We will focus on adult data as the reporting of pediatric data seems to be limited to COVID-19 and thus will limit any comparisons to influenza.
 
 We are also not going to split up ICU vs general admissions for our evaluations, but this is somehting that could be broken down.
-
 
 We will also cut down our observations by focusing on one State and by defining our time frame.
 
 This part could be done in either order and the State and time frame could be adapted.
 
-Cutting down our dataset:
-Since we know that the mandatory reporting period will have the best information reported, we will focus on this time frame August 1, 2020 - April 30, 2024. 
-We will also start by focusing on the state of Georgia (region=GA). 
-We will use the filter function to get the rows with these variables.
+Cutting down our dataset: Since we know that the mandatory reporting period will have the best information reported, we will focus on this time frame August 1, 2020 - April 30, 2024. We will also start by focusing on the state of Georgia (region=GA). We will use the filter function to get the rows with these variables.
 
 ```{r}
 #Using the filter function to select for our rows of interest. We will assign these to two new variables.
@@ -73,26 +64,9 @@ cdc_georgia_mandatory_data <- cdc_data_georgia |> filter(`Week Ending Date`>="20
 
 ```
 
-We can see that we have filtered our observations down to 195 observations.
-We could do the same thing for multiple states (or have included multiple states) and compared the data between states.
+We can see that we have filtered our observations down to 195 observations. We could do the same thing for multiple states (or have included multiple states) and compared the data between states.
 
-
-Now we will focus on selecting the columns that we are most interested in:
-We will use the select function.
-Columns of interest to be kept: 
-- Week Ending Date
-- Geographic aggregation
-- Number Hospitals Reporting Adult COVID-19 Admissions
-- Number Hospitals Reporting Influenza Admissions
-- Weekly Total Adult COVID-19 Admissions
-- Weekly Total Influenza Admissions
-- Weekly Average Hospitalized COVID-19 ICU Patients
-- Weekly Average Hospitalized Influenza ICU Patients
-- Weekly Average Inpatient Beds
-- Weekly Average ICU Beds
-- Weekly Average Inpatient Beds Occupied
-- Weekly Average ICU Beds Occupied
-
+Now we will focus on selecting the columns that we are most interested in: We will use the select function. Columns of interest to be kept: - Week Ending Date - Geographic aggregation - Number Hospitals Reporting Adult COVID-19 Admissions - Number Hospitals Reporting Influenza Admissions - Weekly Total Adult COVID-19 Admissions - Weekly Total Influenza Admissions - Weekly Average Hospitalized COVID-19 ICU Patients - Weekly Average Hospitalized Influenza ICU Patients - Weekly Average Inpatient Beds - Weekly Average ICU Beds - Weekly Average Inpatient Beds Occupied - Weekly Average ICU Beds Occupied
 
 Defining our new dataset with columns of interest:
 
@@ -118,9 +92,7 @@ print(cdc_ga_mandatory_refined)
   
 ```
 
-We have reduced our datset to a much more manageable set of information that we can refine and evalaute. If we feel that we should incude an additional column (left something valuable out) we can go back and add it now.
-Our sumamry shows us that we have a few NA values in our datset.
-
+We have reduced our datset to a much more manageable set of information that we can refine and evalaute. If we feel that we should incude an additional column (left something valuable out) we can go back and add it now. Our sumamry shows us that we have a few NA values in our datset.
 
 We will look for these using the is.na function. We will create a specific variable from these NA values to make it easier to visualise without searching. In reality, with the summary and reduced size of the dataset we can scroll through and find these if we want. However, printing these specifically allows us to isolate them quickly.
 
@@ -130,14 +102,9 @@ cdc_refined_ga_NA <- cdc_ga_mandatory_refined |> filter(if_any(everything(), is.
 print(cdc_refined_ga_NA)
 ```
 
-We can see that these NA values are in the first four weeks of observations, and one week in October 2020, and that they are all in the influenza observations.
-We might be led to believe that perhaps the recording/reporting (or testing) of influenza tests was halted in the peak of the COVID-19 pandemic when resources were limited, or that the order to report influenza cases for this use only cae through later. This is somehtign that we might be able to find on the CDC website if desired.
-We will not delete these observations because we would lose valuable information related to the COVID-19 pandemic from these weeks. 
-We could potentially use synthetic data for these missing variables or we could work on date ranges that do not include these weeks (2020-08-08 - 2020-08-29 and 2020-10-10) if we want to compare COVID-19 to Influenza. 
+We can see that these NA values are in the first four weeks of observations, and one week in October 2020, and that they are all in the influenza observations. We might be led to believe that perhaps the recording/reporting (or testing) of influenza tests was halted in the peak of the COVID-19 pandemic when resources were limited, or that the order to report influenza cases for this use only cae through later. This is somehtign that we might be able to find on the CDC website if desired. We will not delete these observations because we would lose valuable information related to the COVID-19 pandemic from these weeks. We could potentially use synthetic data for these missing variables or we could work on date ranges that do not include these weeks (2020-08-08 - 2020-08-29 and 2020-10-10) if we want to compare COVID-19 to Influenza.
 
-
-We will make a few plots of different variables.
-We will start by analyzing the COVID-19 data. 
+We will make a few plots of different variables. We will start by analyzing the COVID-19 data.
 
 ```{r}
 #We are looking at the distribution of the total adult COVID-19 cases  
@@ -146,14 +113,14 @@ covid_adult_admissions_plot<- ggplot(cdc_ga_mandatory_refined, aes(x=`Weekly Tot
 print(covid_adult_admissions_plot)
 
 ```
-We will get a summmary of this data (Distribution of the weekly total adult COVID-19 Hospital Admissions) and calcualte the standard deviation 
+
+We will get a summmary of this data (Distribution of the weekly total adult COVID-19 Hospital Admissions) and calcualte the standard deviation
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Total Adult COVID-19 Admissions`)
 #We will calculate the standard deviation
 sd(cdc_ga_mandatory_refined$`Weekly Total Adult COVID-19 Admissions`)
 ```
-
 
 ```{r}
 #We are looking at the distribution of the average hospitalized COVID-19 ICU patients  
@@ -162,7 +129,9 @@ covid_icu_patients_plot<- ggplot(cdc_ga_mandatory_refined, aes(x=`Weekly Average
 print(covid_icu_patients_plot)
 
 ```
-We will get a summmary of this data (Distribution of the average COVID-19 Hospital ICU Patients) and calcualte the standard deviation 
+
+We will get a summmary of this data (Distribution of the average COVID-19 Hospital ICU Patients) and calcualte the standard deviation
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average Hospitalized COVID-19 ICU Patients`)
 #We will calculate the standard deviation
@@ -170,7 +139,6 @@ sd(cdc_ga_mandatory_refined$`Weekly Average Hospitalized COVID-19 ICU Patients`)
 ```
 
 We see how many more patients were hospitalized than were in ICU in Georgia, as the max number for the ICU patients is quite close to mean value of the hospital admissions.
-
 
 Looking at the same distributions for the Influenza data:
 
@@ -185,6 +153,7 @@ print(influenza_adult_admissions_plot)
 We receive a warning that some values were excluded (likely our NA values).
 
 We will get a summmary of this data (Weekly Total Influenza Admissions) and calcualte the standard deviation.
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Total Influenza Admissions`)
 #We will calculate the standard deviation and exclude the NA values in the influenza data
@@ -193,7 +162,6 @@ sd(cdc_ga_mandatory_refined$`Weekly Total Influenza Admissions`, na.rm = TRUE)
 
 The mean value for admissions for the influenza cases is a great deal lower than that from the COVID-19 cases. We see that the mean of the COVID-19 hospital admissions is 17.2 times greater than the mean from the influenza admissions.
 
-
 ```{r}
 #We are looking at the distribution of the average influenza ICU patients  
 influenza_icu_patients_plot<- ggplot(cdc_ga_mandatory_refined, aes(x=`Weekly Average Hospitalized Influenza ICU Patients`)) + geom_histogram(bins=10,fill= "red", color = "black") + labs(title = "Distribution of the average Influenza Hospital ICU Patients", x = "Weekly Average Influenza ICU Patients", y = "Week counts")
@@ -201,10 +169,11 @@ influenza_icu_patients_plot<- ggplot(cdc_ga_mandatory_refined, aes(x=`Weekly Ave
 print(influenza_icu_patients_plot)
 
 ```
+
 We get the same warning as our previous plot for the influenza cases (regarding the missing NA values).
 
-
 We will get a summmary of this data (Weekly Average Influenza ICU Patients) and calcualte the standard deviation.
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average Hospitalized Influenza ICU Patients`)
 #We will calculate the standard deviation and exclude the NA values in the influenza data
@@ -213,14 +182,9 @@ sd(cdc_ga_mandatory_refined$`Weekly Average Hospitalized Influenza ICU Patients`
 
 The mean value for ICU patients for the influenza cases is also much lower than that from the COVID-19 cases (not quite as much compared to admissions). We see that the mean of the COVID-19 hospital admissions is 6.2 times greater than the mean from the influenza ICU patients.
 
-
-
 By comparing the plots and summary data we generated for COVID-19 and Influenza cases we can already see the much greater number of hospital admissions and ICU cases from COVID-19 compared to influenza. We also see the wider range for the COVID-19 cases compared to Influenza. The pronounced impact of COVID-19 as a respiratory disease is obvious before we do further analysis.
 
-
-
 We can evaluate the strain on the healthcare system by looking at the hospital beds that were occupied (we will just look at total numbers between inpatient and ICU and not as a percentage). This does not distinguish what caused the beds to be occupied.
-
 
 Looking at the distributions of occupied inptient beds:
 
@@ -232,15 +196,13 @@ print(cdc_inpatient_occupied_beds_plot)
 
 ```
 
-
 We will get a summmary of the inpatient occupied beds data and calcualte the standard deviation.
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average Inpatient Beds Occupied`)
 #We will calculate the standard deviation 
 sd(cdc_ga_mandatory_refined$`Weekly Average Inpatient Beds Occupied`)
 ```
-
-
 
 ```{r}
 #We are looking at the distribution of the occupied ICU beds  
@@ -250,16 +212,13 @@ print(cdc_icu_occupied_beds_plot)
 
 ```
 
-
-
 We will get a summmary of the occupied ICU beds data and calcualte the standard deviation.
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average ICU Beds Occupied`)
 #We will calculate the standard deviation 
 sd(cdc_ga_mandatory_refined$`Weekly Average ICU Beds Occupied`)
 ```
-
-
 
 We can look at the occupancy of the inpatient hosptial beds by week for the period evaluated, we will generate a line plot:
 
@@ -271,28 +230,25 @@ print(cdc_inpatient_beds_time_plot)
 
 ```
 
-
-
 We will provide a summary of the number of hospitals reporting COVID-19 and influenza respectively without plotting a graph.
 
-
 We will get a summmary of the number of hospital reporting Adult COVID-19 Admissions and calcualte the standard deviation.
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Number Hospitals Reporting Adult COVID-19 Admissions`)
 #We will calculate the standard deviation 
 sd(cdc_ga_mandatory_refined$`Number Hospitals Reporting Adult COVID-19 Admissions`)
 ```
 
-
 We will get a summmary of the number of hospital reporting Influenza Admissions and calcualte the standard deviation.
+
 ```{r}
 summary(cdc_ga_mandatory_refined$`Number Hospitals Reporting Influenza Admissions`)
 #We will calculate the standard deviation 
 sd(cdc_ga_mandatory_refined$`Number Hospitals Reporting Influenza Admissions`)
 ```
 
-We see very similar values for influenza and COVID-19, although we realize that the 0 values in the influenza cases might be an artifact carried by the original creators from the NA values.
-We will create a new variable looking at the number of hospitals reporting influenza cases without these entries.
+We see very similar values for influenza and COVID-19, although we realize that the 0 values in the influenza cases might be an artifact carried by the original creators from the NA values. We will create a new variable looking at the number of hospitals reporting influenza cases without these entries.
 
 ```{r}
 #We are using a loop function to first select for rows where there are no NA values, this is based on using one of the columsn that we previously saw had an NA value. We then select the rows to only keep the influenza data
@@ -311,4 +267,3 @@ sd(filtered_infuenza_cases$`Number Hospitals Reporting Influenza Admissions`)
 ```
 
 We see that the values did change, with the standard deviation decreasing by around 7, but it perhaps did not decrease by as much as expected because the minimum value is now 1 instead of 0.
-
