@@ -26,13 +26,14 @@ library(dplyr)
 library("readr")
 library(ggplot2)
 library(patchwork)
-
 ```
 
 Let us load and get a summary of the CDC dataset. Note that the name of the file was changed at download to have a more user friendly name. Change the name at download to the same name used below or change the name of the file when loading the data to the name We will name this full dataset as cdc_datsset in R and work with that variable name.
 
 ```{r}
-cdc_dataset <- read_csv("cdc_data_weekly_respiratory_hospitalizations_2020-2024.csv")
+cdc_dataset <- read_csv(here::here(
+  "cdcdata-exercise/cdc_data_weekly_respiratory_hospitalizations_2020-2024.csv")
+  ) # MJ: updated to use "here" package, useful for collaboration work 
 
 #Viewing the dataset and getting a summary
 summary(cdc_dataset)
@@ -46,7 +47,7 @@ We can see that this is a very large dataset. There are 12597 observations in th
 
 For this evaluation we want to have an idea of how COVID-19 and infuenza affected the population by evaluating the hospitilization rates. We are interested in knowing how this affected the healthcare system so we will include the information related to how many hospitals reported data and the occupancy of these hospitals. From viewing the data there seems to be overlap and repetition of some of the data, as well as categories and definitions that are not necessary for us, so we will reduce our columns to those of greatest interest to us. We will focus on adult data as the reporting of pediatric data seems to be limited to COVID-19 and thus will limit any comparisons to influenza.
 
-We are also not going to split up ICU vs general admissions for our evaluations, but this is somehting that could be broken down.
+We are also not going to split up ICU vs general admissions for our evaluations, but this is something that could be broken down.
 
 We will also cut down our observations by focusing on one State and by defining our time frame.
 
@@ -72,9 +73,8 @@ Defining our new dataset with columns of interest:
 
 ```{r}
 #Using the select function to define our columns of interest for the GA dataset that we refined
-cdc_ga_mandatory_refined <- cdc_georgia_mandatory_data |> select(`Week Ending Date`,
-`Geographic aggregation`,
-`Number Hospitals Reporting Adult COVID-19 Admissions`,
+cdc_ga_mandatory_refined <- cdc_georgia_mandatory_data |> dplyr::select(`Week Ending Date`,
+`Geographic aggregation`, `Number Hospitals Reporting Adult COVID-19 Admissions`,
 `Number Hospitals Reporting Influenza Admissions`,
 `Weekly Total Adult COVID-19 Admissions`,
 `Weekly Total Influenza Admissions`,
@@ -97,12 +97,12 @@ We have reduced our datset to a much more manageable set of information that we 
 We will look for these using the is.na function. We will create a specific variable from these NA values to make it easier to visualise without searching. In reality, with the summary and reduced size of the dataset we can scroll through and find these if we want. However, printing these specifically allows us to isolate them quickly.
 
 ```{r}
-cdc_refined_ga_NA <- cdc_ga_mandatory_refined |> filter(if_any(everything(), is.na))
+cdc_refined_ga_NA <- cdc_ga_mandatory_refined |> dplyr::filter(if_any(everything(), is.na))
 
 print(cdc_refined_ga_NA)
 ```
 
-We can see that these NA values are in the first four weeks of observations, and one week in October 2020, and that they are all in the influenza observations. We might be led to believe that perhaps the recording/reporting (or testing) of influenza tests was halted in the peak of the COVID-19 pandemic when resources were limited, or that the order to report influenza cases for this use only cae through later. This is somehtign that we might be able to find on the CDC website if desired. We will not delete these observations because we would lose valuable information related to the COVID-19 pandemic from these weeks. We could potentially use synthetic data for these missing variables or we could work on date ranges that do not include these weeks (2020-08-08 - 2020-08-29 and 2020-10-10) if we want to compare COVID-19 to Influenza.
+We can see that these NA values are in the first four weeks of observations, and one week in October 2020, and that they are all in the influenza observations. We might be led to believe that perhaps the recording/reporting (or testing) of influenza tests was halted in the peak of the COVID-19 pandemic when resources were limited, or that the order to report influenza cases for this use only cae through later. This is something that we might be able to find on the CDC website if desired. We will not delete these observations because we would lose valuable information related to the COVID-19 pandemic from these weeks. We could potentially use synthetic data for these missing variables or we could work on date ranges that do not include these weeks (2020-08-08 - 2020-08-29 and 2020-10-10) if we want to compare COVID-19 to Influenza.
 
 We will make a few plots of different variables. We will start by analyzing the COVID-19 data.
 
@@ -114,7 +114,7 @@ print(covid_adult_admissions_plot)
 
 ```
 
-We will get a summmary of this data (Distribution of the weekly total adult COVID-19 Hospital Admissions) and calcualte the standard deviation
+We will get a summary of this data (Distribution of the weekly total adult COVID-19 Hospital Admissions) and calculate the standard deviation
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Total Adult COVID-19 Admissions`)
@@ -130,7 +130,7 @@ print(covid_icu_patients_plot)
 
 ```
 
-We will get a summmary of this data (Distribution of the average COVID-19 Hospital ICU Patients) and calcualte the standard deviation
+We will get a summary of this data (Distribution of the average COVID-19 Hospital ICU Patients) and calculate the standard deviation
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average Hospitalized COVID-19 ICU Patients`)
@@ -152,7 +152,7 @@ print(influenza_adult_admissions_plot)
 
 We receive a warning that some values were excluded (likely our NA values).
 
-We will get a summmary of this data (Weekly Total Influenza Admissions) and calcualte the standard deviation.
+We will get a summary of this data (Weekly Total Influenza Admissions) and calculate the standard deviation.
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Total Influenza Admissions`)
@@ -172,7 +172,7 @@ print(influenza_icu_patients_plot)
 
 We get the same warning as our previous plot for the influenza cases (regarding the missing NA values).
 
-We will get a summmary of this data (Weekly Average Influenza ICU Patients) and calcualte the standard deviation.
+We will get a summary of this data (Weekly Average Influenza ICU Patients) and calculate the standard deviation.
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average Hospitalized Influenza ICU Patients`)
@@ -193,10 +193,9 @@ Looking at the distributions of occupied inptient beds:
 cdc_inpatient_occupied_beds_plot<- ggplot(cdc_ga_mandatory_refined, aes(x=`Weekly Average Inpatient Beds Occupied`)) + geom_histogram(bins=10,fill= "blue", color = "black") + labs(title = "Distribution of the weekly Average Occupied Inpatient Beds", x = "Weekly Inpatient Beds", y = "Week counts")
 
 print(cdc_inpatient_occupied_beds_plot)
-
 ```
 
-We will get a summmary of the inpatient occupied beds data and calcualte the standard deviation.
+We will get a summary of the inpatient occupied beds data and calculate the standard deviation.
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average Inpatient Beds Occupied`)
@@ -212,7 +211,7 @@ print(cdc_icu_occupied_beds_plot)
 
 ```
 
-We will get a summmary of the occupied ICU beds data and calcualte the standard deviation.
+We will get a summary of the occupied ICU beds data and calculate the standard deviation.
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Weekly Average ICU Beds Occupied`)
@@ -232,7 +231,7 @@ print(cdc_inpatient_beds_time_plot)
 
 We will provide a summary of the number of hospitals reporting COVID-19 and influenza respectively without plotting a graph.
 
-We will get a summmary of the number of hospital reporting Adult COVID-19 Admissions and calcualte the standard deviation.
+We will get a summary of the number of hospital reporting Adult COVID-19 Admissions and calculate the standard deviation.
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Number Hospitals Reporting Adult COVID-19 Admissions`)
@@ -240,7 +239,7 @@ summary(cdc_ga_mandatory_refined$`Number Hospitals Reporting Adult COVID-19 Admi
 sd(cdc_ga_mandatory_refined$`Number Hospitals Reporting Adult COVID-19 Admissions`)
 ```
 
-We will get a summmary of the number of hospital reporting Influenza Admissions and calcualte the standard deviation.
+We will get a summary of the number of hospital reporting Influenza Admissions and calculate the standard deviation.
 
 ```{r}
 summary(cdc_ga_mandatory_refined$`Number Hospitals Reporting Influenza Admissions`)
@@ -251,14 +250,14 @@ sd(cdc_ga_mandatory_refined$`Number Hospitals Reporting Influenza Admissions`)
 We see very similar values for influenza and COVID-19, although we realize that the 0 values in the influenza cases might be an artifact carried by the original creators from the NA values. We will create a new variable looking at the number of hospitals reporting influenza cases without these entries.
 
 ```{r}
-#We are using a loop function to first select for rows where there are no NA values, this is based on using one of the columsn that we previously saw had an NA value. We then select the rows to only keep the influenza data
+#We are using a loop function to first select for rows where there are no NA values, this is based on using one of the columns that we previously saw had an NA value. We then select the rows to only keep the influenza data
 
-filtered_infuenza_cases<- cdc_ga_mandatory_refined |> filter(!is.na(`Weekly Total Influenza Admissions`)) |> 
-  select(`Week Ending Date`, `Number Hospitals Reporting Influenza Admissions`, `Weekly Total Influenza Admissions`,`Weekly Average Hospitalized Influenza ICU Patients`)
+filtered_infuenza_cases<- cdc_ga_mandatory_refined |> dplyr::filter(!is.na(`Weekly Total Influenza Admissions`)) |> 
+  dplyr::select(`Week Ending Date`, `Number Hospitals Reporting Influenza Admissions`, `Weekly Total Influenza Admissions`,`Weekly Average Hospitalized Influenza ICU Patients`)
 
 ```
 
-We can now run the previous summary of the influenza reported cases by hospitals again and comapre results
+We can now run the previous summary of the influenza reported cases by hospitals again and compare results
 
 ```{r}
 summary(filtered_infuenza_cases$`Number Hospitals Reporting Influenza Admissions`)
@@ -267,3 +266,342 @@ sd(filtered_infuenza_cases$`Number Hospitals Reporting Influenza Admissions`)
 ```
 
 We see that the values did change, with the standard deviation decreasing by around 7, but it perhaps did not decrease by as much as expected because the minimum value is now 1 instead of 0.
+
+# Part 2
+
+This section contributed by Murphy John.
+
+## Some further EDA
+
+Variables:
+
+-   Week Ending Date: from 2020-08-08 to 2024-04-27
+
+-   Geographic Aggregation: GA
+
+-   Number Hospitals Reporting Adult COVID-19 Admissions: Min: 87, Mean: 137.5, Max: 140,
+
+-   Number Hospitals Reporting Influenza Admissions: Min: 0, Mean: 127.2, Max: 139
+
+-   Weekly Total Adult COVID-19 Admissions: Min: 122, Mean: 1259.5, Max: 5459
+
+-   Weekly Total Influenza Admissions: Min: 0, Mean: 73.04, Max: 1123
+
+-   Weekly Average Hospitalized COVID-19 ICU Patients: Min: 28.57, Mean: 283.58, Max: 1319.86
+
+-   Weekly Average Hospitalized Influenza ICU Patients: Min: 0, Mean: 45.58, Max: 255
+
+-   Weekly Average Inpatient Beds: Min: 12754, Mean: 18361, Max: 20852
+
+-   Weekly Average ICU Beds: Min: 2403, Mean: 3043, Max: 3422
+
+-   Weekly Average Inpatient Beds Occupied: Min: 10065, Mean: 14415, Max: 16660
+
+-   Weekly Average ICU Beds Occupied: Min: 1210, Mean: 2377, Max: 2828
+
+It seems plausible that many of these variables will be associated with time due to the COVID-19 pandemic and general fluctuations of the influenza season. Explore the changes over time for all variables.
+
+```{r}
+# rename variables for working convenience
+dat <- cdc_ga_mandatory_refined %>%
+  rename(
+    date = `Week Ending Date`,
+    state = `Geographic aggregation`,
+    hosp_report_covid = `Number Hospitals Reporting Adult COVID-19 Admissions`,
+    hosp_report_flu = `Number Hospitals Reporting Influenza Admissions`,
+    num_covid_admin = `Weekly Total Adult COVID-19 Admissions`,
+    num_flu_admin = `Weekly Total Influenza Admissions`,
+    avg_hosp_covid = `Weekly Average Hospitalized COVID-19 ICU Patients`,
+    avg_hosp_flu = `Weekly Average Hospitalized Influenza ICU Patients`,
+    avg_inpat_bed = `Weekly Average Inpatient Beds`,
+    avg_icu_bed = `Weekly Average ICU Beds`,
+    avg_inpat_bed_ocp = `Weekly Average Inpatient Beds Occupied`,
+    avg_icu_bed_ocp = `Weekly Average ICU Beds Occupied`
+  )
+```
+
+```{r, eval=FALSE}
+# Plot date by reporting COVID hospitals
+plot(dat$date, dat$hosp_report_covid)  
+# One outlier of 87 in the first week (2020-08-08)  
+plot(dat$date, dat$hosp_report_covid, ylim = c(130, 140))  
+# Constant at 139, drops off at the end to about 138, 137, 136, 134  
+
+# Plot date by reporting flu hospitals
+plot(dat$date, dat$hosp_report_flu)  
+# First 11 observations are between 0-2  
+plot(dat$date, dat$hosp_report_flu, ylim = c(100, 140))  
+# Cluster around 120-125 from 08-2021 to 01-2022  
+plot(dat$date, dat$hosp_report_flu, ylim = c(130, 140))  
+# Constant at 139 in 2021-2022, then drops to 138, 137, and 134  
+
+# Plot date by number of COVID admissions
+plot(dat$date, dat$num_covid_admin)  
+# Clear spikes: Jan-Feb 2021, Aug-Sep 2021, Jan 2022  
+# Smaller spikes: Jul-Aug 2022, Jan 2023  
+
+# Plot date by number of flu admissions
+plot(dat$date, dat$num_flu_admin)  
+# Peaks in January: 25 (2021), 50 (2022), 80 (2023), 250 (2023), 800 (2024)  
+
+# Plot date by average hospitalized COVID patients
+plot(dat$date, dat$avg_hosp_covid)  
+# Lower bounds: about 400 (2020-2021), about 25 (2022-2024)  
+# Peaks: Jan 2021 (1200), Sep 2021 (1300), Late Jan 2022 (900),  
+# Sep 2022 (200), Jan 2023 (200), Sep 2023 (100), Jan 2024 (150)  
+
+# Plot date by average hospitalized flu patients
+plot(dat$date, dat$avg_hosp_flu)  
+# Slight exponential increase from 0 to 60 (start to Nov 2022)  
+# Noticeable peak in Jan 2023 (100), constant at 90 (2023)  
+# Another peak in Jan 2024, then drops back to 100  
+
+# Plot date by average inpatient beds
+plot(dat$date, dat$avg_inpat_bed)  
+# Slight increase followed by a tapered decrease (start to end of 2022)  
+# Starts at 16,000, peaks at 19,000, then drops back to 16,000  
+# Big jump at the start of 2023, lower at 19,500,  
+# Peaks in March (20,500), drops to 20,000 (Aug)  
+# Peaks again in Jan 2024 (20,600), then declines until April  
+
+# Plot date by average ICU beds
+plot(dat$date, dat$avg_icu_bed)  
+# Starts at 2,400, peaks at 3,400 (Feb 2021)  
+# Gradual decline to 3000 (Nov 2022), trough in Dec 2022 (2800)  
+# Rises back to 3000 (Feb 2023), remains constant thereafter  
+
+# Plot date by average inpatient beds occupied
+plot(dat$date, dat$avg_inpat_bed_ocp, ylim = c(14000, 17000))  
+# Starts at 10000, rises to 13000 (Oct 2020)  
+# Stays variable between 13000-15000 until Dec 2022  
+# Jumps to 15000 (Jan 2023), peaks at 16000 (end of Jan)  
+# Trough in July (15000), peaks again in Jan 2024 (16,500)  
+# Declines to 15500 at the end of data collection  
+
+# Plot date by average ICU beds occupied
+plot(dat$date, dat$avg_icu_bed_ocp, ylim = c(1000, 3000))  
+# Starts at about 1500, peaks at 2,600 (Jan 2021)  
+# Remains fairly constant with seasonal variation (peaks in winter, troughs in summer) 
+```
+
+Now that we have general idea of how the data looks with time, lets look at the correlations in the data
+
+```{r}
+cor <- cor(dat %>% select(-date, -state) %>% na.omit())
+# correlations of >= 0.7 include: 
+# num_covid_admin and avg_hosp_covid have cor = 0.93
+# num_flu_admin and avg_hosp_flu have cor = 0.77,
+# avg_hosp_flu and avg_inpat_bed have cor = 0.73,
+# avg_inpat_bed and avg_inpat_bed_ocp have cor = 0.89,
+# avg_icu_bed and avg_icu_bed_ocp have cor 0.70
+```
+
+## Generate synthetic data
+
+Per the encouragement in the instructions for this exercise, I asked ChatGPT to create my code. I first presented the code and text above and asked it to interpret it and provide an "ideal input" for actually simulating the data. It provided the following prompt:
+
+"Generate a synthetic dataset that mirrors the statistical properties and temporal trends of real hospitalization data in Georgia from August 2020 to April 2024. The dataset should include the following variables:
+
+-   Week Ending Date: Weekly timestamps from 2020-08-08 to 2024-04-27.
+
+-   Geographic Aggregation: Constant value "GA".
+
+-   Number of Hospitals Reporting Adult COVID-19 Admissions: Typically stable around 137-140, except an initial outlier at 87 in August 2020 and slight declines in later years.
+
+-   Number of Hospitals Reporting Influenza Admissions: Initially low (0-2 for first 11 weeks), stabilizing around 120-139, with some seasonal variations.
+
+-   Weekly Total Adult COVID-19 Admissions: Clear spikes in Jan-Feb 2021, Aug-Sep 2021, Jan 2022, with smaller spikes in Jul-Aug 2022, Jan 2023, and Jan 2024.
+
+-   Weekly Total Influenza Admissions: Peaks in January, increasing year over year (25 in 2021, 50 in 2022, 80 in 2023, 800 in 2024).
+
+-   Weekly Average Hospitalized COVID-19 ICU Patients: High peaks in Jan 2021 (\about 1200), Sep 2021 (\about 1300), and Jan 2022 (\about 900), then decreasing post-2022.
+
+-   Weekly Average Hospitalized Influenza ICU Patients: Gradual increase until Nov 2022 (\about 60), peak in Jan 2023 (\about 100), stable at \about 90 before another peak in Jan 2024.
+
+-   Weekly Average Inpatient Beds: General increasing trend with fluctuations, peaking in early 2023 (\about 20,500), dropping in late 2023 before another peak in early 2024.
+
+-   Weekly Average ICU Beds: Peaked at 3400 in Feb 2021, then a gradual decline stabilizing around 3000.
+
+-   Weekly Average Inpatient Beds Occupied: Increased steadily until 2022, peaked in Jan 2023 (\about 16,000), then fluctuated seasonally.
+
+-   Weekly Average ICU Beds Occupied: Seasonal peaks in winter, troughs in summer, high correlation with ICU bed availability."
+
+I then asked ChatGPT to proceed with providing the code to produce the synthetic data. It gave me the following:
+
+```{r}
+library(dplyr)
+library(lubridate)
+library(MASS)
+library(Matrix)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Define date range
+dates <- seq(ymd("2020-08-08"), ymd("2024-04-27"), by = "week")
+n <- length(dates)
+
+# Generate synthetic reporting hospitals (with slight variations)
+hosp_report_covid <- c(87, rep(139, n - 1)) + rnorm(n, 0, 1)
+hosp_report_flu <- c(rep(0, 11), rep(125, n - 11)) + rnorm(n, 0, 5)
+
+# Create seasonal trends
+seasonal_covid <- 500 * sin(2 * pi * (month(dates) / 12))
+seasonal_flu <- 200 * sin(2 * pi * ((month(dates) - 1) / 12))
+
+# Define mean values
+means <- c(1259.5, 73.04, 283.58, 45.58, 18361, 3043, 14415, 2377)
+
+# Define standard deviations
+sds <- c(1000, 200, 500, 50, 2000, 300, 1500, 500)
+
+# Define correlation matrix
+cor_matrix <- matrix(
+  c(1, 0.5, 0.93, 0.3, 0.2, 0.1, 0.4, 0.3,
+    0.5, 1, 0.3, 0.77, 0.3, 0.2, 0.4, 0.3,
+    0.93, 0.3, 1, 0.4, 0.3, 0.2, 0.5, 0.4,
+    0.3, 0.77, 0.4, 1, 0.73, 0.5, 0.4, 0.3,
+    0.2, 0.3, 0.3, 0.73, 1, 0.7, 0.89, 0.6,
+    0.1, 0.2, 0.2, 0.5, 0.7, 1, 0.5, 0.7,
+    0.4, 0.4, 0.5, 0.4, 0.89, 0.5, 1, 0.7,
+    0.3, 0.3, 0.4, 0.3, 0.6, 0.7, 0.7, 1),
+  nrow = 8
+)
+
+# Make correlation matrix positive definite
+cor_matrix_pd <- nearPD(cor_matrix, corr = TRUE)$mat
+
+# Generate correlated synthetic data using multivariate normal distribution
+cov_matrix <- diag(sds) %*% as.matrix(cor_matrix_pd) %*% diag(sds)
+synthetic_data <- mvrnorm(n, mu = means, Sigma = cov_matrix)
+
+# Convert to data frame
+dat_synth <- data.frame(
+  date = dates,
+  state = "GA",
+  hosp_report_covid = round(hosp_report_covid),
+  hosp_report_flu = round(hosp_report_flu),
+  num_covid_admin = round(synthetic_data[, 1] + seasonal_covid),
+  num_flu_admin = round(synthetic_data[, 2] + seasonal_flu),
+  avg_hosp_covid = round(synthetic_data[, 3]),
+  avg_hosp_flu = round(synthetic_data[, 4]),
+  avg_inpat_bed = round(synthetic_data[, 5]),
+  avg_icu_bed = round(synthetic_data[, 6]),
+  avg_inpat_bed_ocp = round(synthetic_data[, 7]),
+  avg_icu_bed_ocp = round(synthetic_data[, 8])
+)
+
+# Ensure values stay within realistic bounds
+dat_synth <- dat_synth %>%
+  mutate(
+    num_covid_admin = pmax(num_covid_admin, 122),
+    num_flu_admin = pmax(num_flu_admin, 0),
+    avg_hosp_covid = pmax(avg_hosp_covid, 28),
+    avg_hosp_flu = pmax(avg_hosp_flu, 0),
+    avg_inpat_bed = pmax(avg_inpat_bed, 12754),
+    avg_icu_bed = pmax(avg_icu_bed, 2403),
+    avg_inpat_bed_ocp = pmax(avg_inpat_bed_ocp, 10065),
+    avg_icu_bed_ocp = pmax(avg_icu_bed_ocp, 1210)
+  )
+
+# View the first few rows
+head(dat_synth)
+```
+
+In the following sections, I'll compare the synthetic data with the real data and evaluate.
+
+## Variables by time
+
+```{r}
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = hosp_report_covid), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = hosp_report_covid), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = hosp_report_flu), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = hosp_report_flu), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = num_covid_admin), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = num_covid_admin), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = num_flu_admin), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = num_flu_admin), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = avg_hosp_covid), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = avg_hosp_covid), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = avg_hosp_flu), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = avg_hosp_flu), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = avg_inpat_bed), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = avg_inpat_bed), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = avg_icu_bed), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = avg_icu_bed), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = avg_inpat_bed_ocp), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = avg_inpat_bed_ocp), color = "red", size = 2) +
+  theme_minimal()
+
+# plot real data and synthetic data to compare
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = avg_icu_bed_ocp), color = "blue", size = 2) +
+  geom_point(data = dat_synth, aes(x = date, y = avg_icu_bed_ocp), color = "red", size = 2) +
+  theme_minimal()
+```
+
+Some of the variables are decent but most lack the more granular trends seen in the real data. Unfortunately, I was expecting this. The data we are working with are very unique in nature because they are from such a unique time.  Surely generating data with more precise patterns is possible but it would require more equations.
+
+## Variable distributions
+
+These plots correspond to the distribution plots of the real data in part 1.
+
+```{r}
+ggplot(dat_synth, aes(x=num_covid_admin)) + geom_histogram()
+
+ggplot(dat_synth, aes(x=avg_hosp_covid)) + geom_histogram()
+
+ggplot(dat_synth, aes(x=num_flu_admin)) + geom_histogram()
+
+ggplot(dat_synth, aes(x=avg_hosp_flu)) + geom_histogram()
+
+ggplot(dat_synth, aes(x=avg_icu_bed)) + geom_histogram()
+```
+
+These plots are decent. None are extremely bad in comparison to the real data but none are great.
+
+## Summary statistics
+
+These correspond to the summary statistics produced in part 1.
+
+```{r}
+summary(dat_synth$hosp_report_covid)
+
+summary(dat_synth$hosp_report_flu)
+```
+
+The summary statistics for these two variables in the synthetic data are actually pretty good! This is likely due to the fact that the synthetic data was largely based on such measurements. Though I find this interesting because we know from the plots above that the synthetic data isn't a great representation of the real data.
