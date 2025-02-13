@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+
+
 # Presentation Exercise - Bachelor and Bachelorette graphs
 
 I will be attempting to recreate graphs from an article published by fivethirtyeight.com about contestants in the television shows, The Bachelor and Bachelorette. The article and data demonstrates a pattern between roses that are received in the early stages of the show and the performance of a candidate overall. The data evaluates all 33 seasons of the show.
@@ -17,6 +19,8 @@ Disclaimer: I do not know anything about this show and have not watched any epis
 ## **Processing of the data:**
 
 First I will load all of the required packages and well as read the raw data CSV file:
+
+
 
 ```{r}
 #install.packages("ggforce")
@@ -45,7 +49,11 @@ bachelorette_data <- read_csv(here::here(
 summary(bachelorette_data)
 ```
 
+
+
 Perform some formating of the data to remove the first row which is a repetition of headings and to change the seasons to numeric values. We are also removing rows where headings are repeated within the data:
+
+
 
 ```{r}
 # Remove the incorrect header row if necessary
@@ -67,7 +75,11 @@ print(head(bachelorette_data))
 
 ```
 
+
+
 Some information was provided on the website with the raw data which may help with interpretation of this data:
+
+
 
 ```{r}
 #Adding additional data into a table
@@ -97,6 +109,8 @@ knitr::kable(table_data, col.names = column_names, caption = "Table of Data Head
 
 ```
 
+
+
 Further information required for interpretation and processing:
 
 Eliminates connote either an elimination (starts with "E") or a rose (starts with "R"). Eliminations supercede roses. "E" connotes a standard elimination, typically at a rose ceremony. "EQ" means the contestant quits. "EF" means the contestant was fired by production. "ED" connotes a date elimination. "EU" connotes an unscheduled elimination, one that takes place at a time outside of a date or rose ceremony. "R" means the contestant received a rose. "R1" means the contestant got a first impression rose. "D1" means a one-on-one date, "D2" means a 2-on-1, "D3" means a 3-on-1 group date, and so on. "W" in E10 indicates that the contestant won. Weeks of the show are deliminated by rose ceremonies, and may not line up exactly with episodes.
@@ -106,6 +120,8 @@ Eliminates connote either an elimination (starts with "E") or a rose (starts wit
 I will be using ChatGPT to help me to generate the code that will help to obtain the graph that I want. I will post my prompts and the outcome as well as the different iterations below.
 
 We are not getting the correct number of winners
+
+
 
 ```{r}
 # Get all ELIMINATION columns
@@ -125,7 +141,11 @@ print(paste("Total expected winners:", total_winners))
 
 ```
 
+
+
 Now we found that it seems that winners were marked in different levels of the competition (Elimination 6 - 10 and not just the last two). We will run this again:
+
+
 
 ```{r}
 # Define function to classify contestants, now checking ELIMINATION-6 to ELIMINATION-10
@@ -187,7 +207,11 @@ knitr::kable(category_counts, col.names = c("Category", "Count"), caption = "Fin
 
 ```
 
+
+
 We have picked up an additonal winner than was in the original dataset (33 instead of 32), we will use this code to verify who they were so we can be confident with our analysis:
+
+
 
 ```{r}
 # Create a separate copy of the dataset (optional safety step)
@@ -210,7 +234,11 @@ print(winners)
 
 ```
 
+
+
 We have higher numbers in the other categories too, but we will assume that this is because the raw data has an additional season which was not included in the published graphs.
+
+
 
 ```{r}
 # Count the total number of unique seasons for each show (Bachelor/Bachelorette)
@@ -228,6 +256,8 @@ knitr::kable(season_counts, col.names = c("Show", "Total Seasons"),
 
 ```
 
+
+
 Their data indicated: Eliminated in weeks 2+ rose ceremony 411 Eliminated in week 1 rose ceremony 291 Won 32 Eliminated on a date 68 Eliminated at an unscheduled time 20 Quit 28 Fired by production 6
 
 Our results are: Eliminated in weeks 2+ rose ceremony 425\
@@ -239,6 +269,8 @@ Quit 28\
 Fired by production 6
 
 We want to get the percentage for each of the categories so that we can include these in the graphic.
+
+
 
 ```{r}
 # Calculate total number of contestants classified
@@ -305,6 +337,8 @@ bachelorette_data$Cumulative_Elim_Percent <- cumulative_elim / total_contestants
 
 ```
 
+
+
 ### Recreating the Graph:
 
 Here are the two original images that i tried to recreate, with the original graph looking at the effect of receiving a rose early on being eliminated:
@@ -322,6 +356,8 @@ For my prompt I uploaded the image of the graph and asked it to analyse it. I th
 I then explained what the variables on each axis were and I explained that there are two curves and what they are based upon. I then explained what we might be calculating and that it should include any data analysis steps that may be required. The results thereafter were much better and closer to the original and i weaked some of the smaller labels and things like that.
 
 It was quite good at rendering a similar graph however our shape never quite reenacted the original data. Unfortunately, I am not sure how they performed this for clear comparison but the end result was somewhat similar. Given the issues that I picked uo with the data processing part I am not sure where the issue might be coming from.
+
+
 
 ```{r}
 library(ggplot2)
@@ -342,7 +378,11 @@ ggplot() +
 
 ```
 
+
+
 Where we ended up after many back and forths and starting again to focus on the basic principles of the curve:
+
+
 
 ```{r}
 # Identify the columns for eliminations
@@ -423,6 +463,8 @@ plot +
 
 ```
 
+
+
 I do not know if the differences come from the original data or the approach in data anaylsis or the graph rendering.
 
 ## Part 2: Creating a Table
@@ -430,6 +472,8 @@ I do not know if the differences come from the original data or the approach in 
 There was no table to recreate so I decided to create one that looked at and ranked the number of roses that each winner received in their respective season.
 
 I tried to fix my table to have the first two rows with bigger font and to have different colours but I could not get it right. ChatGPT could not help me and kept on giving me the same responses and I gave up with my editing. I will pick it up again sometime.
+
+
 
 ```{r}
 
@@ -524,6 +568,8 @@ rose_counts %>%
   footnote(general = "Original data retrieved from FiveThirtyEight. Original Article by: Ella Koeze and Walt Hickey.")
 ```
 
+
+
 ### The "Bonus Graph" that destroyed my sanity:
 
 I spent an embarrasingly long time trying to recreate this image that was in the article. I spent two days going back and forth with ChatGPT and trying to get it to format the graphic to recreate the original. I even tried with DeepSeek.
@@ -535,6 +581,8 @@ After spending all of the time (I am not exagerrating when I say two days) on th
 Nonetheless, here are two different attempts. Please feel free to try your hand.
 
 This was my best attempt:
+
+
 
 ```{r}
 # Define dataset dynamically
@@ -593,7 +641,11 @@ ggplot() +
 
 ```
 
+
+
 For comedy relief I will share other attempts:
+
+
 
 ```{r}
 # Ensure category_counts has percentages
@@ -778,4 +830,7 @@ ggplot(bubble_data, aes(x = Count, y = Count, size = Count, fill = Category)) +
 
 ```
 
+
+
 \~ Fin
+
