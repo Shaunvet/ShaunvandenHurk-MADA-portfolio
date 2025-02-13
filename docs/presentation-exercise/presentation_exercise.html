@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>presentation-exercise – Shaun van den Hurk’s Data Analysis Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-df479d6c4d77d0e0dfbcb5361179d7fd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Shaun van den Hurk’s Data Analysis Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../aboutme.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../starter-analysis-exercise/products/report/starter-analysis-report.html">
+ <span class="dropdown-text">Starter Analysis Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../coding-exercise/coding-exercise.html">
+ <span class="dropdown-text">R Coding Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../data-exercise/data-exercise.qmd">
+ <span class="dropdown-text">Data Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../cdcdata-exercise/cdcdata-exercise.html">
+ <span class="dropdown-text">Data Analysis Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../presentation-exercise/presentation-exercise.qmd">
+ <span class="dropdown-text">Presentation Exercise</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Shaunvet/ShaunvandenHurk-MADA-portfolio.git"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">presentation-exercise</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="presentation-exercise---bachelor-and-bachelorette-graphs" class="level1">
+<h1>Presentation Exercise - Bachelor and Bachelorette graphs</h1>
+<p>I will be attempting to recreate graphs from an article published by fivethirtyeight.com about contestants in the television shows, The Bachelor and Bachelorette. The article and data demonstrates a pattern between roses that are received in the early stages of the show and the performance of a candidate overall. The data evaluates all 33 seasons of the show.</p>
+<p>The article may be found here: <a href="https://fivethirtyeight.com/features/the-bachelorette/" class="uri">https://fivethirtyeight.com/features/the-bachelorette/</a></p>
+<p>The raw data may be found here: <a href="https://github.com/fivethirtyeight/data/tree/master/bachelorette" class="uri">https://github.com/fivethirtyeight/data/tree/master/bachelorette</a></p>
+<p>Disclaimer: I do not know anything about this show and have not watched any episodes, so forgive me if my explanations are not entirely on point. I chose this article because the graphs and topic seemed fun and light-hearted amongst all the political content.</p>
+<section id="processing-of-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="processing-of-the-data"><strong>Processing of the data:</strong></h2>
+<p>First I will load all of the required packages and well as read the raw data CSV file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("ggforce")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("packcircles")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("ggrepel")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("viridis")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("kableExtra")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"knitr"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggforce"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggforce' was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"packcircles"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'packcircles' was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggrepel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggrepel' was built under R version 4.4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"viridis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'viridis' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: viridisLite</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kableExtra"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'kableExtra' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>bachelorette_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"presentation-exercise/bachelorette.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 920 Columns: 23
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (23): SHOW, SEASON, CONTESTANT, ELIMINATION-1, ELIMINATION-2, ELIMINATIO...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bachelorette_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     SHOW              SEASON           CONTESTANT        ELIMINATION-1     
+ Length:920         Length:920         Length:920         Length:920        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+ ELIMINATION-2      ELIMINATION-3      ELIMINATION-4      ELIMINATION-5     
+ Length:920         Length:920         Length:920         Length:920        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+ ELIMINATION-6      ELIMINATION-7      ELIMINATION-8      ELIMINATION-9     
+ Length:920         Length:920         Length:920         Length:920        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+ ELIMINATION-10       DATES-1            DATES-2            DATES-3         
+ Length:920         Length:920         Length:920         Length:920        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+   DATES-4            DATES-5            DATES-6            DATES-7         
+ Length:920         Length:920         Length:920         Length:920        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+   DATES-8            DATES-9            DATES-10        
+ Length:920         Length:920         Length:920        
+ Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character  </code></pre>
+</div>
+</div>
+<p>Perform some formating of the data to remove the first row which is a repetition of headings and to change the seasons to numeric values. We are also removing rows where headings are repeated within the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the incorrect header row if necessary</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>bachelorette_data <span class="ot">&lt;-</span> bachelorette_data[<span class="sc">-</span><span class="dv">1</span>, ]  <span class="co"># Remove first row if it's incorrect</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert SEASON to numeric</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>bachelorette_data<span class="sc">$</span>SEASON <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(bachelorette_data<span class="sc">$</span>SEASON)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows where the CONTESTANT column contains "ID"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bachelorette_data <span class="ot">&lt;-</span> bachelorette_data <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CONTESTANT <span class="sc">!=</span> <span class="st">"ID"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset row indices (optional)</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>bachelorette_data <span class="ot">&lt;-</span> bachelorette_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">row_id =</span> <span class="fu">row_number</span>())</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the cleaned data</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(bachelorette_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 24
+  SHOW         SEASON CONTESTANT `ELIMINATION-1` `ELIMINATION-2` `ELIMINATION-3`
+  &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;          
+1 Bachelorette     13 13_BRYAN_A R1              &lt;NA&gt;            &lt;NA&gt;           
+2 Bachelorette     13 13_PETER_K &lt;NA&gt;            R               &lt;NA&gt;           
+3 Bachelorette     13 13_ERIC_B  &lt;NA&gt;            &lt;NA&gt;            R              
+4 Bachelorette     13 13_DEAN_U  &lt;NA&gt;            R               &lt;NA&gt;           
+5 Bachelorette     13 13_ADAM_G  &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;           
+6 Bachelorette     13 13_MATT_M  &lt;NA&gt;            &lt;NA&gt;            &lt;NA&gt;           
+# ℹ 18 more variables: `ELIMINATION-4` &lt;chr&gt;, `ELIMINATION-5` &lt;chr&gt;,
+#   `ELIMINATION-6` &lt;chr&gt;, `ELIMINATION-7` &lt;chr&gt;, `ELIMINATION-8` &lt;chr&gt;,
+#   `ELIMINATION-9` &lt;chr&gt;, `ELIMINATION-10` &lt;chr&gt;, `DATES-1` &lt;chr&gt;,
+#   `DATES-2` &lt;chr&gt;, `DATES-3` &lt;chr&gt;, `DATES-4` &lt;chr&gt;, `DATES-5` &lt;chr&gt;,
+#   `DATES-6` &lt;chr&gt;, `DATES-7` &lt;chr&gt;, `DATES-8` &lt;chr&gt;, `DATES-9` &lt;chr&gt;,
+#   `DATES-10` &lt;chr&gt;, row_id &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Some information was provided on the website with the raw data which may help with interpretation of this data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding additional data into a table</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>column_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Header"</span>, <span class="st">"Description"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Header =</span> <span class="fu">c</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SHOW"</span>, <span class="st">"SEASON"</span>, <span class="st">"CONTESTANT"</span>, <span class="st">"ELIMINATION-1"</span>, <span class="st">"ELIMINATION-2"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ELIMINATION-3"</span>, <span class="st">"ELIMINATION-4"</span>, <span class="st">"ELIMINATION-5"</span>, <span class="st">"ELIMINATION-6"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ELIMINATION-7"</span>, <span class="st">"ELIMINATION-8"</span>, <span class="st">"ELIMINATION-9"</span>, <span class="st">"ELIMINATION-10"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DATES-1"</span>, <span class="st">"DATES-2"</span>, <span class="st">"DATES-3"</span>, <span class="st">"DATES-4"</span>, <span class="st">"DATES-5"</span>, <span class="st">"DATES-6"</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DATES-7"</span>, <span class="st">"DATES-8"</span>, <span class="st">"DATES-9"</span>, <span class="st">"DATES-10"</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bachelor or Bachelorette"</span>, <span class="st">"Which season"</span>, <span class="st">"An identifier for the contestant in a given season"</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was eliminated in week 1"</span>, <span class="st">"Who was eliminated in week 2"</span>, <span class="st">"Who was eliminated in week 3"</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was eliminated in week 4"</span>, <span class="st">"Who was eliminated in week 5"</span>, <span class="st">"Who was eliminated in week 6"</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was eliminated in week 7"</span>, <span class="st">"Who was eliminated in week 8"</span>, <span class="st">"Who was eliminated in week 9"</span>,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was eliminated in week 10"</span>, <span class="st">"Who was on which date in week 1"</span>, <span class="st">"Who was on which date in week 2"</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was on which date in week 3"</span>, <span class="st">"Who was on which date in week 4"</span>, <span class="st">"Who was on which date in week 5"</span>,</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was on which date in week 6"</span>, <span class="st">"Who was on which date in week 7"</span>, <span class="st">"Who was on which date in week 8"</span>,</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Who was on which date in week 9"</span>, <span class="st">"Who was on which date in week 10"</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table using kable for better formatting</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table_data, <span class="at">col.names =</span> column_names, <span class="at">caption =</span> <span class="st">"Table of Data Headers and Descriptions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table of Data Headers and Descriptions</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Header</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SHOW</td>
+<td style="text-align: left;">Bachelor or Bachelorette</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SEASON</td>
+<td style="text-align: left;">Which season</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CONTESTANT</td>
+<td style="text-align: left;">An identifier for the contestant in a given season</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ELIMINATION-1</td>
+<td style="text-align: left;">Who was eliminated in week 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELIMINATION-2</td>
+<td style="text-align: left;">Who was eliminated in week 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ELIMINATION-3</td>
+<td style="text-align: left;">Who was eliminated in week 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELIMINATION-4</td>
+<td style="text-align: left;">Who was eliminated in week 4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ELIMINATION-5</td>
+<td style="text-align: left;">Who was eliminated in week 5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELIMINATION-6</td>
+<td style="text-align: left;">Who was eliminated in week 6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ELIMINATION-7</td>
+<td style="text-align: left;">Who was eliminated in week 7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELIMINATION-8</td>
+<td style="text-align: left;">Who was eliminated in week 8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ELIMINATION-9</td>
+<td style="text-align: left;">Who was eliminated in week 9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELIMINATION-10</td>
+<td style="text-align: left;">Who was eliminated in week 10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATES-1</td>
+<td style="text-align: left;">Who was on which date in week 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DATES-2</td>
+<td style="text-align: left;">Who was on which date in week 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATES-3</td>
+<td style="text-align: left;">Who was on which date in week 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DATES-4</td>
+<td style="text-align: left;">Who was on which date in week 4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATES-5</td>
+<td style="text-align: left;">Who was on which date in week 5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DATES-6</td>
+<td style="text-align: left;">Who was on which date in week 6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATES-7</td>
+<td style="text-align: left;">Who was on which date in week 7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DATES-8</td>
+<td style="text-align: left;">Who was on which date in week 8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DATES-9</td>
+<td style="text-align: left;">Who was on which date in week 9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DATES-10</td>
+<td style="text-align: left;">Who was on which date in week 10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Further information required for interpretation and processing:</p>
+<p>Eliminates connote either an elimination (starts with “E”) or a rose (starts with “R”). Eliminations supercede roses. “E” connotes a standard elimination, typically at a rose ceremony. “EQ” means the contestant quits. “EF” means the contestant was fired by production. “ED” connotes a date elimination. “EU” connotes an unscheduled elimination, one that takes place at a time outside of a date or rose ceremony. “R” means the contestant received a rose. “R1” means the contestant got a first impression rose. “D1” means a one-on-one date, “D2” means a 2-on-1, “D3” means a 3-on-1 group date, and so on. “W” in E10 indicates that the contestant won. Weeks of the show are deliminated by rose ceremonies, and may not line up exactly with episodes.</p>
+<p>………………….</p>
+<p>I will be using ChatGPT to help me to generate the code that will help to obtain the graph that I want. I will post my prompts and the outcome as well as the different iterations below.</p>
+<p>We are not getting the correct number of winners</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all ELIMINATION columns</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>elim_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(bachelorette_data), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Count occurrences of "W" in each ELIMINATION column</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>w_counts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(elim_columns, <span class="cf">function</span>(col) <span class="fu">sum</span>(bachelorette_data[[col]] <span class="sc">==</span> <span class="st">"W"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print counts for each column</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Number of 'W' occurrences per ELIMINATION column:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of 'W' occurrences per ELIMINATION column:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(w_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> ELIMINATION-1  ELIMINATION-2  ELIMINATION-3  ELIMINATION-4  ELIMINATION-5 
+             0              0              0              0              0 
+ ELIMINATION-6  ELIMINATION-7  ELIMINATION-8  ELIMINATION-9 ELIMINATION-10 
+             2              8              7              1             15 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total winners found in dataset</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>total_winners <span class="ot">&lt;-</span> <span class="fu">sum</span>(w_counts)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Total expected winners:"</span>, total_winners))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Total expected winners: 33"</code></pre>
+</div>
+</div>
+<p>Now we found that it seems that winners were marked in different levels of the competition (Elimination 6 - 10 and not just the last two). We will run this again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define function to classify contestants, now checking ELIMINATION-6 to ELIMINATION-10</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>classify_contestant <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  elim_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(row), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **Ensure all ELIMINATION columns are checked for "W"**</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  w_found <span class="ot">&lt;-</span> <span class="fu">any</span>(<span class="fu">sapply</span>(elim_columns, <span class="cf">function</span>(col) <span class="fu">toupper</span>(<span class="fu">trimws</span>(row[[col]])) <span class="sc">==</span> <span class="st">"W"</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **First, Check for Winners** - If "W" appears in ELIMINATION-6 through ELIMINATION-10, classify as "Won"</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (w_found) {</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"Won"</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **Next, Track First Elimination Event**</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (col <span class="cf">in</span> elim_columns) {</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    value <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(row[[col]]), <span class="st">""</span>, <span class="fu">toupper</span>(<span class="fu">trimws</span>(<span class="fu">as.character</span>(row[[col]]))))  <span class="co"># Handle NA values</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"^E"</span>, value)) {  <span class="co"># Any elimination starting with "E"</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (value <span class="sc">==</span> <span class="st">"E"</span> <span class="sc">&amp;&amp;</span> col <span class="sc">==</span> <span class="st">"ELIMINATION-1"</span>) {</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">"Eliminated in week 1 rose ceremony"</span>)</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (value <span class="sc">==</span> <span class="st">"E"</span>) {</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">"Eliminated in weeks 2+ rose ceremony"</span>)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (value <span class="sc">==</span> <span class="st">"EQ"</span>) {</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">"Quit"</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (value <span class="sc">==</span> <span class="st">"EF"</span>) {</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">"Fired by production"</span>)</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (value <span class="sc">==</span> <span class="st">"ED"</span>) {</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">"Eliminated on a date"</span>)</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (value <span class="sc">==</span> <span class="st">"EU"</span>) {</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="st">"Eliminated at an unscheduled time"</span>)</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="cn">NA</span>)  <span class="co"># Avoid misclassification</span></span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply classification to dataset using `pick()`</span></span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>bachelorette_data <span class="ot">&lt;-</span> bachelorette_data <span class="sc">%&gt;%</span></span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Category =</span> <span class="fu">classify_contestant</span>(<span class="fu">pick</span>(<span class="fu">everything</span>()))) <span class="sc">%&gt;%</span></span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA rows (contestants who do not fit a category)</span></span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>bachelorette_data <span class="ot">&lt;-</span> bachelorette_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Category))</span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Count occurrences of each category</span></span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> bachelorette_data <span class="sc">%&gt;%</span></span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Category) <span class="sc">%&gt;%</span></span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Count))</span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Print corrected category counts</span></span>
+<span id="cb33-53"><a href="#cb33-53" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(category_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  Category                             Count
+  &lt;chr&gt;                                &lt;int&gt;
+1 Eliminated in weeks 2+ rose ceremony   425
+2 Eliminated in week 1 rose ceremony     298
+3 Eliminated on a date                    75
+4 Won                                     33
+5 Quit                                    28
+6 Eliminated at an unscheduled time       21
+7 Fired by production                      6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the updated category breakdown table using kable</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(category_counts, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Category"</span>, <span class="st">"Count"</span>), <span class="at">caption =</span> <span class="st">"Final Category Breakdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Final Category Breakdown</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category</th>
+<th style="text-align: right;">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Eliminated in weeks 2+ rose ceremony</td>
+<td style="text-align: right;">425</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Eliminated in week 1 rose ceremony</td>
+<td style="text-align: right;">298</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Eliminated on a date</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Won</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quit</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Eliminated at an unscheduled time</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fired by production</td>
+<td style="text-align: right;">6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We have picked up an additonal winner than was in the original dataset (33 instead of 32), we will use this code to verify who they were so we can be confident with our analysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a separate copy of the dataset (optional safety step)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>bachelorette_winner_check <span class="ot">&lt;-</span> bachelorette_data</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify all elimination columns</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>elim_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(bachelorette_winner_check), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Find contestants who have "W" in any elimination column</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>winners <span class="ot">&lt;-</span> bachelorette_winner_check <span class="sc">%&gt;%</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="fu">all_of</span>(elim_columns), <span class="sc">~</span> . <span class="sc">==</span> <span class="st">"W"</span>))</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns: SHOW, SEASON, CONTESTANT, and elimination columns where "W" appeared</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>winner_columns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SHOW"</span>, <span class="st">"SEASON"</span>, <span class="st">"CONTESTANT"</span>, elim_columns)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>winners <span class="ot">&lt;-</span> winners <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">all_of</span>(winner_columns))</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the identified winners</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(winners)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 33 × 13
+   SHOW        SEASON CONTESTANT `ELIMINATION-1` `ELIMINATION-2` `ELIMINATION-3`
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;          
+ 1 Bacheloret…     13 13_BRYAN_A R1              &lt;NA&gt;            &lt;NA&gt;           
+ 2 Bacheloret…     12 12_JORDAN… R1              &lt;NA&gt;            &lt;NA&gt;           
+ 3 Bacheloret…     11 11_SHAWN_B R1              &lt;NA&gt;            R              
+ 4 Bacheloret…     10 10_JOSH_M  &lt;NA&gt;            &lt;NA&gt;            R              
+ 5 Bacheloret…      9 09_CHRIS_S &lt;NA&gt;            &lt;NA&gt;            R              
+ 6 Bacheloret…      8 08_JEF_H   &lt;NA&gt;            R               &lt;NA&gt;           
+ 7 Bacheloret…      7 07_JP_R    &lt;NA&gt;            &lt;NA&gt;            R              
+ 8 Bacheloret…      6 06_ROBERT… R1              &lt;NA&gt;            R              
+ 9 Bacheloret…      5 05_ED_S    &lt;NA&gt;            &lt;NA&gt;            R              
+10 Bacheloret…      4 04_JESSE_C R1              &lt;NA&gt;            &lt;NA&gt;           
+# ℹ 23 more rows
+# ℹ 7 more variables: `ELIMINATION-4` &lt;chr&gt;, `ELIMINATION-5` &lt;chr&gt;,
+#   `ELIMINATION-6` &lt;chr&gt;, `ELIMINATION-7` &lt;chr&gt;, `ELIMINATION-8` &lt;chr&gt;,
+#   `ELIMINATION-9` &lt;chr&gt;, `ELIMINATION-10` &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>We have higher numbers in the other categories too, but we will assume that this is because the raw data has an additional season which was not included in the published graphs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the total number of unique seasons for each show (Bachelor/Bachelorette)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>season_counts <span class="ot">&lt;-</span> bachelorette_data <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SHOW) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_Seasons =</span> <span class="fu">n_distinct</span>(SEASON)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Seasons))  <span class="co"># Sort by number of seasons</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the season counts</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(season_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  SHOW         Total_Seasons
+  &lt;chr&gt;                &lt;int&gt;
+1 Bachelor                21
+2 Bachelorette            13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the table using kable</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(season_counts, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Show"</span>, <span class="st">"Total Seasons"</span>),</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Total Number of Seasons by Show"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Total Number of Seasons by Show</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Show</th>
+<th style="text-align: right;">Total Seasons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bachelor</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bachelorette</td>
+<td style="text-align: right;">13</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Their data indicated: Eliminated in weeks 2+ rose ceremony 411 Eliminated in week 1 rose ceremony 291 Won 32 Eliminated on a date 68 Eliminated at an unscheduled time 20 Quit 28 Fired by production 6</p>
+<p>Our results are: Eliminated in weeks 2+ rose ceremony 425<br>
+Eliminated in week 1 rose ceremony 298<br>
+Won 33<br>
+Eliminated on a date 75<br>
+Eliminated at an unscheduled time 21<br>
+Quit 28<br>
+Fired by production 6</p>
+<p>We want to get the percentage for each of the categories so that we can include these in the graphic.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total number of contestants classified</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>total_contestants <span class="ot">&lt;-</span> <span class="fu">sum</span>(category_counts<span class="sc">$</span>Count)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add percentage column, rounded to the nearest whole number</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure category_counts has correctly formatted columns</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> category_counts <span class="sc">%&gt;%</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Count =</span> Count) <span class="sc">%&gt;%</span>  <span class="co"># Ensure correct naming</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percentage =</span> <span class="fu">paste0</span>(<span class="fu">round</span>((Count <span class="sc">/</span> <span class="fu">sum</span>(Count)) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>))  <span class="co"># Add percentage column</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co">#category_counts &lt;- category_counts %&gt;%</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a> <span class="co"># mutate(Percentage = paste0(round((Count / sum(Count)) * 100, 0), "%"))  # Calculate and format as "X%"</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print updated table</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(category_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  Category                             Count Percentage
+  &lt;chr&gt;                                &lt;int&gt; &lt;chr&gt;     
+1 Eliminated in weeks 2+ rose ceremony   425 48%       
+2 Eliminated in week 1 rose ceremony     298 34%       
+3 Eliminated on a date                    75 8%        
+4 Won                                     33 4%        
+5 Quit                                    28 3%        
+6 Eliminated at an unscheduled time       21 2%        
+7 Fired by production                      6 1%        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display table using kable with percentages</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(category_counts, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Category"</span>, <span class="st">"Count"</span>, <span class="st">"Percentage (%)"</span>),</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Final Category Breakdown with Rounded Percentages"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Final Category Breakdown with Rounded Percentages</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category</th>
+<th style="text-align: right;">Count</th>
+<th style="text-align: left;">Percentage (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Eliminated in weeks 2+ rose ceremony</td>
+<td style="text-align: right;">425</td>
+<td style="text-align: left;">48%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Eliminated in week 1 rose ceremony</td>
+<td style="text-align: right;">298</td>
+<td style="text-align: left;">34%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Eliminated on a date</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: left;">8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Won</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: left;">4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quit</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: left;">3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Eliminated at an unscheduled time</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;">2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fired by production</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">1%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract rose-related events (e.g., R1, R, D1, etc.) from elimination columns</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>rose_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(bachelorette_data), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to check if a contestant received a rose in each episode</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>get_rose_status <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  rose_events <span class="ot">&lt;-</span> row[rose_columns]</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">ifelse</span>(<span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"R"</span>, rose_events)), <span class="fu">which</span>(<span class="fu">grepl</span>(<span class="st">"R"</span>, rose_events))[<span class="dv">1</span>], <span class="cn">NA</span>))</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the function to get the first episode where each contestant received a rose</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>bachelorette_data<span class="sc">$</span>Rose_Episode <span class="ot">&lt;-</span> <span class="fu">apply</span>(bachelorette_data, <span class="dv">1</span>, get_rose_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify eliminations</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>eliminate_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(bachelorette_data), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to check elimination status (either eliminated or not)</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>get_elimination_status <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  elimination_status <span class="ot">&lt;-</span> row[eliminate_columns]</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(<span class="fu">grepl</span>(<span class="st">"E"</span>, elimination_status), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the cumulative number of eliminations by episode</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>bachelorette_data<span class="sc">$</span>Eliminations <span class="ot">&lt;-</span> <span class="fu">apply</span>(bachelorette_data, <span class="dv">1</span>, get_elimination_status)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total contestants</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>total_contestants <span class="ot">&lt;-</span> <span class="fu">nrow</span>(bachelorette_data)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative eliminations</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>cumulative_elim <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(bachelorette_data<span class="sc">$</span>Eliminations)</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative percent chance of elimination</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>bachelorette_data<span class="sc">$</span>Cumulative_Elim_Percent <span class="ot">&lt;-</span> cumulative_elim <span class="sc">/</span> total_contestants <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="recreating-the-graph" class="level3">
+<h3 class="anchored" data-anchor-id="recreating-the-graph">Recreating the Graph:</h3>
+<p>Here are the two original images that i tried to recreate, with the original graph looking at the effect of receiving a rose early on being eliminated:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics/bachelor_rose_effect.webp" class="img-fluid figure-img"></p>
+<figcaption>Graph evaluating the effect of wiining roses early on and elimination.</figcaption>
+</figure>
+</div>
+<p>The second graph (image) - see at the bottom of the document:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="graphics/bachelor_breakdown.webp" class="img-fluid figure-img"></p>
+<figcaption>The breakdown of different contestants on the bachelor and bachelorette</figcaption>
+</figure>
+</div>
+<p>This is how we (ChatGPT and me) started with the recreation of this graph:</p>
+<p>For my prompt I uploaded the image of the graph and asked it to analyse it. I then uploaded the raw dataset and asked if it could recreate the graph. It seemed to trace a similar graph but I think it might have just copied the image a bit. So I asked it to provide the R code and to provide steps to recreate it. I then received the first graph provided below which was not similar at all (as you can see).</p>
+<p>I then explained what the variables on each axis were and I explained that there are two curves and what they are based upon. I then explained what we might be calculating and that it should include any data analysis steps that may be required. The results thereafter were much better and closer to the original and i weaked some of the smaller labels and things like that.</p>
+<p>It was quite good at rendering a similar graph however our shape never quite reenacted the original data. Unfortunately, I am not sure how they performed this for clear comparison but the end result was somewhat similar. Given the issues that I picked uo with the data processing part I am not sure where the issue might be coming from.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data for contestants who received a rose and those who did not</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>rose_data <span class="ot">&lt;-</span> bachelorette_data[<span class="sc">!</span><span class="fu">is.na</span>(bachelorette_data<span class="sc">$</span>Rose_Episode), ]</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>no_rose_data <span class="ot">&lt;-</span> bachelorette_data[<span class="fu">is.na</span>(bachelorette_data<span class="sc">$</span>Rose_Episode), ]</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> rose_data, <span class="fu">aes</span>(<span class="at">x =</span> Rose_Episode, <span class="at">y =</span> Cumulative_Elim_Percent, <span class="at">color =</span> <span class="st">"Gets a date rose"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> no_rose_data, <span class="fu">aes</span>(<span class="at">x =</span> Rose_Episode, <span class="at">y =</span> Cumulative_Elim_Percent, <span class="at">color =</span> <span class="st">"Doesn't get a date rose"</span>), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The Date Rose Advantage</span><span class="sc">\n</span><span class="st">Cumulative Chance of Being Eliminated"</span>,</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Episode"</span>, <span class="at">y =</span> <span class="st">"Cumulative Chance of Being Eliminated (%)"</span>) <span class="sc">+</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Gets a date rose"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"Doesn't get a date rose"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 674 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_exercise_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Where we ended up after many back and forths and starting again to focus on the basic principles of the curve:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify the columns for eliminations</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>elim_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(bachelorette_data), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to identify when a contestant received a rose</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>get_rose_episode <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(row[elim_columns])) {</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"R"</span>, row[elim_columns[i]])) {</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(i)  <span class="co"># Episode number starts from 1</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="cn">NA</span>)  <span class="co"># If no rose received, return NA</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the function to the dataset to create a new column with the episode they received a rose</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>bachelorette_data<span class="sc">$</span>Rose_Episode <span class="ot">&lt;-</span> <span class="fu">apply</span>(bachelorette_data, <span class="dv">1</span>, get_rose_episode)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize empty lists to track eliminations for both groups (rose vs no-rose)</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>elim_counts_rose <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>elim_counts_no_rose <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>weeks_after_rose_rose <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>weeks_after_rose_no_rose <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables to store total eliminations for both groups</span></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>elim_rose <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>elim_no_rose <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Track eliminations and weeks after receiving the rose</span></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(elim_columns)) {</span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># For eliminations in the current episode</span></span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a>  eliminated_in_episode <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"E"</span>, bachelorette_data[[elim_columns[i]]])</span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># For contestants who received a rose</span></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>  eliminated_rose_group <span class="ot">&lt;-</span> eliminated_in_episode <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(bachelorette_data<span class="sc">$</span>Rose_Episode)</span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a>  elim_rose <span class="ot">&lt;-</span> elim_rose <span class="sc">+</span> <span class="fu">sum</span>(eliminated_rose_group)</span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a>  elim_counts_rose <span class="ot">&lt;-</span> <span class="fu">c</span>(elim_counts_rose, elim_rose <span class="sc">/</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(bachelorette_data<span class="sc">$</span>Rose_Episode)) <span class="sc">*</span> <span class="dv">100</span>)  <span class="co"># Percent eliminated from rose group</span></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a>  weeks_after_rose_rose <span class="ot">&lt;-</span> <span class="fu">c</span>(weeks_after_rose_rose, i)  <span class="co"># Track weeks after the rose</span></span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># For contestants who did not receive a rose</span></span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a>  eliminated_no_rose_group <span class="ot">&lt;-</span> eliminated_in_episode <span class="sc">&amp;</span> <span class="fu">is.na</span>(bachelorette_data<span class="sc">$</span>Rose_Episode)</span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a>  elim_no_rose <span class="ot">&lt;-</span> elim_no_rose <span class="sc">+</span> <span class="fu">sum</span>(eliminated_no_rose_group)</span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a>  elim_counts_no_rose <span class="ot">&lt;-</span> <span class="fu">c</span>(elim_counts_no_rose, elim_no_rose <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(bachelorette_data<span class="sc">$</span>Rose_Episode)) <span class="sc">*</span> <span class="dv">100</span>)  <span class="co"># Percent eliminated from no-rose group</span></span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a>  weeks_after_rose_no_rose <span class="ot">&lt;-</span> <span class="fu">c</span>(weeks_after_rose_no_rose, i)  <span class="co"># Track weeks after the rose</span></span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a combined dataset for plotting</span></span>
+<span id="cb49-48"><a href="#cb49-48" aria-hidden="true" tabindex="-1"></a>elim_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb49-49"><a href="#cb49-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">Weeks_After_Rose =</span> <span class="fu">c</span>(weeks_after_rose_rose, weeks_after_rose_no_rose),</span>
+<span id="cb49-50"><a href="#cb49-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">Cumulative_Elim_Percent =</span> <span class="fu">c</span>(elim_counts_rose, elim_counts_no_rose),</span>
+<span id="cb49-51"><a href="#cb49-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Gets a date rose"</span>, <span class="st">"Doesn't get a date rose"</span>), <span class="at">each =</span> <span class="fu">length</span>(elim_columns))</span>
+<span id="cb49-52"><a href="#cb49-52" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the graph</span></span>
+<span id="cb49-55"><a href="#cb49-55" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(elim_data, <span class="fu">aes</span>(<span class="at">x =</span> Weeks_After_Rose, <span class="at">y =</span> Cumulative_Elim_Percent, <span class="at">color =</span> Group)) <span class="sc">+</span></span>
+<span id="cb49-56"><a href="#cb49-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb49-57"><a href="#cb49-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Gets a date rose"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"Doesn't get a date rose"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb49-58"><a href="#cb49-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The Date Rose Advantage"</span>,</span>
+<span id="cb49-59"><a href="#cb49-59" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Weeks after episode"</span>, <span class="at">y =</span> <span class="st">"Cumulative Chance of Being Eliminated (%)"</span>) <span class="sc">+</span></span>
+<span id="cb49-60"><a href="#cb49-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">length</span>(elim_columns), <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">"+"</span>, <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">length</span>(elim_columns), <span class="at">by =</span> <span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb49-61"><a href="#cb49-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb49-62"><a href="#cb49-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
+<span id="cb49-63"><a href="#cb49-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb49-64"><a href="#cb49-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb49-65"><a href="#cb49-65" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb49-66"><a href="#cb49-66" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
+<span id="cb49-67"><a href="#cb49-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>)  <span class="co"># Ensure y-axis is from 0 to 100%</span></span>
+<span id="cb49-68"><a href="#cb49-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-69"><a href="#cb49-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the shorter measurement line between the two curves (shifted to the left)</span></span>
+<span id="cb49-70"><a href="#cb49-70" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> </span>
+<span id="cb49-71"><a href="#cb49-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">50</span>, <span class="at">yend =</span> <span class="dv">50</span>), <span class="at">color =</span> <span class="st">"grey"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># Line from x = 2 to x = 6</span></span>
+<span id="cb49-72"><a href="#cb49-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb49-73"><a href="#cb49-73" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add label for "Rose advantage"</span></span>
+<span id="cb49-74"><a href="#cb49-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">4</span>, <span class="at">y =</span> <span class="dv">55</span>, <span class="at">label =</span> <span class="st">"Rose advantage"</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">angle =</span> <span class="dv">0</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_segment(aes(x = 2, xend = 6, y = 50, yend = 50), color = "grey", : All aesthetics have length 1, but the data has 20 rows.
+ℹ Please consider using `annotate()` or provide this layer with data containing
+  a single row.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_exercise_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I do not know if the differences come from the original data or the approach in data anaylsis or the graph rendering.</p>
+</section>
+</section>
+<section id="part-2-creating-a-table" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-creating-a-table">Part 2: Creating a Table</h2>
+<p>There was no table to recreate so I decided to create one that looked at and ranked the number of roses that each winner received in their respective season.</p>
+<p>I tried to fix my table to have the first two rows with bigger font and to have different colours but I could not get it right. ChatGPT could not help me and kept on giving me the same responses and I gave up with my editing. I will pick it up again sometime.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a separate copy of the dataset</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>bachelorette_winner_check <span class="ot">&lt;-</span> bachelorette_data</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify all elimination columns</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>elim_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"ELIMINATION-"</span>, <span class="fu">names</span>(bachelorette_winner_check), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Find contestants who have "W" in any elimination column (winners)</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>winners <span class="ot">&lt;-</span> bachelorette_winner_check <span class="sc">%&gt;%</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="fu">all_of</span>(elim_columns), <span class="sc">~</span> . <span class="sc">==</span> <span class="st">"W"</span>))</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>winner_columns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SHOW"</span>, <span class="st">"SEASON"</span>, <span class="st">"CONTESTANT"</span>, elim_columns)</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>winners <span class="ot">&lt;-</span> winners <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">all_of</span>(winner_columns))</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify the date columns (for checking the dates roses were given)</span></span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>date_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"DATES-"</span>, <span class="fu">names</span>(bachelorette_winner_check), <span class="at">value =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to count the number of roses each winner received</span></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>count_roses <span class="ot">&lt;-</span> <span class="cf">function</span>(winner_row, date_columns, elim_columns) {</span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>  contestant <span class="ot">&lt;-</span> <span class="fu">as.character</span>(winner_row<span class="sc">$</span>CONTESTANT)</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>  date_roses <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sapply</span>(date_columns, <span class="cf">function</span>(col) {</span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">grepl</span>(contestant, <span class="fu">as.character</span>(winner_row[[col]])), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>  elim_roses <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sapply</span>(elim_columns, <span class="cf">function</span>(col) {</span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">grepl</span>(<span class="st">"R"</span>, <span class="fu">as.character</span>(winner_row[[col]])), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(date_roses <span class="sc">+</span> elim_roses)  </span>
+<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to store the winner and their respective rose counts</span></span>
+<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a>rose_counts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Winner =</span> <span class="fu">character</span>(), <span class="at">Season =</span> <span class="fu">numeric</span>(), <span class="at">Show_Type =</span> <span class="fu">character</span>(), </span>
+<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Roses_Received =</span> <span class="fu">numeric</span>(), <span class="at">Roses =</span> <span class="fu">character</span>(), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over each winner and count the number of roses they received in their season</span></span>
+<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(winners)) {</span>
+<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a>  winner_row <span class="ot">&lt;-</span> winners[i, ]</span>
+<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a>  rose_count <span class="ot">&lt;-</span> <span class="fu">count_roses</span>(winner_row, date_columns, elim_columns)</span>
+<span id="cb51-41"><a href="#cb51-41" aria-hidden="true" tabindex="-1"></a>  winner_season <span class="ot">&lt;-</span> <span class="fu">as.character</span>(winner_row<span class="sc">$</span>SEASON)</span>
+<span id="cb51-42"><a href="#cb51-42" aria-hidden="true" tabindex="-1"></a>  winner_show <span class="ot">&lt;-</span> <span class="fu">as.character</span>(winner_row<span class="sc">$</span>SHOW)</span>
+<span id="cb51-43"><a href="#cb51-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-44"><a href="#cb51-44" aria-hidden="true" tabindex="-1"></a>  cleaned_winner_name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"^</span><span class="sc">\\</span><span class="st">d+_"</span>, <span class="st">""</span>, winner_row<span class="sc">$</span>CONTESTANT)</span>
+<span id="cb51-45"><a href="#cb51-45" aria-hidden="true" tabindex="-1"></a>  rose_symbol <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">"🌹"</span>, rose_count), <span class="at">collapse =</span> <span class="st">""</span>)  <span class="co"># Restored rose emoji 🌹</span></span>
+<span id="cb51-46"><a href="#cb51-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-47"><a href="#cb51-47" aria-hidden="true" tabindex="-1"></a>  rose_counts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(rose_counts, <span class="fu">data.frame</span>(<span class="at">Winner =</span> cleaned_winner_name, </span>
+<span id="cb51-48"><a href="#cb51-48" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">Season =</span> winner_season, </span>
+<span id="cb51-49"><a href="#cb51-49" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">Show_Type =</span> winner_show, </span>
+<span id="cb51-50"><a href="#cb51-50" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">Roses_Received =</span> rose_count, </span>
+<span id="cb51-51"><a href="#cb51-51" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">Roses =</span> rose_symbol, </span>
+<span id="cb51-52"><a href="#cb51-52" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb51-53"><a href="#cb51-53" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb51-54"><a href="#cb51-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-55"><a href="#cb51-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the table from most roses received to least</span></span>
+<span id="cb51-56"><a href="#cb51-56" aria-hidden="true" tabindex="-1"></a>rose_counts <span class="ot">&lt;-</span> rose_counts <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Roses_Received))</span>
+<span id="cb51-57"><a href="#cb51-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-58"><a href="#cb51-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation text row</span></span>
+<span id="cb51-59"><a href="#cb51-59" aria-hidden="true" tabindex="-1"></a>explanation_text <span class="ot">&lt;-</span> <span class="st">"A breakdown of the roses that were awarded to the winner from each of the 33 seasons of The Bachelor and Bachelorette."</span></span>
+<span id="cb51-60"><a href="#cb51-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-61"><a href="#cb51-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the table with improved formatting</span></span>
+<span id="cb51-62"><a href="#cb51-62" aria-hidden="true" tabindex="-1"></a>rose_counts <span class="sc">%&gt;%</span></span>
+<span id="cb51-63"><a href="#cb51-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Winner"</span>, <span class="st">"Season"</span>, <span class="st">"Show Type"</span>, <span class="st">"Roses Received"</span>, <span class="st">"Roses"</span>),</span>
+<span id="cb51-64"><a href="#cb51-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>), <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-65"><a href="#cb51-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="st">"center"</span>, </span>
+<span id="cb51-66"><a href="#cb51-66" aria-hidden="true" tabindex="-1"></a>                <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"bordered"</span>, <span class="st">"hover"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-67"><a href="#cb51-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-68"><a href="#cb51-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-69"><a href="#cb51-69" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-70"><a href="#cb51-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Explanation row (light red background, no gridlines)</span></span>
+<span id="cb51-71"><a href="#cb51-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"A breakdown of the roses that were awarded to the winner from each of the 33 seasons of The Bachelor and Bachelorette"</span> <span class="ot">=</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-72"><a href="#cb51-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">1</span>, <span class="at">background =</span> <span class="st">"#FFCCCC"</span>, <span class="at">italic =</span> <span class="cn">TRUE</span>, <span class="at">hline_after =</span> <span class="cn">FALSE</span>, <span class="at">extra_css =</span> <span class="st">"border-bottom: none;"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-73"><a href="#cb51-73" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-74"><a href="#cb51-74" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Main title row: "Roses to the Winners" (large font)</span></span>
+<span id="cb51-75"><a href="#cb51-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"Roses to the Winners"</span> <span class="ot">=</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-76"><a href="#cb51-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">28</span>) <span class="sc">%&gt;%</span>  <span class="co"># Increased font size for title</span></span>
+<span id="cb51-77"><a href="#cb51-77" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-78"><a href="#cb51-78" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-79"><a href="#cb51-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subheading row (Winner, Season, etc.) - Pink background</span></span>
+<span id="cb51-80"><a href="#cb51-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">2</span>, <span class="at">background =</span> <span class="st">"#FFD9D9"</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-81"><a href="#cb51-81" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-82"><a href="#cb51-82" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adjust column spacing for better readability</span></span>
+<span id="cb51-83"><a href="#cb51-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">"8em"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-84"><a href="#cb51-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">"12em"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-85"><a href="#cb51-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">4</span>, <span class="at">width =</span> <span class="st">"10em"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-86"><a href="#cb51-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">5</span>, <span class="at">width =</span> <span class="st">"15em"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-87"><a href="#cb51-87" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-88"><a href="#cb51-88" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Footer with source information</span></span>
+<span id="cb51-89"><a href="#cb51-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">footnote</span>(<span class="at">general =</span> <span class="st">"Original data retrieved from FiveThirtyEight. Original Article by: Ella Koeze and Walt Hickey."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-striped table-bordered table-hover caption-top table-sm small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Roses to the Winners
+</div></th>
+</tr>
+<tr class="even">
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+A breakdown of the roses that were awarded to the winner from each of the 33 seasons of The Bachelor and Bachelorette
+</div></th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; font-size: 28px;">Winner</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; font-size: 28px;">Season</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; font-size: 28px;">Show Type</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; font-size: 28px;">Roses Received</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold; font-size: 28px;">Roses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-style: italic; background-color: rgba(255, 204, 204, 255) !important; border-bottom: none;">BRYAN_A</td>
+<td style="text-align: center; font-style: italic; background-color: rgba(255, 204, 204, 255) !important; border-bottom: none; width: 8em;">13</td>
+<td style="text-align: center; font-style: italic; background-color: rgba(255, 204, 204, 255) !important; border-bottom: none; width: 12em;">Bachelorette</td>
+<td style="text-align: center; font-style: italic; background-color: rgba(255, 204, 204, 255) !important; border-bottom: none; width: 10em;">4</td>
+<td style="text-align: center; font-style: italic; background-color: rgba(255, 204, 204, 255) !important; border-bottom: none; width: 15em;">🌹🌹🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; background-color: rgba(255, 217, 217, 255) !important;">JORDAN_R</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 217, 217, 255) !important; width: 8em;">12</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 217, 217, 255) !important; width: 12em;">Bachelorette</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 217, 217, 255) !important; width: 10em;">3</td>
+<td style="text-align: center; font-weight: bold; background-color: rgba(255, 217, 217, 255) !important; width: 15em;">🌹🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SHAWN_B</td>
+<td style="text-align: center; width: 8em;">11</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">3</td>
+<td style="text-align: center; width: 15em;">🌹🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">JEF_H</td>
+<td style="text-align: center; width: 8em;">8</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">3</td>
+<td style="text-align: center; width: 15em;">🌹🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JP_R</td>
+<td style="text-align: center; width: 8em;">7</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">3</td>
+<td style="text-align: center; width: 15em;">🌹🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NIKKI_F</td>
+<td style="text-align: center; width: 8em;">18</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">3</td>
+<td style="text-align: center; width: 15em;">🌹🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EMILY_M</td>
+<td style="text-align: center; width: 8em;">15</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">3</td>
+<td style="text-align: center; width: 15em;">🌹🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">JOSH_M</td>
+<td style="text-align: center; width: 8em;">10</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CHRIS_S</td>
+<td style="text-align: center; width: 8em;">9</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ROBERT_M</td>
+<td style="text-align: center; width: 8em;">6</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JESSE_C</td>
+<td style="text-align: center; width: 8em;">4</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VANESSA_G</td>
+<td style="text-align: center; width: 8em;">21</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LAUREN_B</td>
+<td style="text-align: center; width: 8em;">20</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WHITNEY_B</td>
+<td style="text-align: center; width: 8em;">19</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CATHERINE_G</td>
+<td style="text-align: center; width: 8em;">17</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COURTNEY_R</td>
+<td style="text-align: center; width: 8em;">16</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JENNIFER_W</td>
+<td style="text-align: center; width: 8em;">9</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">2</td>
+<td style="text-align: center; width: 15em;">🌹🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ED_S</td>
+<td style="text-align: center; width: 8em;">5</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VIENNA_G</td>
+<td style="text-align: center; width: 8em;">14</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MELISSA_R</td>
+<td style="text-align: center; width: 8em;">13</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SHAYNE_L</td>
+<td style="text-align: center; width: 8em;">12</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TESSA_H</td>
+<td style="text-align: center; width: 8em;">10</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sarah_S</td>
+<td style="text-align: center; width: 8em;">8</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sarah B.</td>
+<td style="text-align: center; width: 8em;">7</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">1</td>
+<td style="text-align: center; width: 15em;">🌹 |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JERRY_F</td>
+<td style="text-align: center; width: 8em;">3</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IAN_M</td>
+<td style="text-align: center; width: 8em;">2</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RYAN_S</td>
+<td style="text-align: center; width: 8em;">1</td>
+<td style="text-align: center; width: 12em;">Bachelorette</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mary</td>
+<td style="text-align: center; width: 8em;">6</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JESSICA_B</td>
+<td style="text-align: center; width: 8em;">5</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Estella</td>
+<td style="text-align: center; width: 8em;">4</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JEN_X</td>
+<td style="text-align: center; width: 8em;">3</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HELENE_E</td>
+<td style="text-align: center; width: 8em;">2</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AMANDA_M</td>
+<td style="text-align: center; width: 8em;">1</td>
+<td style="text-align: center; width: 12em;">Bachelor</td>
+<td style="text-align: center; width: 10em;">0</td>
+<td style="text-align: center; width: 15em;"></td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Original data retrieved from FiveThirtyEight. Original Article by: Ella Koeze and Walt Hickey.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+
+</table>
+
+
+</div>
+</div>
+<section id="the-bonus-graph-that-destroyed-my-sanity" class="level3">
+<h3 class="anchored" data-anchor-id="the-bonus-graph-that-destroyed-my-sanity">The “Bonus Graph” that destroyed my sanity:</h3>
+<p>I spent an embarrasingly long time trying to recreate this image that was in the article. I spent two days going back and forth with ChatGPT and trying to get it to format the graphic to recreate the original. I even tried with DeepSeek.</p>
+<p>I think I used over 3000 lines of R script with my back and forths and so I am not sharing my directions to R. But I even uploaded the image multiple times and asked it to expalin the image and how everything fitted together and I corrected each element. However, no matter how much promise it showed, even with starting multiple new chats, I was never able to fully correct the image to the correct order (challenge for someone else?). Every time I tried to fix one thing, it would break everything else.</p>
+<p>After spending all of the time (I am not exagerrating when I say two days) on this I eventually realised that the authors probably used an imaging software for this since it is more of an image than a graph……..🤕😭</p>
+<p>Nonetheless, here are two different attempts. Please feel free to try your hand.</p>
+<p>This was my best attempt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dataset dynamically</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Category =</span> <span class="fu">c</span>(</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated in weeks 2+ rose ceremony"</span>,</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated in week 1 rose ceremony"</span>,</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated on a date"</span>,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Won"</span>,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Quit"</span>,</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated at an unscheduled time"</span>,</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fired by production"</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Count =</span> <span class="fu">c</span>(<span class="dv">425</span>, <span class="dv">298</span>, <span class="dv">75</span>, <span class="dv">33</span>, <span class="dv">28</span>, <span class="dv">21</span>, <span class="dv">6</span>)  <span class="co"># Updated counts from the provided data</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages dynamically</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> category_counts <span class="sc">%&gt;%</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percentage =</span> <span class="fu">paste0</span>(<span class="fu">round</span>((Count <span class="sc">/</span> <span class="fu">sum</span>(Count)) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>))</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the circle packing layout</span></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>packing <span class="ot">&lt;-</span> <span class="fu">circleProgressiveLayout</span>(category_counts<span class="sc">$</span>Count, <span class="at">sizetype =</span> <span class="st">"area"</span>)</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>category_counts<span class="sc">$</span>x <span class="ot">&lt;-</span> packing<span class="sc">$</span>x</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>category_counts<span class="sc">$</span>y <span class="ot">&lt;-</span> packing<span class="sc">$</span>y</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>category_counts<span class="sc">$</span>r <span class="ot">&lt;-</span> packing<span class="sc">$</span>radius</span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate circle layout vertices for plotting</span></span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>circle_data <span class="ot">&lt;-</span> <span class="fu">circleLayoutVertices</span>(packing, <span class="at">npoints =</span> <span class="dv">100</span>)</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Define colors: Pink for all except "Won", which is red</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#FADBD8"</span>, <span class="st">"#FADBD8"</span>, <span class="st">"#FADBD8"</span>, <span class="st">"#E74C3C"</span>, <span class="st">"#FADBD8"</span>, <span class="st">"#FADBD8"</span>, <span class="st">"#FADBD8"</span>)</span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bubble chart</span></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw proportional circles with specified colors</span></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> circle_data, <span class="fu">aes</span>(x, y, <span class="at">group =</span> id, <span class="at">fill =</span> <span class="fu">as.factor</span>(id)), </span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add contestant count inside bubbles</span></span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> category_counts, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> Count), </span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add category names with percentages using text repulsion</span></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> category_counts, </span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> <span class="fu">paste0</span>(Category, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, Percentage)), </span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nudge_y =</span> <span class="fl">0.5</span>, <span class="at">nudge_x =</span> <span class="fl">0.5</span>, </span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a>                  <span class="at">box.padding =</span> <span class="fl">0.4</span>, <span class="at">segment.color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Clean up the theme</span></span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Apply the pink color for all except "Won" (which is red)</span></span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_exercise_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>For comedy relief I will share other attempts:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure category_counts has percentages</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> category_counts <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percentage =</span> <span class="fu">paste0</span>(<span class="fu">round</span>((Count <span class="sc">/</span> <span class="fu">sum</span>(Count)) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>))</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge calculated percentages into bubble_data dynamically</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>bubble_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Category =</span> <span class="fu">c</span>(</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated in weeks 2+ rose ceremony"</span>,</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated in week 1 rose ceremony"</span>,</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fired by production"</span>,</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Quit"</span>,</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated on a date"</span>,</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated at an unscheduled time"</span>,</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Won"</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(category_counts, <span class="at">by =</span> <span class="st">"Category"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Category, Count, Percentage)</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale bubble size</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>bubble_data<span class="sc">$</span>BubbleSize <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(bubble_data<span class="sc">$</span>Count) <span class="sc">*</span> <span class="dv">12</span>  </span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate circle layout</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  </span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>packing <span class="ot">&lt;-</span> <span class="fu">circleProgressiveLayout</span>(bubble_data<span class="sc">$</span>BubbleSize, <span class="at">sizetype =</span> <span class="st">"radius"</span>)</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>bubble_data<span class="sc">$</span>x <span class="ot">&lt;-</span> packing<span class="sc">$</span>x</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>bubble_data<span class="sc">$</span>y <span class="ot">&lt;-</span> packing<span class="sc">$</span>y</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>bubble_data<span class="sc">$</span>radius <span class="ot">&lt;-</span> packing<span class="sc">$</span>radius</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate circle layout vertices</span></span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>circle_vertices <span class="ot">&lt;-</span> <span class="fu">circleLayoutVertices</span>(packing, <span class="at">npoints =</span> <span class="dv">50</span>)</span>
+<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Define colors for the bubbles</span></span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a>category_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Eliminated in weeks 2+ rose ceremony"</span> <span class="ot">=</span> <span class="st">"#fbb4ae"</span>,</span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Eliminated in week 1 rose ceremony"</span> <span class="ot">=</span> <span class="st">"#fbb4ae"</span>,</span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Fired by production"</span> <span class="ot">=</span> <span class="st">"#fbb4ae"</span>,</span>
+<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Quit"</span> <span class="ot">=</span> <span class="st">"#fbb4ae"</span>,</span>
+<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Eliminated on a date"</span> <span class="ot">=</span> <span class="st">"#fbb4ae"</span>,</span>
+<span id="cb53-40"><a href="#cb53-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Eliminated at an unscheduled time"</span> <span class="ot">=</span> <span class="st">"#fbb4ae"</span>,</span>
+<span id="cb53-41"><a href="#cb53-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Won"</span> <span class="ot">=</span> <span class="st">"#e31a1c"</span></span>
+<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-43"><a href="#cb53-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-44"><a href="#cb53-44" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== MANUALLY ADJUST BUBBLE POSITIONS =====</span></span>
+<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a>bubble_data <span class="ot">&lt;-</span> bubble_data <span class="sc">%&gt;%</span></span>
+<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-48"><a href="#cb53-48" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated in weeks 2+ rose ceremony"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">1.6</span>,  </span>
+<span id="cb53-49"><a href="#cb53-49" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated in week 1 rose ceremony"</span> <span class="sc">~</span> <span class="fl">1.2</span>,  </span>
+<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated on a date"</span> <span class="sc">~</span> <span class="fl">0.2</span>,  </span>
+<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Quit"</span> <span class="sc">~</span> <span class="fl">1.8</span>,  </span>
+<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Fired by production"</span> <span class="sc">~</span> <span class="fl">2.0</span>,  </span>
+<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Won"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">0.8</span>,  </span>
+<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated at an unscheduled time"</span> <span class="sc">~</span> <span class="fl">0.5</span>,  </span>
+<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb53-56"><a href="#cb53-56" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb53-57"><a href="#cb53-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-58"><a href="#cb53-58" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated in weeks 2+ rose ceremony"</span> <span class="sc">~</span> <span class="dv">2</span>,  </span>
+<span id="cb53-59"><a href="#cb53-59" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated in week 1 rose ceremony"</span> <span class="sc">~</span> <span class="fl">2.2</span>,  </span>
+<span id="cb53-60"><a href="#cb53-60" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated on a date"</span> <span class="sc">~</span> <span class="fl">0.8</span>,  </span>
+<span id="cb53-61"><a href="#cb53-61" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Quit"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">0.2</span>,  </span>
+<span id="cb53-62"><a href="#cb53-62" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Fired by production"</span> <span class="sc">~</span> <span class="fl">1.3</span>,  </span>
+<span id="cb53-63"><a href="#cb53-63" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Won"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">0.3</span>,  </span>
+<span id="cb53-64"><a href="#cb53-64" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated at an unscheduled time"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">0.9</span>,  </span>
+<span id="cb53-65"><a href="#cb53-65" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb53-66"><a href="#cb53-66" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb53-67"><a href="#cb53-67" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-68"><a href="#cb53-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-69"><a href="#cb53-69" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== ENSURING TEXT MOVES WITH BUBBLES =====</span></span>
+<span id="cb53-70"><a href="#cb53-70" aria-hidden="true" tabindex="-1"></a>bubble_data <span class="ot">&lt;-</span> bubble_data <span class="sc">%&gt;%</span></span>
+<span id="cb53-71"><a href="#cb53-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-72"><a href="#cb53-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count label inside bubbles</span></span>
+<span id="cb53-73"><a href="#cb53-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nudge_X =</span> x,</span>
+<span id="cb53-74"><a href="#cb53-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nudge_Y =</span> y,</span>
+<span id="cb53-75"><a href="#cb53-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-76"><a href="#cb53-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Category text label positioning outside bubbles</span></span>
+<span id="cb53-77"><a href="#cb53-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nudge_X_Category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-78"><a href="#cb53-78" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Won"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">1.2</span>,  </span>
+<span id="cb53-79"><a href="#cb53-79" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Quit"</span> <span class="sc">~</span> <span class="fl">2.2</span>,  </span>
+<span id="cb53-80"><a href="#cb53-80" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated on a date"</span> <span class="sc">~</span> <span class="fl">0.5</span>,  </span>
+<span id="cb53-81"><a href="#cb53-81" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated in weeks 2+ rose ceremony"</span> <span class="sc">~</span> <span class="sc">-</span><span class="dv">2</span>,  </span>
+<span id="cb53-82"><a href="#cb53-82" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated at an unscheduled time"</span> <span class="sc">~</span> <span class="fl">0.6</span>,  </span>
+<span id="cb53-83"><a href="#cb53-83" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Fired by production"</span> <span class="sc">~</span> <span class="fl">2.1</span>,  </span>
+<span id="cb53-84"><a href="#cb53-84" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb53-85"><a href="#cb53-85" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb53-86"><a href="#cb53-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nudge_Y_Category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-87"><a href="#cb53-87" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Won"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">0.8</span>,  </span>
+<span id="cb53-88"><a href="#cb53-88" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Quit"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">0.5</span>,  </span>
+<span id="cb53-89"><a href="#cb53-89" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated on a date"</span> <span class="sc">~</span> <span class="fl">0.6</span>,  </span>
+<span id="cb53-90"><a href="#cb53-90" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated in weeks 2+ rose ceremony"</span> <span class="sc">~</span> <span class="fl">2.3</span>,  </span>
+<span id="cb53-91"><a href="#cb53-91" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Eliminated at an unscheduled time"</span> <span class="sc">~</span> <span class="sc">-</span><span class="fl">1.2</span>,  </span>
+<span id="cb53-92"><a href="#cb53-92" aria-hidden="true" tabindex="-1"></a>      Category <span class="sc">==</span> <span class="st">"Fired by production"</span> <span class="sc">~</span> <span class="fl">1.5</span>,  </span>
+<span id="cb53-93"><a href="#cb53-93" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb53-94"><a href="#cb53-94" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb53-95"><a href="#cb53-95" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-96"><a href="#cb53-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-97"><a href="#cb53-97" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== CREATE THE BUBBLE PLOT =====</span></span>
+<span id="cb53-98"><a href="#cb53-98" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb53-99"><a href="#cb53-99" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw bubbles</span></span>
+<span id="cb53-100"><a href="#cb53-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> circle_vertices, <span class="fu">aes</span>(x <span class="sc">+</span> bubble_data<span class="sc">$</span>x[id], y <span class="sc">+</span> bubble_data<span class="sc">$</span>y[id], </span>
+<span id="cb53-101"><a href="#cb53-101" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">group =</span> id, <span class="at">fill =</span> bubble_data<span class="sc">$</span>Category[id]), </span>
+<span id="cb53-102"><a href="#cb53-102" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span>  </span>
+<span id="cb53-103"><a href="#cb53-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-104"><a href="#cb53-104" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **Move COUNT labels inside bubbles**</span></span>
+<span id="cb53-105"><a href="#cb53-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> bubble_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(radius <span class="sc">&gt;</span> <span class="dv">30</span>), </span>
+<span id="cb53-106"><a href="#cb53-106" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> Count, <span class="at">size =</span> radius <span class="sc">/</span> <span class="dv">10</span>), </span>
+<span id="cb53-107"><a href="#cb53-107" aria-hidden="true" tabindex="-1"></a>             <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>,  </span>
+<span id="cb53-108"><a href="#cb53-108" aria-hidden="true" tabindex="-1"></a>             <span class="at">label.size =</span> <span class="dv">0</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb53-109"><a href="#cb53-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-110"><a href="#cb53-110" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **Move COUNT labels outside small bubbles**</span></span>
+<span id="cb53-111"><a href="#cb53-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> bubble_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(radius <span class="sc">&lt;=</span> <span class="dv">30</span>), </span>
+<span id="cb53-112"><a href="#cb53-112" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y <span class="sc">+</span> radius <span class="sc">*</span> <span class="dv">3</span>, <span class="at">label =</span> Count, <span class="at">size =</span> <span class="dv">5</span>), </span>
+<span id="cb53-113"><a href="#cb53-113" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb53-114"><a href="#cb53-114" aria-hidden="true" tabindex="-1"></a>                   <span class="at">box.padding =</span> <span class="dv">2</span>, <span class="at">segment.color =</span> <span class="st">"black"</span>, </span>
+<span id="cb53-115"><a href="#cb53-115" aria-hidden="true" tabindex="-1"></a>                   <span class="at">nudge_y =</span> <span class="dv">20</span>, <span class="at">direction =</span> <span class="st">"both"</span>, <span class="at">force =</span> <span class="dv">150</span>) <span class="sc">+</span></span>
+<span id="cb53-116"><a href="#cb53-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-117"><a href="#cb53-117" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **Move CATEGORY labels outside bubbles &amp; allow multiple line text**</span></span>
+<span id="cb53-118"><a href="#cb53-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> bubble_data, </span>
+<span id="cb53-119"><a href="#cb53-119" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">x =</span> x <span class="sc">+</span> Nudge_X_Category, <span class="at">y =</span> y <span class="sc">+</span> Nudge_Y_Category, <span class="at">label =</span> Category),  </span>
+<span id="cb53-120"><a href="#cb53-120" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
+<span id="cb53-121"><a href="#cb53-121" aria-hidden="true" tabindex="-1"></a>                   <span class="at">box.padding =</span> <span class="dv">2</span>, <span class="at">segment.color =</span> <span class="st">"black"</span>, <span class="at">segment.size =</span> <span class="fl">0.8</span>,</span>
+<span id="cb53-122"><a href="#cb53-122" aria-hidden="true" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">"both"</span>, <span class="at">force =</span> <span class="dv">400</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>, </span>
+<span id="cb53-123"><a href="#cb53-123" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span>  </span>
+<span id="cb53-124"><a href="#cb53-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-125"><a href="#cb53-125" aria-hidden="true" tabindex="-1"></a>  <span class="co"># **Move percentage labels inside bubbles**</span></span>
+<span id="cb53-126"><a href="#cb53-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> bubble_data, </span>
+<span id="cb53-127"><a href="#cb53-127" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y <span class="sc">+</span> radius <span class="sc">*</span> <span class="fl">0.3</span>, <span class="at">label =</span> Percentage), </span>
+<span id="cb53-128"><a href="#cb53-128" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb53-129"><a href="#cb53-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-130"><a href="#cb53-130" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign colors to the bubbles</span></span>
+<span id="cb53-131"><a href="#cb53-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> category_colors) <span class="sc">+</span></span>
+<span id="cb53-132"><a href="#cb53-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-133"><a href="#cb53-133" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove default ggplot background</span></span>
+<span id="cb53-134"><a href="#cb53-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb53-135"><a href="#cb53-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-136"><a href="#cb53-136" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adjust text styling</span></span>
+<span id="cb53-137"><a href="#cb53-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb53-138"><a href="#cb53-138" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb53-139"><a href="#cb53-139" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb53-140"><a href="#cb53-140" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb53-141"><a href="#cb53-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-142"><a href="#cb53-142" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set the title</span></span>
+<span id="cb53-143"><a href="#cb53-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"The fate of every 'Bachelor' and 'Bachelorette' contestant"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: ggrepel: 3 unlabeled data points (too many overlaps). Consider
+increasing max.overlaps</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_exercise_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure category_counts has percentages</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> category_counts <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percentage =</span> <span class="fu">paste0</span>(<span class="fu">round</span>((Count <span class="sc">/</span> <span class="fu">sum</span>(Count)) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>))</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge calculated percentages into bubble_data dynamically</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>bubble_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Category =</span> <span class="fu">c</span>(</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated in weeks 2+ rose ceremony"</span>,</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated in week 1 rose ceremony"</span>,</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fired by production"</span>,</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Quit"</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated on a date"</span>,</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Eliminated at an unscheduled time"</span>,</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Won"</span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(category_counts, <span class="at">by =</span> <span class="st">"Category"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Category, Count, Percentage)</span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bubble chart without manual position adjustments</span></span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bubble_data, <span class="fu">aes</span>(<span class="at">x =</span> Count, <span class="at">y =</span> Count, <span class="at">size =</span> Count, <span class="at">fill =</span> Category)) <span class="sc">+</span></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># Use points instead of polygons</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">25</span>)) <span class="sc">+</span>  <span class="co"># Adjust bubble scaling dynamically</span></span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span>  <span class="co"># Dynamic color scaling for categories</span></span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> Count), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># Automatic text positioning</span></span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb55-30"><a href="#cb55-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb55-31"><a href="#cb55-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"The fate of every 'Bachelor' and 'Bachelorette' contestant"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_exercise_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>~ Fin</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

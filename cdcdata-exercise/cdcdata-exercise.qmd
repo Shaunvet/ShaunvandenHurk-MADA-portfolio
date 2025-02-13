@@ -574,7 +574,7 @@ ggplot() +
   theme_minimal()
 ```
 
-Some of the variables are decent but most lack the more granular trends seen in the real data. Unfortunately, I was expecting this. The data we are working with are very unique in nature because they are from such a unique time.  Surely generating data with more precise patterns is possible but it would require more equations.
+Some of the variables are decent but most lack the more granular trends seen in the real data. Unfortunately, I was expecting this. The data we are working with are very unique in nature because they are from such a unique time. Surely generating data with more precise patterns is possible but it would require more equations.
 
 ## Variable distributions
 
