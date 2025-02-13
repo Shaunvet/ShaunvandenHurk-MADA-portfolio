@@ -595,7 +595,6 @@ ggplot() +
 
 For comedy relief I will share other attempts:
 
-
 ```{r}
 # Ensure category_counts has percentages
 category_counts <- category_counts %>%
