@@ -1,0 +1,469 @@
+---
+title: "fitting-exercise"
+format: html
+editor: visual
+---
+
+## Model Fitting
+
+Loading packages
+
+```{r setup, message=FALSE, warning=FALSE}
+#install packages that are missing if necessary
+
+#install.packages("tidymodels")
+#install.packages("pander")
+#install.packages("yardstick")
+
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(tidymodels)
+library(here)
+library(skimr)
+library(dplyr)
+library(knitr)
+library(pander)
+library(patchwork)
+library(corrplot)
+library(yardstick)
+```
+
+loading and viewing a preview of the data
+
+```{r}
+mavoglurant_data <- read.csv(here("fitting-exercise", "Mavoglurant_A2121_nmpk.csv")) #loaddatausingherefunction
+```
+
+```{r}
+summary(mavoglurant_data)
+skim(mavoglurant_data)
+```
+
+We want to visualise the data in a plot.
+We want to plot DV (the outcome) as a function of time, stratified by DOSE and using ID as a grouping factor.
+
+
+```{r}
+DV_time_dose_curve <- ggplot(mavoglurant_data, aes(x = TIME, y = DV, group = ID, colour = DOSE)) + geom_line(alpha = 0.7) + labs(title = "DV vs Time by Dose", x = "Time", y = "DV", colour = "Dose") 
+print(DV_time_dose_curve)
+
+```
+
+There is repetiton in the data. We only want to keep observations with OCC=1.
+We will use the filter function.
+
+```{r}
+mavoglurant_data_1 <- filter(mavoglurant_data, OCC == 1) #make a dataset with only OCC 1 rows
+
+```
+
+
+We want a data frames where we have the total dose for each individual and where we exclude data where Time is zero.
+
+```{r}
+DV_data <- mavoglurant_data_1 |> filter(TIME !=0) |> #removes values where TIME=0
+group_by(ID) |>#Groups the data by ID so that we have all values for a single individual together
+summarise(Y= sum(DV))
+```
+
+Next we develop an additional data frames where Time is zero and join this to the previous one.
+
+```{r}
+mavoglurant_time_0 <- mavoglurant_data_1 |>filter(TIME==0) #filtering for when time is zero
+
+merged_mavoglurant <- merge(DV_data, mavoglurant_time_0, by = "ID") #using the merge function to join
+print(merged_mavoglurant)
+summary(merged_mavoglurant)
+```
+
+We only kept the Time = 0 data points and so our data for time looks strange, but this is expected.
+
+
+We want to delete unwanted columns, done with the select function, and also need to convert RACE and SEX to factors.
+```{r}
+#using the select function to delete unwanted columns
+merged_mavoglurant_1 <- merged_mavoglurant |> select(-OCC , -EVID, -CMT, -EVI2, -MDV, -LNDV, -ID, -AMT, -RATE) |> mutate(RACE = as.factor(RACE), SEX = as.factor(SEX))
+
+```
+
+
+checking our data and comparing two different summaries (summary vs skim) and functions for tables (kable vs pander).
+```{r}
+pander::pander(summary(merged_mavoglurant_1))
+
+knitr::kable(skim(merged_mavoglurant_1))
+
+```
+
+These tables give a nice overview of the data and the small histograms for the numeric data are nice to get a very rough feel of the data.
+
+
+We will generate a scatterplot to evaluate the total drug (Y) vs time.
+
+```{r}
+ggplot(merged_mavoglurant_1, aes(x = TIME, y = Y)) +
+  geom_point(alpha = 0.6, color = "blue") +  # Add scatter points
+  geom_smooth(method = "loess", se = FALSE, color = "red") +  # Add trend line
+  labs(title = "Scatterplot of Y vs Time", x = "Time", y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+
+Since we only kept the kept the points where time is equal to zero this scatter plot does not tell us much information about a progressing total drug vs time relationship but only shows the total drug for all participants at time zero.
+
+
+
+We will repeat the scatterplot to evaluate the total drug (Y) vs dose.
+```{r}
+ggplot(merged_mavoglurant_1, aes(x = DOSE, y = Y)) +
+  geom_point(alpha = 0.6, color = "green") +  # Add scatter points
+  geom_smooth(method = "loess", se = FALSE, color = "red") +  # Add trend line
+  labs(title = "Scatterplot of Y vs Dose", x = "Dose", y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+
+We now see the pattern of increasing total drug with increasing dose (as expected).
+
+
+We will generate a boxplot to evaluate the total drug (Y) vs time.
+
+```{r}
+ggplot(merged_mavoglurant_1, aes(x = as.factor(TIME), y = Y)) +
+  geom_boxplot(fill = "lightblue", alpha = 0.7) +  # Boxplot
+  geom_jitter(alpha = 0.4, color = "black", width = 0.2) +  # Add jitter points
+  labs(title = "Boxplot of Y by Time", x = "Time", y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+
+We will repeat a boxplot to evaluate the total drug (Y) vs dose.
+
+```{r}
+ggplot(merged_mavoglurant_1, aes(x = as.factor(DOSE), y = Y)) +
+  geom_boxplot(fill = "lightgreen", alpha = 0.7) +  # Boxplot
+  geom_jitter(alpha = 0.4, color = "black", width = 0.2) +  # Add jitter points
+  labs(title = "Boxplot of Y by Dose", x = "Dose", y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+
+Using ChatGPT to generate code for plots of the distributions of variables
+
+```{r}
+
+variables <- c("Y", "DOSE", "AGE", "SEX", "RACE", "WT", "HT")
+
+# Function to create distribution plots
+plot_distribution <- function(data, var) {
+  if (is.numeric(data[[var]])) {
+    # Numeric variables: Histogram & Density Plot
+    ggplot(data, aes(x = .data[[var]])) +
+      geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", color = "black", alpha = 0.7) +
+      geom_density(color = "red", size = 1) + 
+      labs(title = paste("Distribution of", var), x = var, y = "Density") +
+      theme_minimal()
+  } else {
+    # Categorical variables: Bar Plot
+    ggplot(data, aes(x = .data[[var]])) +
+      geom_bar(fill = "skyblue", color = "black", alpha = 0.7) +
+      labs(title = paste("Distribution of", var), x = var, y = "Count") +
+      theme_minimal()
+  }
+}
+
+# Plot distributions for each variable
+plots <- lapply(variables, function(var) plot_distribution(merged_mavoglurant_1, var))
+
+# Display all plots together
+library(patchwork)
+wrap_plots(plots, ncol = 2)
+
+```
+
+We get a good feel for the data for each variable here. However, because the source data is not clear we do not know what sex and race corresponds with the respective numbers. However, we can see very clear distributions favouring particular categories for these variables.
+The age, weight, height, and total drug (Y) data are more dispersed.
+
+
+
+
+We want to look at a correlation plot of the data. We will use a correlation matrix:
+
+```{r}
+# Compute correlation matrix (select only numeric variables)
+cor_matrix <- merged_mavoglurant_1 |>
+  select(Y, DOSE, AGE, WT, HT) |>
+  cor(use = "pairwise.complete.obs")  # Handle missing values properly
+
+# Plot the correlation matrix
+corrplot(cor_matrix, method = "color", type = "upper", 
+         tl.col = "black", tl.cex = 0.8, addCoef.col = "black", number.cex = 0.7)
+
+```
+
+This plot provides a nice overview to look at the interactions/correlations between different variables. From this, there does not seem to be much correlation between the drug data and the biological data of participants.
+
+
+
+##Model Fitting
+
+We need to generate some models for our tidied data. I have used chatgpt to help me to generate code.
+
+First we fit a linear model to the total drug (Y = continuous outcome) usings DOSE as our main outcome of interest.
+
+```{r}
+#We need to set a seed for reproducibility of our model
+set.seed(123)
+
+#We define the linear regression model
+lm_spec_dose <- linear_reg() |>
+  set_engine("lm")
+
+# Define a recipe (preprocessing steps)
+lm_recipe_dose <- recipe(Y ~ DOSE, data = merged_mavoglurant_1) |>
+  step_normalize(all_numeric_predictors())  # Standardizes numeric predictors to account for different scales between vaariables 
+
+# Create a workflow
+lm_workflow_dose <- workflow() |>
+  add_model(lm_spec_dose) |>
+  add_recipe(lm_recipe_dose)
+
+#Fitting the model to the dataset
+lm_fit_dose <- lm_workflow_dose |>
+  fit(data = merged_mavoglurant_1)
+
+# View model summary
+lm_fit_dose |> extract_fit_engine() |> print() |> summary()
+
+```
+
+As expected, we see a positive association between the dose and the total drug (Y), with an increase with Y for increasing units of dose.
+
+
+We will now generate a plot to visualise the model fit as well (Dose vs Total drug)
+```{r}
+ggplot(merged_mavoglurant_1, aes(x = DOSE, y = Y)) +
+  geom_point(alpha = 0.5, color = "blue") +  # Scatterplot of actual data
+  geom_smooth(method = "lm", color = "red", se = TRUE) +  # Regression line
+  labs(title = "Linear Regression: Y vs DOSE", 
+       x = "DOSE", 
+       y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+
+This confirms what we have seen in the data and would expect from these variables.
+
+
+
+We will now compute the RMSE and R squared for this linear model looking at Total drug (Y) and Dose.
+The model will produce prediction values and compares these to actual values.
+
+```{r}
+
+# Generate predictions
+lm_predictions_dose <- predict(lm_fit_dose, merged_mavoglurant_1) |>
+  bind_cols(merged_mavoglurant_1)  # Adds actual values of Y for comparison
+
+# Compute RMSE and R²
+lm_metrics_dose <- lm_predictions_dose |>
+  metrics(truth = Y, estimate = .pred) |>
+  filter(.metric %in% c("rmse", "rsq"))  # Select RMSE & R²
+
+# Print results
+print(lm_metrics_dose)
+
+```
+
+Our model seems to perform moderately from this data.
+
+
+We will now fit a linear model to the total drug (Y = continuous outcome) using all of the predictors. The predictors are standardised in the process to put them all on the same scale.
+
+```{r}
+# Define the linear regression model
+lm_spec_all_predict <- linear_reg() |>
+  set_engine("lm")
+
+# Define the recipe (preprocessing steps)
+lm_recipe_all_predict <- recipe(Y ~ ., data = merged_mavoglurant_1) |>
+  step_normalize(all_numeric_predictors())  # Standardise numeric predictors 
+
+# Create a workflow
+lm_workflow_all_predict <- workflow() |>
+  add_model(lm_spec_all_predict) |>
+  add_recipe(lm_recipe_all_predict)
+
+
+# Fit the model using the entire dataset
+lm_fit_all_predict <- lm_workflow_all_predict |>
+  fit(data = merged_mavoglurant_1)
+
+# View model summary
+lm_fit_all_predict |> extract_fit_engine() |> print()|> summary()
+
+```
+
+From these measures we once again see a strong association between dose and total drug. We now see that weight has a negative asociation with the total drug (as weight increases, Y decreases). 
+There do not seem to be associations with age, height and race.
+
+
+computing R-squared and RMSE for the linear model to the total drug and all predictors.
+
+```{r}
+# Generate predictions
+lm_predictions_all_predict <- predict(lm_fit_all_predict, merged_mavoglurant_1) |>
+  bind_cols(merged_mavoglurant_1)
+
+# Compute RMSE and R-squared (and mae)
+lm_metrics_all_predict <- lm_predictions_all_predict |>
+  metrics(truth = Y, estimate = .pred)
+
+print(lm_metrics_all_predict)
+
+```
+
+Our RMSE is lower in this model which indicates slightly improved performance.
+
+
+```{r}
+ggplot(lm_predictions_all_predict, aes(x = Y, y = .pred)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Linear Model: Actual vs Predicted Y", x = "Actual Y", y = "Predicted Y") +
+  theme_minimal()
+
+```
+
+
+
+
+We will now fit a logistic model for sex (a categorical/binary outcome) with DOSE as the main predictor of interest.
+
+```{r}
+
+# Define logistic regression model (SEX ~ DOSE)
+log_spec_sex_dose <- logistic_reg() |>
+  set_engine("glm")
+
+# Define a recipe (preprocessing steps)
+log_recipe_sex_dose <- recipe(SEX ~ DOSE, data = merged_mavoglurant_1) |>
+  step_normalize(all_numeric_predictors())
+
+# Create workflow
+log_workflow_sex_dose <- workflow() |>
+  add_model(log_spec_sex_dose) |>
+  add_recipe(log_recipe_sex_dose)
+
+# Fit the model
+log_fit_sex_dose <- log_workflow_sex_dose |>
+  fit(data = merged_mavoglurant_1)
+
+
+```
+
+
+
+
+computing ROC-AUC for the sex - dose logistic model and printing the results
+```{r}
+
+# Use augment() to get predictions (both probabilities and classes)
+log_predictions_sex_dose <- augment(log_fit_sex_dose, new_data = merged_mavoglurant_1)
+
+# Compute ROC AUC and Accuracy
+log_metrics_sex_dose <- log_predictions_sex_dose |>
+  roc_auc(truth = SEX, .pred_1) |>
+  bind_rows(
+    log_predictions_sex_dose |>
+      accuracy(truth = SEX, estimate = .pred_class)
+  )
+
+# Print results
+print(log_metrics_sex_dose)
+
+
+```
+
+The ROC-AUC i not good and indicates that there is poor discrimination (is is basically random). Thus dose is not a good predicotr of sex (as expected).
+Even though we see a high accurace, this is most likely due to the imbalance of sexes in the dataset.
+
+
+
+```{r,message=FALSE, warning=FALSE}
+
+# Generate predictions with probabilities
+log_predictions_sex_dose <- predict(log_fit_sex_dose, merged_mavoglurant_1, type = "prob") |>
+  bind_cols(merged_mavoglurant_1)
+
+# Plot logistic regression curve
+ggplot(log_predictions_sex_dose, aes(x = DOSE, y = .pred_1)) +
+  geom_point(alpha = 0.4, color = "blue") +  # Scatterplot of individual predictions
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), color = "red") +
+  labs(title = "Logistic Regression: Probability of SEX by DOSE",
+       x = "DOSE", 
+       y = "Predicted Probability of SEX") +
+  theme_minimal()
+
+
+```
+
+This curve might be misleading as it shows a positive relationship between dose and predicted probability of sex, which might be occuring due to imbalances in our data.
+
+
+We will then fit a logistic model to sex using all predictors as we did with the linear model.
+
+```{r}
+
+# Define logistic regression model (SEX ~ all predictors)
+log_spec_sex_predictors <- logistic_reg() |>
+  set_engine("glm")
+
+# Define recipe
+log_recipe_sex_predictors <- recipe(SEX ~ ., data = merged_mavoglurant_1) |>
+  step_normalize(all_numeric_predictors())
+
+# Create workflow
+log_workflow_sex_predictors <- workflow() |>
+  add_model(log_spec_sex_predictors) |>
+  add_recipe(log_recipe_sex_predictors)
+
+# Fit the model
+log_fit_sex_predictors <- log_workflow_sex_predictors |>
+  fit(data = merged_mavoglurant_1)
+
+
+```
+
+
+
+Computing ROC-AUC for the sex - all predictors logistic model and printing the results.
+
+```{r}
+
+# Generate predictions (both probabilities & classes)
+log_predictions_sex_predictors <- augment(log_fit_sex_predictors, new_data = merged_mavoglurant_1)
+
+# Compute ROC AUC and Accuracy
+log_metrics_sex_predictors <- log_predictions_sex_predictors |>
+  roc_auc(truth = SEX, .pred_1) |>
+  bind_rows(
+    log_predictions_sex_predictors |>
+      accuracy(truth = SEX, estimate = .pred_class)
+  )
+
+# Print results
+print(log_metrics_sex_predictors)
+
+```
+
+
+Our model performed much better when looking at the other predictors as well. It had almost perfect performance at predicting sex data. Perhaps this is once again due to the skewed sex dataset and a degree of overfitting. More data points would be valauble to make sure that this is not the case and that this is based purely on the biological relationships.
+
+
+
+
+
+
+
