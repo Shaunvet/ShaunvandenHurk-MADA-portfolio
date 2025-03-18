@@ -772,7 +772,4 @@ We see similar differences here between he individual folds but this is harder t
 
 From all of our checks it seems that model 2, which includes all factors, and ot just Dose, performs the best.
 
-
-###############################################
-
-
+############################################### 
