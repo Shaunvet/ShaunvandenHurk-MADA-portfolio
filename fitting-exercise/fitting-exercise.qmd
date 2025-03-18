@@ -132,8 +132,8 @@ ggplot(merged_mavoglurant_1, aes(x = as.factor(SEX), y = Y)) +
   theme_minimal()
 
 ```
-This would be more helpful if we knew which sex was reflected by which number since there are differences noted.
 
+This would be more helpful if we knew which sex was reflected by which number since there are differences noted.
 
 We will repeat a boxplot to evaluate the total drug (Y) vs dose.
 
@@ -145,7 +145,6 @@ ggplot(merged_mavoglurant_1, aes(x = as.factor(DOSE), y = Y)) +
   theme_minimal()
 
 ```
-
 
 Using ChatGPT to generate code for plots of the distributions of variables
 
@@ -434,24 +433,21 @@ print(log_metrics_sex_predictors)
 
 Our model performed much better when looking at the other predictors as well. It had almost perfect performance at predicting sex data. Perhaps this is once again due to the skewed sex dataset and a degree of overfitting. More data points would be valauble to make sure that this is not the case and that this is based purely on the biological relationships.
 
+################################################################# 
 
+#################################################################### 
 
-#################################################################
-####################################################################
-
-###Week 10 Assessment - Model Improvement
+#Week 10 Assessment - Model Improvement
 
 ##Part 1
 
-
-We want to delete unwanted RACE  column, done with the select function. 
+We want to delete unwanted RACE column, done with the select function.
 
 ```{r}
 #using the select function to delete unwanted Race column
 model_mavoglurant <- merged_mavoglurant_1 |> select(-RACE)
 skim(model_mavoglurant)
 ```
-
 
 Set the seed for further modeling steps:
 
@@ -478,13 +474,12 @@ dim(test_data)   # Check dimensions of testing data
 
 ```
 
-
 Model Fitting:
 
-We will generate two linear models for the continuous outcome of interest (Y). The first with Dose as a predictor and the secodn with all predictors.
-Metric to optimise is RMSE.
+We will generate two linear models for the continuous outcome of interest (Y). The first with Dose as a predictor and the secodn with all predictors. Metric to optimise is RMSE.
 
 Setting up the linear regressions and running them:
+
 ```{r}
 # Define a linear regression model specification
 model_lm_spec <- linear_reg() %>%
@@ -518,6 +513,7 @@ train_preds_full <- predict(model_lm_full, new_data = train_data) %>%
 ```
 
 We will now compute the performance of both of the models using RMSE
+
 ```{r}
 #Compute RMSE for Both Models
 rmse_simple_model <- train_preds_simple %>%
@@ -528,7 +524,6 @@ rmse_full_model <- train_preds_full %>%
   metrics(truth = Y, estimate = .pred) %>%
   filter(.metric == "rmse")
 ```
-
 
 We now compute the RMSE for the null model (one that predcits the mean outcome for each observation)
 
@@ -549,8 +544,8 @@ rmse_null <- train_preds_null %>%
 
 ```
 
-
 We will display all of the calculated RMSE values to compare them
+
 ```{r}
 #Combine and print RMSE values 
 rmse_results <- bind_rows(
@@ -562,17 +557,14 @@ rmse_results <- bind_rows(
 print(rmse_results)
 ```
 
-
 Through these steps we see that we get the outline values for the RMSE from the three models of 948, 702 and 627 for the null model and models 1 and 2 respectively. Thus both model one and model two seem to perform better than the the null model based on the RMSE values, with model 2 performing best.
-
-
 
 ##Model performance assessment 2
 
 We are going to do CV tests to evaluate the model performance and the recalculate the RMSE and evaluate the standard error from this. We will end with changing our set seed to see how this affects our results.
 
-
 We will set the same seed as before to start:
+
 ```{r}
 rngseed = 1234
 set.seed(rngseed)
@@ -580,6 +572,7 @@ set.seed(rngseed)
 ```
 
 Creating our CV splits and showing the variable like in the tutorial.
+
 ```{r}
 #Create 10-Fold Cross-Validation Splits
 cv_splits <- vfold_cv(train_data, v = 10)  
@@ -588,6 +581,7 @@ cv_splits
 ```
 
 We will now recreate the linear models using the CV splits. We follow a similar approach as we have used for the previous models.
+
 ```{r}
 #Define a Linear Regression Model Specification
 cv_model_lm_spec <- linear_reg() %>%
@@ -621,7 +615,6 @@ cv_results_full <- workflow_full %>%
     control = control_resamples(save_pred = TRUE))
 
 ```
-
 
 We will first collect and compute the RMSE and SE per fold for each model for comparison.
 
@@ -662,8 +655,7 @@ print(summary_full)
 
 ```
 
-We see substantial variation between the mean rmse for each fold. This highlights the value of checking each fold and not just the summarised mean rmse from all folds if you want to check variability. 
-
+We see substantial variation between the mean rmse for each fold. This highlights the value of checking each fold and not just the summarised mean rmse from all folds if you want to check variability.
 
 We will also compute (collect) RMSE & standard error (SE) for each model automatically using tidymodels and so we are collecting the mean and SE of the overall RMSE (single value). This is calculated across all folds and not per fold.
 
@@ -689,10 +681,8 @@ print(rmse_cv_simple)
 print("RMSE from 10-Fold cross-validation (All predictors) with SE")
 print(rmse_cv_full)
 ```
+
 This automatic approach however is preferred if you want a quick overview because we can compare the mean and SE collectively to assess each model. We can summise that the model with all variables included performs better than the simple model with only Dose as a predictor based on the decreased RMSE and SE.
-
-
-
 
 We will now change the random seed & re-run cross-validation using the automatic approach first followed by the manual approach for completeness. But the manual per fold values might be harder to compare.
 
@@ -740,7 +730,6 @@ print(rmse_cv_full_new)
 
 We see a marked change in the mean and SE of the RMSE from changing our seed to 999 instead of 1234.
 
-
 Reruning the manual approach with the new seed:
 
 ```{r}
@@ -784,11 +773,6 @@ We see similar differences here between he individual folds but this is harder t
 From all of our checks it seems that model 2, which includes all factors, and ot just Dose, performs the best.
 
 
-
-
-
-
-
-
+###############################################
 
 
