@@ -40,9 +40,7 @@ summary(mavoglurant_data)
 skim(mavoglurant_data)
 ```
 
-We want to visualise the data in a plot.
-We want to plot DV (the outcome) as a function of time, stratified by DOSE and using ID as a grouping factor.
-
+We want to visualise the data in a plot. We want to plot DV (the outcome) as a function of time, stratified by DOSE and using ID as a grouping factor.
 
 ```{r}
 DV_time_dose_curve <- ggplot(mavoglurant_data, aes(x = TIME, y = DV, group = ID, colour = DOSE)) + geom_line(alpha = 0.7) + labs(title = "DV vs Time by Dose", x = "Time", y = "DV", colour = "Dose") 
@@ -50,14 +48,12 @@ print(DV_time_dose_curve)
 
 ```
 
-There is repetiton in the data. We only want to keep observations with OCC=1.
-We will use the filter function.
+There is repetiton in the data. We only want to keep observations with OCC=1. We will use the filter function.
 
 ```{r}
 mavoglurant_data_1 <- filter(mavoglurant_data, OCC == 1) #make a dataset with only OCC 1 rows
 
 ```
-
 
 We want a data frames where we have the total dose for each individual and where we exclude data where Time is zero.
 
@@ -79,42 +75,42 @@ summary(merged_mavoglurant)
 
 We only kept the Time = 0 data points and so our data for time looks strange, but this is expected.
 
-
 We want to delete unwanted columns, done with the select function, and also need to convert RACE and SEX to factors.
+
 ```{r}
 #using the select function to delete unwanted columns
-merged_mavoglurant_1 <- merged_mavoglurant |> select(-OCC , -EVID, -CMT, -EVI2, -MDV, -LNDV, -ID, -AMT, -RATE) |> mutate(RACE = as.factor(RACE), SEX = as.factor(SEX))
+merged_mavoglurant_1 <- merged_mavoglurant |> select(-OCC , -EVID, -CMT, -EVI2, -MDV, -LNDV, -ID, -AMT, -RATE, -DV, -TIME) |> mutate(RACE = as.factor(RACE), SEX = as.factor(SEX))
 
 ```
 
-
 checking our data and comparing two different summaries (summary vs skim) and functions for tables (kable vs pander).
+
 ```{r}
-pander::pander(summary(merged_mavoglurant_1))
+table1p <- pander::pander(summary(merged_mavoglurant_1))
 
-knitr::kable(skim(merged_mavoglurant_1))
+table1k <- knitr::kable(skim(merged_mavoglurant_1))
 
+print(table1p)
+print(table1k)
 ```
 
 These tables give a nice overview of the data and the small histograms for the numeric data are nice to get a very rough feel of the data.
 
-
-We will generate a scatterplot to evaluate the total drug (Y) vs time.
+We will generate a scatterplot to evaluate the total drug (Y) vs AGE.
 
 ```{r}
-ggplot(merged_mavoglurant_1, aes(x = TIME, y = Y)) +
+ggplot(merged_mavoglurant_1, aes(x = AGE, y = Y)) +
   geom_point(alpha = 0.6, color = "blue") +  # Add scatter points
   geom_smooth(method = "loess", se = FALSE, color = "red") +  # Add trend line
-  labs(title = "Scatterplot of Y vs Time", x = "Time", y = "Total Drug (Y)") +
+  labs(title = "Scatterplot of Y vs Age", x = "Age", y = "Total Drug (Y)") +
   theme_minimal()
 
 ```
 
 Since we only kept the kept the points where time is equal to zero this scatter plot does not tell us much information about a progressing total drug vs time relationship but only shows the total drug for all participants at time zero.
 
-
-
 We will repeat the scatterplot to evaluate the total drug (Y) vs dose.
+
 ```{r}
 ggplot(merged_mavoglurant_1, aes(x = DOSE, y = Y)) +
   geom_point(alpha = 0.6, color = "green") +  # Add scatter points
@@ -126,17 +122,18 @@ ggplot(merged_mavoglurant_1, aes(x = DOSE, y = Y)) +
 
 We now see the pattern of increasing total drug with increasing dose (as expected).
 
-
-We will generate a boxplot to evaluate the total drug (Y) vs time.
+We will generate a boxplot with jitter points to evaluate the total drug (Y) vs sex.
 
 ```{r}
-ggplot(merged_mavoglurant_1, aes(x = as.factor(TIME), y = Y)) +
+ggplot(merged_mavoglurant_1, aes(x = as.factor(SEX), y = Y)) +
   geom_boxplot(fill = "lightblue", alpha = 0.7) +  # Boxplot
   geom_jitter(alpha = 0.4, color = "black", width = 0.2) +  # Add jitter points
-  labs(title = "Boxplot of Y by Time", x = "Time", y = "Total Drug (Y)") +
+  labs(title = "Boxplot of Y by SEX", x = "SEX", y = "Total Drug (Y)") +
   theme_minimal()
 
 ```
+This would be more helpful if we knew which sex was reflected by which number since there are differences noted.
+
 
 We will repeat a boxplot to evaluate the total drug (Y) vs dose.
 
@@ -148,6 +145,7 @@ ggplot(merged_mavoglurant_1, aes(x = as.factor(DOSE), y = Y)) +
   theme_minimal()
 
 ```
+
 
 Using ChatGPT to generate code for plots of the distributions of variables
 
@@ -182,11 +180,7 @@ wrap_plots(plots, ncol = 2)
 
 ```
 
-We get a good feel for the data for each variable here. However, because the source data is not clear we do not know what sex and race corresponds with the respective numbers. However, we can see very clear distributions favouring particular categories for these variables.
-The age, weight, height, and total drug (Y) data are more dispersed.
-
-
-
+We get a good feel for the data for each variable here. However, because the source data is not clear we do not know what sex and race corresponds with the respective numbers. However, we can see very clear distributions favouring particular categories for these variables. The age, weight, height, and total drug (Y) data are more dispersed.
 
 We want to look at a correlation plot of the data. We will use a correlation matrix:
 
@@ -203,8 +197,6 @@ corrplot(cor_matrix, method = "color", type = "upper",
 ```
 
 This plot provides a nice overview to look at the interactions/correlations between different variables. From this, there does not seem to be much correlation between the drug data and the biological data of participants.
-
-
 
 ##Model Fitting
 
@@ -240,8 +232,8 @@ lm_fit_dose |> extract_fit_engine() |> print() |> summary()
 
 As expected, we see a positive association between the dose and the total drug (Y), with an increase with Y for increasing units of dose.
 
-
 We will now generate a plot to visualise the model fit as well (Dose vs Total drug)
+
 ```{r}
 ggplot(merged_mavoglurant_1, aes(x = DOSE, y = Y)) +
   geom_point(alpha = 0.5, color = "blue") +  # Scatterplot of actual data
@@ -255,10 +247,7 @@ ggplot(merged_mavoglurant_1, aes(x = DOSE, y = Y)) +
 
 This confirms what we have seen in the data and would expect from these variables.
 
-
-
-We will now compute the RMSE and R squared for this linear model looking at Total drug (Y) and Dose.
-The model will produce prediction values and compares these to actual values.
+We will now compute the RMSE and R squared for this linear model looking at Total drug (Y) and Dose. The model will produce prediction values and compares these to actual values.
 
 ```{r}
 
@@ -277,7 +266,6 @@ print(lm_metrics_dose)
 ```
 
 Our model seems to perform moderately from this data.
-
 
 We will now fit a linear model to the total drug (Y = continuous outcome) using all of the predictors. The predictors are standardised in the process to put them all on the same scale.
 
@@ -305,9 +293,7 @@ lm_fit_all_predict |> extract_fit_engine() |> print()|> summary()
 
 ```
 
-From these measures we once again see a strong association between dose and total drug. We now see that weight has a negative asociation with the total drug (as weight increases, Y decreases). 
-There do not seem to be associations with age, height and race.
-
+From these measures we once again see a strong association between dose and total drug. We now see that weight has a negative asociation with the total drug (as weight increases, Y decreases). There do not seem to be associations with age, height and race.
 
 computing R-squared and RMSE for the linear model to the total drug and all predictors.
 
@@ -326,7 +312,6 @@ print(lm_metrics_all_predict)
 
 Our RMSE is lower in this model which indicates slightly improved performance.
 
-
 ```{r}
 ggplot(lm_predictions_all_predict, aes(x = Y, y = .pred)) +
   geom_point(alpha = 0.5, color = "blue") +
@@ -335,9 +320,6 @@ ggplot(lm_predictions_all_predict, aes(x = Y, y = .pred)) +
   theme_minimal()
 
 ```
-
-
-
 
 We will now fit a logistic model for sex (a categorical/binary outcome) with DOSE as the main predictor of interest.
 
@@ -363,10 +345,8 @@ log_fit_sex_dose <- log_workflow_sex_dose |>
 
 ```
 
-
-
-
 computing ROC-AUC for the sex - dose logistic model and printing the results
+
 ```{r}
 
 # Use augment() to get predictions (both probabilities and classes)
@@ -386,10 +366,7 @@ print(log_metrics_sex_dose)
 
 ```
 
-The ROC-AUC i not good and indicates that there is poor discrimination (is is basically random). Thus dose is not a good predicotr of sex (as expected).
-Even though we see a high accurace, this is most likely due to the imbalance of sexes in the dataset.
-
-
+The ROC-AUC i not good and indicates that there is poor discrimination (is is basically random). Thus dose is not a good predicotr of sex (as expected). Even though we see a high accurace, this is most likely due to the imbalance of sexes in the dataset.
 
 ```{r,message=FALSE, warning=FALSE}
 
@@ -410,7 +387,6 @@ ggplot(log_predictions_sex_dose, aes(x = DOSE, y = .pred_1)) +
 ```
 
 This curve might be misleading as it shows a positive relationship between dose and predicted probability of sex, which might be occuring due to imbalances in our data.
-
 
 We will then fit a logistic model to sex using all predictors as we did with the linear model.
 
@@ -436,8 +412,6 @@ log_fit_sex_predictors <- log_workflow_sex_predictors |>
 
 ```
 
-
-
 Computing ROC-AUC for the sex - all predictors logistic model and printing the results.
 
 ```{r}
@@ -458,8 +432,359 @@ print(log_metrics_sex_predictors)
 
 ```
 
-
 Our model performed much better when looking at the other predictors as well. It had almost perfect performance at predicting sex data. Perhaps this is once again due to the skewed sex dataset and a degree of overfitting. More data points would be valauble to make sure that this is not the case and that this is based purely on the biological relationships.
+
+
+
+#################################################################
+####################################################################
+
+###Week 10 Assessment - Model Improvement
+
+##Part 1
+
+
+We want to delete unwanted RACE  column, done with the select function. 
+
+```{r}
+#using the select function to delete unwanted Race column
+model_mavoglurant <- merged_mavoglurant_1 |> select(-RACE)
+skim(model_mavoglurant)
+```
+
+
+Set the seed for further modeling steps:
+
+```{r}
+rngseed = 1234
+set.seed(rngseed)
+
+```
+
+Creating a random split of the data: 75% train and 25% test set.
+
+```{r}
+
+# Split the data into training (75%) and testing (25%) sets
+data_split <- initial_split(model_mavoglurant, prop = 0.75)
+
+# Extract training and testing datasets
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+# Verify split
+dim(train_data)  # Check dimensions of training data
+dim(test_data)   # Check dimensions of testing data
+
+```
+
+
+Model Fitting:
+
+We will generate two linear models for the continuous outcome of interest (Y). The first with Dose as a predictor and the secodn with all predictors.
+Metric to optimise is RMSE.
+
+Setting up the linear regressions and running them:
+```{r}
+# Define a linear regression model specification
+model_lm_spec <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+#Model 1 Simple Linear Model (Only DOSE as Predictor)
+model_lm_simple <- workflow() %>%
+  add_model(model_lm_spec) %>%
+  add_formula(Y ~ DOSE) %>%
+  fit(data = train_data)
+
+#Model 2 Full model (All Predictors)
+model_lm_full <- workflow() %>%
+  add_model(model_lm_spec) %>%
+  add_formula(Y ~ .) %>%  # Includes all predictors
+  fit(data = train_data)
+
+```
+
+We will now use the models to make predictions from the training data that we assigned. We will combine this with our original data.
+
+```{r}
+# Compute Predictions on Training Data and combine this with the original data using bind_col
+train_preds_simple <- predict(model_lm_simple, new_data = train_data) %>%
+  bind_cols(train_data) 
+
+train_preds_full <- predict(model_lm_full, new_data = train_data) %>%
+  bind_cols(train_data)
+
+```
+
+We will now compute the performance of both of the models using RMSE
+```{r}
+#Compute RMSE for Both Models
+rmse_simple_model <- train_preds_simple %>%
+  metrics(truth = Y, estimate = .pred) %>%
+  filter(.metric == "rmse")
+
+rmse_full_model <- train_preds_full %>%
+  metrics(truth = Y, estimate = .pred) %>%
+  filter(.metric == "rmse")
+```
+
+
+We now compute the RMSE for the null model (one that predcits the mean outcome for each observation)
+
+```{r}
+#Compute RMSE for null model Using tidymodels null_model function
+null_spec <- null_model() %>%
+  set_engine("parsnip") %>% #using tidymodels parsnip engine
+  set_mode("regression")
+
+null_fit <- null_spec %>% fit(Y ~ 1, data = train_data) #This tells our model to use the intercept (no predictor values)
+
+train_preds_null <- predict(null_fit, new_data = train_data) %>%
+  bind_cols(train_data)
+
+rmse_null <- train_preds_null %>%
+  metrics(truth = Y, estimate = .pred) %>%
+  filter(.metric == "rmse")
+
+```
+
+
+We will display all of the calculated RMSE values to compare them
+```{r}
+#Combine and print RMSE values 
+rmse_results <- bind_rows(
+  rmse_null %>% mutate(model = "Null Model"),
+  rmse_simple_model %>% mutate(model = "Model 1 (DOSE Only)"),
+  rmse_full_model %>% mutate(model = "Model 2 (All Predictors)")
+)
+
+print(rmse_results)
+```
+
+
+Through these steps we see that we get the outline values for the RMSE from the three models of 948, 702 and 627 for the null model and models 1 and 2 respectively. Thus both model one and model two seem to perform better than the the null model based on the RMSE values, with model 2 performing best.
+
+
+
+##Model performance assessment 2
+
+We are going to do CV tests to evaluate the model performance and the recalculate the RMSE and evaluate the standard error from this. We will end with changing our set seed to see how this affects our results.
+
+
+We will set the same seed as before to start:
+```{r}
+rngseed = 1234
+set.seed(rngseed)
+
+```
+
+Creating our CV splits and showing the variable like in the tutorial.
+```{r}
+#Create 10-Fold Cross-Validation Splits
+cv_splits <- vfold_cv(train_data, v = 10)  
+
+cv_splits
+```
+
+We will now recreate the linear models using the CV splits. We follow a similar approach as we have used for the previous models.
+```{r}
+#Define a Linear Regression Model Specification
+cv_model_lm_spec <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")  # Linear regression model
+
+#starting with the simple model first
+
+#model 1 simple model using DOSE only
+workflow_simple <- workflow() %>%
+  add_model(cv_model_lm_spec) %>%
+  add_formula(Y ~ DOSE)
+
+#actually usign the cv splits we created
+cv_results_simple <- workflow_simple %>%
+  fit_resamples(
+    resamples = cv_splits,
+    metrics = metric_set(rmse),
+    control = control_resamples(save_pred = TRUE))
+
+#model 2 Full Model using ALL Predictors
+workflow_full <- workflow() %>%
+  add_model(cv_model_lm_spec) %>%
+  add_formula(Y ~ .)
+
+#actually using our created cv splits
+cv_results_full <- workflow_full %>%
+  fit_resamples(
+    resamples = cv_splits,
+    metrics = metric_set(rmse),
+    control = control_resamples(save_pred = TRUE))
+
+```
+
+
+We will first collect and compute the RMSE and SE per fold for each model for comparison.
+
+```{r}
+# Extract RMSE per fold for Model 1 (DOSE only)
+rmse_per_fold_simple <- cv_results_simple %>%
+  collect_predictions() %>%  # Extract per-fold predictions
+  group_by(id) %>%           # Group by fold ID
+  summarise(mean_rmse = rmse_vec(truth = Y, estimate = .pred))  # Compute RMSE per fold
+
+# Extract RMSE per fold for Model 2 (All predictors)
+rmse_per_fold_full <- cv_results_full %>%
+  collect_predictions() %>%
+  group_by(id) %>%
+  summarise(mean_rmse = rmse_vec(truth = Y, estimate = .pred))
+
+# Print RMSE per fold
+print("RMSE per fold for Model 1 (DOSE only):")
+print(rmse_per_fold_simple)
+
+print("RMSE per fold for Model 2 (All predictors):")
+print(rmse_per_fold_full)
+
+# Compute Mean RMSE and Standard Error (SE) across folds
+summary_simple <- rmse_per_fold_simple %>%
+  summarise(se_rmse = sd(mean_rmse) / sqrt(n()))  # SE = SD / sqrt(N)
+
+summary_full <- rmse_per_fold_full %>%
+  summarise(se_rmse = sd(mean_rmse) / sqrt(n()))
+
+# Print Summary Statistics
+print("Summary RMSE for Model 1 (DOSE only) - manual per-pold calculation")
+print(summary_simple)
+
+print("Summary RMSE for Model 2 (All predictors) - manual per-fold alculation")
+print(summary_full)
+
+
+```
+
+We see substantial variation between the mean rmse for each fold. This highlights the value of checking each fold and not just the summarised mean rmse from all folds if you want to check variability. 
+
+
+We will also compute (collect) RMSE & standard error (SE) for each model automatically using tidymodels and so we are collecting the mean and SE of the overall RMSE (single value). This is calculated across all folds and not per fold.
+
+```{r}
+#Extract RMSE and SE values for Model 1 (DOSE only)
+rmse_cv_simple <- cv_results_simple %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  select(mean, std_err)  # `std_err` from tidymodels
+
+# Extract RMSE values for model 2 - All predictors
+rmse_cv_full <- cv_results_full %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  select(mean, std_err)
+
+
+
+#Print RMSE and standard errors 
+print("RMSE from 10-Fold cross-validation (DOSE only) with SE")
+print(rmse_cv_simple)
+
+print("RMSE from 10-Fold cross-validation (All predictors) with SE")
+print(rmse_cv_full)
+```
+This automatic approach however is preferred if you want a quick overview because we can compare the mean and SE collectively to assess each model. We can summise that the model with all variables included performs better than the simple model with only Dose as a predictor based on the decreased RMSE and SE.
+
+
+
+
+We will now change the random seed & re-run cross-validation using the automatic approach first followed by the manual approach for completeness. But the manual per fold values might be harder to compare.
+
+```{r}
+set.seed(999)  #change the seed to check how RMSE variability changes
+
+#Create New CV Splits
+cv_splits_new <- vfold_cv(train_data, v = 10)
+
+# Re-run CV with new random seed
+
+cv_results_simple_new <- workflow_simple %>%
+  fit_resamples(
+    resamples = cv_splits_new,
+    metrics = metric_set(rmse),
+    control = control_resamples(save_pred = TRUE)
+  )
+
+cv_results_full_new <- workflow_full %>%
+  fit_resamples(
+    resamples = cv_splits_new,
+    metrics = metric_set(rmse),
+    control = control_resamples(save_pred = TRUE)
+  )
+
+# Extract new RMSE values for Model 1 (DOSE only)
+rmse_cv_simple_new <- cv_results_simple_new %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  select(mean, std_err)
+
+# Extract new RMSE values for Model 2 (All predictors)
+rmse_cv_full_new <- cv_results_full_new %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  select(mean, std_err)
+
+# Print RMSE values from new seed
+print("RMSE from New Random Seed (DOSE only)")
+print(rmse_cv_simple_new)
+
+print("RMSE from New Random Seed (All predictors)")
+print(rmse_cv_full_new)
+```
+
+We see a marked change in the mean and SE of the RMSE from changing our seed to 999 instead of 1234.
+
+
+Reruning the manual approach with the new seed:
+
+```{r}
+# Extract RMSE per fold for Model 1 (DOSE only) with new seed
+rmse_per_fold_simple_new <- cv_results_simple_new %>%
+  collect_predictions() %>%
+  group_by(id) %>%
+  summarise(mean_rmse = rmse_vec(truth = Y, estimate = .pred))
+
+# Extract RMSE per fold for Model 2 (All predictors) with new seed
+rmse_per_fold_full_new <- cv_results_full_new %>%
+  collect_predictions() %>%
+  group_by(id) %>%
+  summarise(mean_rmse = rmse_vec(truth = Y, estimate = .pred))
+
+# Print RMSE per fold from new seed
+print("RMSE per fold for Model 1 (DOSE only) - New Seed:")
+print(rmse_per_fold_simple_new)
+
+print("RMSE per fold for Model 2 (All predictors) - New Seed:")
+print(rmse_per_fold_full_new)
+
+# Compute Standard Error (SE) across folds (with new seed)
+summary_simple_new <- rmse_per_fold_simple_new %>%
+  summarise(se_rmse = sd(mean_rmse) / sqrt(n()))
+
+summary_full_new <- rmse_per_fold_full_new %>%
+  summarise(se_rmse = sd(mean_rmse) / sqrt(n()))
+
+# Print Summary Statistics from new seed
+print("Standard Error (SE) for Model 1 (DOSE only) - New Seed:")
+print(summary_simple_new)
+
+print("Standard Error (SE) for Model 2 (All predictors) - New Seed:")
+print(summary_full_new)
+
+```
+
+We see similar differences here between he individual folds but this is harder to observe directly with the differences between folds. However, the SE clearly changed from both being in the 60s to neither of the values being in that range.
+
+From all of our checks it seems that model 2, which includes all factors, and ot just Dose, performs the best.
+
+
+
 
 
 
