@@ -774,20 +774,9 @@ From all of our checks it seems that model 2, which includes all factors, and ot
 
 ############################################### 
 
+# This section added by Asmith Joseph
+*Preparing the Data for Plotting the "Observed vs. Predicted Values"* Here, I’m comparing the observed values to the predicted values from three different models: the null model, the simple model (DOSE only), and the full model (all predictors). By combining these predictions into a single dataframe and visualizing them with ggplot2, I can see how well each model performs. The 45-degree reference line helps me assess accuracy—ideally, good predictions should align closely with this line.
 
-
-
-
-
-# This section added by Asmith Joseph 
-
-
-
-
-
-
-*Preparing the  Data for Plotting the "Observed vs. Predicted Values"*
-Here, I’m comparing the observed values to the predicted values from three different models: the null model, the simple model (DOSE only), and the full model (all predictors). By combining these predictions into a single dataframe and visualizing them with ggplot2, I can see how well each model performs. The 45-degree reference line helps me assess accuracy—ideally, good predictions should align closely with this line.
 ```{r}
 # Combine predictions for all models
 train_preds_simple <- train_preds_simple |> mutate(model = "Model 1 (DOSE Only)")
@@ -811,14 +800,11 @@ ggplot(predictions_df, aes(x = Y, y = .pred, color = model)) +
   theme_minimal()
 
 ```
-*Interpretation*
-Looking at the plot, the null model (blue points) forms a straight horizontal line, which makes sense since it predicts the same mean value for all observations. The DOSE-only model (red points) creates three distinct horizontal bands, corresponding to the three dose levels, showing that it only differentiates based on dose. The full model (green points) has more variability and scatters around the diagonal line, suggesting it captures more of the underlying relationships in the data. Ideally, a well-performing model would have predictions closely aligned with the 45-degree line, indicating strong agreement between observed and predicted values.
 
+*Interpretation* Looking at the plot, the null model (blue points) forms a straight horizontal line, which makes sense since it predicts the same mean value for all observations. The DOSE-only model (red points) creates three distinct horizontal bands, corresponding to the three dose levels, showing that it only differentiates based on dose. The full model (green points) has more variability and scatters around the diagonal line, suggesting it captures more of the underlying relationships in the data. Ideally, a well-performing model would have predictions closely aligned with the 45-degree line, indicating strong agreement between observed and predicted values.
 
+*Plotting Residuals for Model 2* I’m checking how well Model 2 captures the patterns in the data by plotting the residuals (the difference between predicted and observed values) against the predicted values. Ideally, the residuals should be randomly scattered around the zero line, which would suggest that the model isn’t systematically over- or under-predicting. If I see any clear patterns, it might indicate that the model is missing key variables or that a more complex approach is needed.
 
-
-*Plotting Residuals for Model 2*
-I’m checking how well Model 2 captures the patterns in the data by plotting the residuals (the difference between predicted and observed values) against the predicted values. Ideally, the residuals should be randomly scattered around the zero line, which would suggest that the model isn’t systematically over- or under-predicting. If I see any clear patterns, it might indicate that the model is missing key variables or that a more complex approach is needed.
 ```{r}
 # Compute residuals for Model 2
 train_preds_full <- train_preds_full |> mutate(residuals = .pred - Y)
@@ -834,16 +820,11 @@ ggplot(train_preds_full, aes(x = .pred, y = residuals)) +
   theme_minimal()
 
 ```
-*Interpretation*
-The residuals are randomly scattered around zero, which indicates that the model is capturing most of the pattern in the data without significant bias. There is no clear trend or systematic structure in the residuals, meaning the model’s errors are fairly evenly distributed. While some variability exists, the residuals do not show a strong pattern, suggesting that the model is performing reasonably well in predicting the outcome.
 
+*Interpretation* The residuals are randomly scattered around zero, which indicates that the model is capturing most of the pattern in the data without significant bias. There is no clear trend or systematic structure in the residuals, meaning the model’s errors are fairly evenly distributed. While some variability exists, the residuals do not show a strong pattern, suggesting that the model is performing reasonably well in predicting the outcome.
 
+*Bootstrapping for Model Uncertainty* I am generating 100 bootstrapped samples, fit Model 2 to each, and compute predictions. Using bootstrapping to assess the uncertainty in Model 2's predictions. I generate 100 bootstrapped samples from the training data, fit Model 2 to each sample, and make predictions for the original training data. This allows me to estimate variability in predictions and later compute confidence intervals, giving a better sense of how stable and reliable the model is.
 
-
-
-*Bootstrapping for Model Uncertainty*
-I am generating 100 bootstrapped samples, fit Model 2 to each, and compute predictions.
-Using bootstrapping to assess the uncertainty in Model 2's predictions. I generate 100 bootstrapped samples from the training data, fit Model 2 to each sample, and make predictions for the original training data. This allows me to estimate variability in predictions and later compute confidence intervals, giving a better sense of how stable and reliable the model is.
 ```{r}
 library(rsample)
 
@@ -870,9 +851,8 @@ for (i in 1:100) {
 boot_preds_matrix <- do.call(cbind, boot_preds_list)
 ```
 
+*Compute median and 89% confidence intervals* I’m calculating the 89% confidence intervals for the bootstrapped predictions. Using the apply() function, I extract the 5.5th percentile (lower bound), median (50th percentile), and 94.5th percentile (upper bound) from the bootstrapped predictions for each observation. I then store these values in a dataframe alongside the observed values, which will help me visualize the uncertainty in my model's predictions.
 
-*Compute median and 89% confidence intervals*
-I’m calculating the 89% confidence intervals for the bootstrapped predictions. Using the apply() function, I extract the 5.5th percentile (lower bound), median (50th percentile), and 94.5th percentile (upper bound) from the bootstrapped predictions for each observation. I then store these values in a dataframe alongside the observed values, which will help me visualize the uncertainty in my model's predictions.
 ```{r}
 # Compute median and 89% confidence intervals
 pred_intervals <- apply(boot_preds_matrix, 1, quantile, probs = c(0.055, 0.5, 0.945))
@@ -887,9 +867,8 @@ pred_intervals_df <- data.frame(
 )
 ```
 
+*Plotting Observed vs. Bootstrapped Prediction Intervals* I’m visualizing how well my bootstrapped predictions align with the observed values while incorporating uncertainty estimates. The black points represent the median predictions, while the blue shaded region shows the 89% confidence interval for each observation. The dashed diagonal line serves as a reference; ideally, good predictions should fall close to it, with narrow confidence intervals indicating more precise predictions.
 
-*Plotting Observed vs. Bootstrapped Prediction Intervals*
-I’m visualizing how well my bootstrapped predictions align with the observed values while incorporating uncertainty estimates. The black points represent the median predictions, while the blue shaded region shows the 89% confidence interval for each observation. The dashed diagonal line serves as a reference; ideally, good predictions should fall close to it, with narrow confidence intervals indicating more precise predictions.
 ```{r}
 ggplot(pred_intervals_df, aes(x = observed, y = median)) +
   geom_point(color = "black", alpha = 0.5) +
@@ -902,12 +881,5 @@ ggplot(pred_intervals_df, aes(x = observed, y = median)) +
   theme_minimal()
 
 ```
-*Interpretation*
-My model’s predictions don’t perfectly align with the diagonal line, meaning there are some inaccuracies. The black points (median predictions) deviate from the ideal match, and the blue shaded region (89% confidence interval) varies in width, indicating uncertainty in different predictions. Wider intervals suggest higher uncertainty, and the deviations from the diagonal line show that the model isn’t capturing the full pattern perfectly.
 
-
-
-
-
-
-
+*Interpretation* My model’s predictions don’t perfectly align with the diagonal line, meaning there are some inaccuracies. The black points (median predictions) deviate from the ideal match, and the blue shaded region (89% confidence interval) varies in width, indicating uncertainty in different predictions. Wider intervals suggest higher uncertainty, and the deviations from the diagonal line show that the model isn’t capturing the full pattern perfectly.
