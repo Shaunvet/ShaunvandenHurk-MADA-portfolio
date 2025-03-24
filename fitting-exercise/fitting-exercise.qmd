@@ -448,6 +448,7 @@ We want to delete unwanted RACE column, done with the select function.
 #using the select function to delete unwanted Race column
 model_mavoglurant <- merged_mavoglurant_1 |> select(-RACE)
 skim(model_mavoglurant)
+saveRDS(model_mavoglurant, file = "cleaned_mavoglurant.rds")
 ```
 
 Set the seed for further modeling steps:
