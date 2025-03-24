@@ -1,5 +1,6 @@
 ---
 title: "fitting-exercise"
+author: Shaun van den Hurk
 format: html
 editor: visual
 ---
@@ -365,7 +366,7 @@ print(log_metrics_sex_dose)
 
 ```
 
-The ROC-AUC i not good and indicates that there is poor discrimination (is is basically random). Thus dose is not a good predicotr of sex (as expected). Even though we see a high accurace, this is most likely due to the imbalance of sexes in the dataset.
+The ROC-AUC i not good and indicates that there is poor discrimination (it is basically random). Thus dose is not a good predicotr of sex (as expected). Even though we see a high accuracy, this is most likely due to the imbalance of sexes in the dataset.
 
 ```{r,message=FALSE, warning=FALSE}
 
@@ -773,3 +774,175 @@ We see similar differences here between he individual folds but this is harder t
 From all of our checks it seems that model 2, which includes all factors, and ot just Dose, performs the best.
 
 ############################################### 
+
+# This section added by Asmith Joseph
+
+*Prepare Data for Plot Observed vs. Predicted Values* I’m comparing the observed values to the predicted values from three different models: the null model, the simple model (DOSE only), and the full model (all predictors). By combining these predictions into a single dataframe and visualizing them with ggplot2, I can see how well each model performs. The 45-degree reference line helps me assess accuracy—ideally, good predictions should align closely with this line.
+
+```{r}
+# Combine predictions for all models
+train_preds_simple <- train_preds_simple |> mutate(model = "Model 1 (DOSE Only)")
+train_preds_full <- train_preds_full |> mutate(model = "Model 2 (All Predictors)")
+train_preds_null <- train_preds_null |> mutate(model = "Null Model")
+
+# Combine into a single dataframe
+predictions_df <- bind_rows(train_preds_simple, train_preds_full, train_preds_null)
+
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Plot observed vs. predicted values
+ggplot(predictions_df, aes(x = Y, y = .pred, color = model)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +  # 45-degree reference line
+  xlim(0, 5000) + ylim(0, 5000) +  # Set axis limits
+  labs(title = "Observed vs. Predicted Values",
+       x = "Observed Y",
+       y = "Predicted Y") +
+  theme_minimal()
+
+```
+
+*Interpretation* The null model (blue points) forms a horizontal line, as it predicts the mean for all observations. The DOSE-only model (red points) creates three horizontal bands, reflecting the three dose levels. The full model (green points) scatters around the diagonal, capturing more data patterns. A strong model would align closely with the 45-degree line, showing better prediction accuracy.
+
+*Plot Residuals for Model 2* I’m checking how well Model 2 captures the patterns in the data by plotting the residuals (the difference between predicted and observed values) against the predicted values. Ideally, the residuals should be randomly scattered around the zero line, which would suggest that the model isn’t systematically over- or under-predicting. If I see any clear patterns, it might indicate that the model is missing key variables or that a more complex approach is needed.
+
+```{r}
+# Compute residuals for Model 2
+train_preds_full <- train_preds_full |> mutate(residuals = .pred - Y)
+
+# Plot residuals vs. predicted values
+ggplot(train_preds_full, aes(x = .pred, y = residuals)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, linetype = "dashed") +  # Reference line at 0
+  ylim(-5000, 5000) +  # Symmetric y-axis
+  labs(title = "Model 2: Residuals vs. Predicted Values",
+       x = "Predicted Y",
+       y = "Residuals") +
+  theme_minimal()
+
+```
+
+*Interpretation* The residuals are randomly scattered around zero, showing no clear bias or patterns—just a few outliers at higher values. Overall, the model fits the data well, with some room for minor improvements.
+
+*Bootstrapping for Model Uncertainty* generate 100 bootstrapped samples, fit Model 2 to each, and compute predictions. I’m using bootstrapping to assess the uncertainty in Model 2's predictions. I generate 100 bootstrapped samples from the training data, fit Model 2 to each sample, and make predictions for the original training data. This allows me to estimate variability in predictions and later compute confidence intervals, giving a better sense of how stable and reliable the model is.
+
+```{r}
+library(rsample)
+
+# Reset seed
+set.seed(1234)
+
+# Create 100 bootstraps
+boot_samples <- bootstraps(train_data, times = 100)
+
+# List to store bootstrapped predictions
+boot_preds_list <- list()
+
+# Fit Model 2 to each bootstrap sample
+for (i in 1:100) {
+  boot_data <- analysis(boot_samples$splits[[i]])  # Extract bootstrap sample
+  boot_model <- lm(Y ~ ., data = boot_data)  # Fit Model 2
+  
+  # Make predictions for original training data
+  boot_preds <- predict(boot_model, newdata = train_data)
+  boot_preds_list[[i]] <- boot_preds
+}
+
+# Convert list to matrix
+boot_preds_matrix <- do.call(cbind, boot_preds_list)
+
+```
+
+*Compute Confidence Intervals* I’m calculating the 89% confidence intervals for the bootstrapped predictions. Using the apply() function, I extract the 5.5th percentile (lower bound), median (50th percentile), and 94.5th percentile (upper bound) from the bootstrapped predictions for each observation. I then store these values in a dataframe alongside the observed values, which will help me visualize the uncertainty in my model's predictions.
+
+```{r}
+# Compute median and 89% confidence intervals
+pred_intervals <- apply(boot_preds_matrix, 1, quantile, probs = c(0.055, 0.5, 0.945))
+
+# Convert to dataframe
+pred_intervals_df <- data.frame(
+  lower = pred_intervals[1, ],
+  median = pred_intervals[2, ],
+  upper = pred_intervals[3, ],
+  observed = train_data$Y  # Observed values
+)
+
+```
+
+*Plot Observed vs. Bootstrapped Prediction Intervals* I’m visualizing how well my bootstrapped predictions align with the observed values while incorporating uncertainty estimates. The black points represent the median predictions, while the blue shaded region shows the 89% confidence interval for each observation. The dashed diagonal line serves as a reference—ideally, good predictions should fall close to it, with narrow confidence intervals indicating more precise predictions.
+
+```{r}
+ggplot(pred_intervals_df, aes(x = observed, y = median)) +
+  geom_point(color = "black", alpha = 0.5) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "blue") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +  # 45-degree reference line
+  xlim(0, 5000) + ylim(0, 5000) +  # Ensure axes match
+  labs(title = "Bootstrap Predictions with Confidence Intervals",
+       x = "Observed Y",
+       y = "Predicted Y (Bootstrap)") +
+  theme_minimal()
+
+```
+
+*Interpretation* The residuals are randomly scattered around zero, which indicates that the model is capturing most of the pattern in the data without significant bias. There is no clear trend or systematic structure in the residuals, meaning the model’s errors are fairly evenly distributed. While some variability exists, the residuals do not show a strong pattern, suggesting that the model is performing reasonably well in predicting the outcome.
+
+############################################################################################################################################################################### 
+
+##Part 3 ###By Shaun van den Hurk
+
+```{r}
+
+#Make Predictions for Test Data Using Fitted Full Model (Model 2)
+test_predictions <- predict(model_lm_full, new_data = test_data) %>%
+  bind_cols(test_data) %>%
+  rename(Predicted_Y = .pred) %>%
+  mutate(Data_Type = "Test")  # Mark as test set
+
+#Make Predictions for Training Data (Again for Comparison)
+train_predictions <- predict(model_lm_full, new_data = train_data) %>%
+  bind_cols(train_data) %>%
+  rename(Predicted_Y = .pred) %>%
+  mutate(Data_Type = "Train")  # Mark as training set
+
+#Combine Training and Test Predictions
+final_pred_data <- bind_rows(train_predictions, test_predictions)
+
+#Create ggplot Visualization: Observed vs. Predicted (Train vs. Test)
+ggplot(final_pred_data, aes(x = Y, y = Predicted_Y, color = Data_Type, shape = Data_Type)) +
+  geom_point(size = 2, alpha = 0.8) +  # Plot both Train and Test predictions
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +  # Ideal prediction line
+  scale_color_manual(values = c("Train" = "blue", "Test" = "red")) +  # Custom colors
+  scale_shape_manual(values = c("Train" = 16, "Test" = 17)) +  # Shapes: circle for train, triangle for test
+  scale_x_continuous(limits = c(0, 5000)) +
+  scale_y_continuous(limits = c(0, 5000)) +
+  labs(
+    title = "Final Model Evaluation: Predicted vs. Observed (Train & Test Data)",
+    x = "Observed Values (Y)",
+    y = "Predicted Values",
+    color = "Data Source",
+    shape = "Data Source"
+  ) +
+  theme_minimal()
+
+
+
+```
+
+Overall Assessment:
+
+- Both of our models performed better than the null model (based on RMSE), although model 2 (with all predictors) performed the best.
+- Based on the calculated figures such as RMSE and AUC model 1 does perform better than the null model, however when we plotted this model we can see distinct limitations that exist as a result of model 1 only using dose as a precictor since dose has three distinct groups which cause the predictions in the model to be similarly limited. Thus this model is probably not of much use for real life applications. 
+- Model 2 with all predictors did improve the results and the results from our various assessments and tests seem to make sense. The model seemed to have similar/comparable results to the real data that was tested. There might be some room for improvement since there seems to be some grouping of training data to the lower left of the plot but this model seems usable.
+
+
+
+
+
+
+
+
+
+
+
+
