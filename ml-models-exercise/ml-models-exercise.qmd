@@ -1,26 +1,476 @@
 ---
 title: "ml-models-exercise"
+author: Shaun van den Hurk
 format: html
 editor: visual
 ---
 
-## Quarto
+# ML Models Exercise
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Loading packages
 
-## Running Code
+```{r setup, message=FALSE, warning=FALSE}
+#install packages that are missing if necessary
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+library(tidyverse)
+library(ggplot2)
+library(tidymodels)
+library(here)
+library(skimr)
+library(dplyr)
+library(knitr)
+library(tibble)
+library(glmnet)
+library(ranger)
+library(purrr)
 ```
 
-You can add options to executable code like this
-
+Set the seed.
 ```{r}
-#| echo: false
-2 * 2
+rngseed = 1234
+set.seed(rngseed)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+
+Loading the dataset and double checking.
+```{r}
+mavoglurant_cleaned_data <- here::here("ml-models-exercise", "processed_mavoglurant.rds")
+mavoglurant_cleaned <- readRDS(mavoglurant_cleaned_data)
+summary(mavoglurant_cleaned)
+head(mavoglurant_cleaned)
+```
+
+
+Making a third category for race out of the ctegoris 7 and 88.
+```{r}
+#Group levels "7" and "88" into new level "3"
+mavoglurant_cleaned_1 <- mavoglurant_cleaned %>%  mutate( RACE = fct_collapse(RACE, "3" = c("7", "88")))  
+
+```
+
+
+Making a pairwise correlation plot using the continuous variables (including age which might not always be considered continuous)
+```{r}
+#Select continuous variables (including age)
+numeric_data <- mavoglurant_cleaned_1 %>% select(WT, HT, AGE, Y)  
+
+#Compute Pearson correlation matrix
+cor_matrix <- round(cor(numeric_data, use = "pairwise.complete.obs"), 2)
+
+#Convert matrix to long format
+cor_long <- as.data.frame(cor_matrix) %>% rownames_to_column("Var1") %>% pivot_longer(-Var1, names_to = "Var2", values_to = "Correlation")
+
+#Visualize the correlation matrix as a heatmap
+ggplot(cor_long, aes(x = Var1, y = Var2, fill = Correlation)) +
+  geom_tile(color = "white") +  # Create colored tiles for each correlation pair
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1, 1),
+                       name = "Pearson\nCorrelation") +  # Color scale
+  geom_text(aes(label = Correlation), size = 4) +  # Add numeric correlation values
+  labs(title = "Correlation Plot: WT, HT, AGE, and Y",x = NULL, y = NULL) +
+  theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+#####Feature engineering using BMI
+
+The formula for BMI is BMI= Weight/(height in meters)^2.
+We will assume that the weight in the dataset is given in kilograms and the height is in meters based on the values in the dataset (weight ranges between 56 and 116 (kg) and height between 1.52 and 1.93 (m) which are consistent will normal ranges in average adults).
+
+We will calculate a variable for BMI:
+```{r}
+#Add BMI using WT (assuming that they are in kg) and HT (assuming that they are in meters)
+mavoglurant_cleaned_1 <- mavoglurant_cleaned_1 %>% mutate(BMI = WT / ((HT)^2))  
+#Check the range of BMI to confirm it's plausible
+summary(mavoglurant_cleaned_1$BMI)
+
+```
+
+This range for BMI between 18.69 and 32.21 is realistic and so we suspect that our assumptions are correct.
+
+#####Model building:
+
+We will create three models, a linear model, a LASSO model and a RF (random forest) model. The first stage will be without CV values before moving to include and evaluate with the CV values.
+After developing all three models we will evaluate them on the dataset and compare the RMSE values.
+
+#######Starting with the linear model:
+
+Creating a modeling recipe and variable starting out with our linear model with all predictions
+```{r}
+#Create a modeling dataset 
+model_data <- mavoglurant_cleaned_1
+
+#Define the recipe: Y ~ all other predictors
+lm_recipe <- recipe(Y ~ ., data = model_data)
+
+#Define the linear model using parsnip
+lm_model <- linear_reg() %>% set_engine("lm") %>% set_mode("regression")
+
+#Combine recipe and model into a workflow
+lm_workflow <- workflow() %>% add_recipe(lm_recipe) %>% add_model(lm_model)
+```
+
+
+Fitting the linear model and seeing a summary:
+```{r}
+#Fit the model to the full dataset
+lm_fit <- lm_workflow %>% fit(data = model_data)
+
+#Extract fitted model object
+lm_fit_model <- lm_fit %>% extract_fit_parsnip()
+summary(lm_fit_model$fit)
+```
+
+We see an R squared of 0.64 which indicates that this is a statistically strong model. We previously assessed the model and found its performance to be good although we did identify some limitations.
+
+
+We will move on to creating a LASSO regression model without any CV values. 
+
+#######LASSO model:
+
+We need to specify a new recipe for the LASSO model because LASSO does not work with variabes that are not numeric, and so we need to generate dummy categorical predictors to replace our categorical variables (Sex and Race) for our model. We include code to remove any constant predictors that might exist (we don't seem to have any but this is good practice when assigning dummy predictors).
+```{r}
+#Provide dummy encoding for categorical variables in recipe
+lasso_recipe <- recipe(Y ~ ., data = model_data) %>%
+  step_dummy(all_nominal_predictors()) %>%   
+  step_zv(all_predictors())                  #Remove zero-variance (constant) predictors if present
+
+```
+
+
+
+We specify the LASSO model and create the workflow with the parameters outlined
+```{r}
+#Define the LASSO model with penalty = 0.1 and mixture = 1 (LASSO)
+lasso_model <- linear_reg(penalty = 0.1, mixture = 1) %>% set_engine("glmnet") %>% set_mode("regression")
+
+
+lasso_workflow <- workflow() %>% add_recipe(lasso_recipe) %>% add_model(lasso_model)
+```
+
+
+Move on to fitting and viewing the coefficients of the model
+```{r}
+#fit the model
+lasso_fit <- lasso_workflow %>% fit(data = model_data)
+
+#View coefficients at penalty = 0.1
+lasso_fit_model <- lasso_fit %>% pull_workflow_fit()
+
+#Extract coefficients (at lambda = 0.1)
+coef(lasso_fit_model$fit, s = 0.1)
+
+```
+
+
+#######Random Forest (RF) model:
+
+We will now work on the random forest model, starting with setting the recipe with dummy values encoded.
+
+```{r}
+# Recipe with dummy encoding and zero-variance removal
+rf_recipe <- recipe(Y ~ ., data = model_data) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_zv(all_predictors())
+
+```
+
+We need to set the seed again, using the same rngseed value.
+```{r}
+rngseed = 1234
+set.seed(rngseed)
+```
+
+
+Setting the RF model and workflow.
+```{r}
+# Specify the random forest model using ranger
+rf_model <- rand_forest() %>% set_engine("ranger", seed = rngseed) %>% set_mode("regression")
+
+rf_workflow <- workflow() %>% add_recipe(rf_recipe) %>% add_model(rf_model)
+
+```
+
+
+Continuing to fit the model and viewing a RF summary of this:
+```{r}
+rf_fit <- rf_workflow %>% fit(data = model_data)
+
+
+# Extract the fitted model
+rf_fit_model <- rf_fit %>% extract_fit_parsnip()
+
+# View model summary
+rf_fit_model$fit  # This is the underlying ranger object
+
+# View variable importance (default: impurity)
+rf_fit_model$fit$variable.importance
+```
+
+
+First we will make predictions, calculate the RMSE and produce an observed vs predicted plot for each model, thereafter we will compare the RMSE values between all of the models.
+
+Model 1 (LM) prediction and RMSE:
+```{r}
+lm_preds <- predict(lm_fit, model_data) %>% bind_cols(model_data %>% select(Y))
+
+lm_rmse <- rmse(lm_preds, truth = Y, estimate = .pred)
+lm_rmse
+
+```
+
+
+Observed vs Predicted plot for the LM model:
+```{r}
+ggplot(lm_preds, aes(x = .pred, y = Y)) +
+  geom_point(alpha = 0.6) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Linear Model: Observed vs. Predicted",
+       x = "Predicted Y", y = "Observed Y")
+
+```
+We have previously plotted and evaluated the LM model but we see a good association of the observed and predicted values in this model.
+
+
+Model 2 (LASSO) prediction and RMSE:
+```{r}
+lasso_preds <- predict(lasso_fit, model_data) %>% bind_cols(model_data %>% select(Y))
+
+lasso_rmse <- rmse(lasso_preds, truth = Y, estimate = .pred)
+lasso_rmse
+```
+
+We will plot the LASSO model as observed vs predicted values:
+```{r}
+ggplot(lasso_preds, aes(x = .pred, y = Y)) +
+  geom_point(alpha = 0.6) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "LASSO Model: Observed vs. Predicted",
+       x = "Predicted Y", y = "Observed Y")
+
+```
+The plot from the LASSO is almost identical to the LM model. This could be because our penalty is quite small, but also because the linear model showed that many of our points performed well and so there might not be much for the LASSO model to penalise and remove and so the results are similar to the linear model.
+
+Model 3 (RF) prediction and RMSE:
+```{r}
+rf_preds <- predict(rf_fit, model_data) %>% bind_cols(model_data %>% select(Y))
+
+rf_rmse <- rmse(rf_preds, truth = Y, estimate = .pred)
+rf_rmse
+```
+
+Observing the plot for the RF model of observed vs predicted values.
+```{r}
+ggplot(rf_preds, aes(x = .pred, y = Y)) +
+  geom_point(alpha = 0.6) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Random Forest: Observed vs. Predicted",
+       x = "Predicted Y", y = "Observed Y")
+
+```
+The RF plot creates an even tighter fit and grouping to the 45 degree line of the observed vs predicted plot.
+
+
+Generating a summary table of the RMSE values for comparison:
+```{r}
+tibble(Model = c("Linear", "LASSO", "Random Forest"), RMSE = c(lm_rmse$.estimate, lasso_rmse$.estimate, rf_rmse$.estimate))
+
+```
+
+The random forest had the best performance by far, with an RMSE of 381.5. The RMSE of the linear and LASSO mode were nearly identical as mentioned before. This could indicate that there are non-linear relationships that exist between the variables that are missed by the linear model.
+
+
+
+####Tuning the models
+
+Tuning the LASSO model and evaluating the model performance:
+
+Creating a tuning grid, updating the LASSO model for tuning and creating the tuning workflow
+```{r}
+#Ensure outcome is numeric
+model_data <- model_data %>% mutate(Y = as.numeric(Y))
+
+#Define LASSO recipe with safety steps
+lasso_recipe <- recipe(Y ~ ., data = model_data) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_zv(all_predictors()) %>%
+  step_naomit(all_predictors(), all_outcomes())
+
+#Create a log-scaled penalty grid using dials::penalty()
+penalty_range <- penalty(range = c(-5, 2), trans = log10_trans())  # defines log10 scale
+lasso_grid <- grid_regular(penalty_range, levels = 50)  # creates 50 log-scaled penalty values
+
+# Update the model to tune the penalty
+lasso_tune_model <- linear_reg(penalty = tune(), mixture = 1) %>% set_engine("glmnet") %>% set_mode("regression")
+
+#reuse the recipe from before with the dummy variables
+lasso_tune_workflow <- workflow() %>%
+  add_recipe(lasso_recipe) %>%       # uses step_dummy() and step_zv()
+  add_model(lasso_tune_model)
+
+```
+
+
+```{r}
+#Use all the data (no hold-out) as resampling input
+lasso_tune_res <- tune_grid(
+  object = lasso_tune_workflow,
+  resamples = apparent(model_data),
+  grid = lasso_grid,
+  metrics = metric_set(rmse))
+
+#Manually extract RMSE values from each config
+lasso_results <- map_dfr(lasso_tune_res$.metrics,~ .x, .id = "config_id")
+
+lasso_rmse_results_clean <- lasso_results %>% filter(.metric == "rmse") %>% rename(rmse = .estimate)
+
+#Arrange and extract best penalty
+best_lasso_row <- lasso_rmse_results_clean %>% arrange(rmse) %>% slice(1)
+
+#print the results
+print(best_lasso_row)
+
+#Plot penalty vs RMSE manually
+ggplot(lasso_rmse_results_clean, aes(x = penalty, y = rmse)) +
+  geom_line() +
+  geom_point() +
+  scale_x_log10() +
+  labs(title = "LASSO Tuning (Apparent): RMSE by Penalty",
+    x = "Penalty (lambda)", y = "RMSE")
+```
+
+
+We see that the RMSE is improved with lower values of the penalty and a dramatic shift with a reduction in the performance (increased RMSE values) when we reach high penalty (lamda) values around 1e+005 and over 1e+01.
+The penalty/lamda is applied to values more strictly as this value increases, which means that more values are penalised (set to zero). Thus the model ends up losing more and more values and datapoints which ends up simplifying the model and it loses value which is reflected by the decrease in RMSE. Increasing the penalty can therefore cause the model to underfit because it becomes simpler and the prediction error increases.
+It cannot drop below the linear model (perform better than the linear model) because the model performs the same as the linear model before penalties are applied and so this is the minimum
+
+
+
+Random Forest model tuning without CV
+
+```{r}
+# This prevents issues with non-numeric outcome (Y)
+model_data <- model_data %>%
+  mutate(Y = as.numeric(Y))
+
+rf_recipe <- recipe(Y ~ ., data = model_data) %>%
+  step_dummy(all_nominal_predictors()) %>%         # Convert categorical vars to dummy vars
+  step_zv(all_predictors()) %>%                    # Remove predictors with zero variance
+  step_naomit(all_predictors(), all_outcomes())    # Drop rows with NA values
+
+rf_tune_model <- rand_forest(mtry = tune(),      # number of predictors at each split
+  min_n = tune(),     # minimum node size
+  trees = 300) %>%         # fixed number of trees
+  set_engine("ranger") %>% set_mode("regression")
+
+rf_tune_workflow <- workflow() %>%
+  add_recipe(rf_recipe) %>%
+  add_model(rf_tune_model)
+
+rf_grid <- grid_regular(
+  mtry(range = c(1, 7)),
+  min_n(range = c(1, 21)),
+  levels = 7)  # 7 levels for each → 7 x 7 = 49 combinations
+
+```
+
+
+
+
+```{r}
+rf_tune_res <- tune_grid(
+  rf_tune_workflow,
+  resamples = apparent(model_data),
+  grid = rf_grid,
+  metrics = metric_set(rmse))
+
+#Manually extract metrics 
+rf_results <- map_dfr(rf_tune_res$.metrics,~ .x, .id = "config_id")
+
+#Filter to just RMSE results, and rename .estimate to rmse for clarity
+#Keep only rmse and drop original mtry/min_n before the join
+rf_rmse_results <- rf_results %>%
+  filter(.metric == "rmse") %>%
+  rename(rmse = .estimate) %>%
+  mutate(row_id = row_number()) %>%
+  select(row_id, rmse) %>%
+  left_join(rf_grid %>% mutate(row_id = row_number()), by = "row_id") %>%
+  select(-row_id)
+
+```
+
+
+Plotting a tuning grid for the RF model
+```{r}
+#Visualize RMSE across tuning grid
+#Heatmap of RMSE by mtry and min_n
+ggplot(rf_rmse_results, aes(x = factor(mtry), y = factor(min_n), fill = rmse)) +
+  geom_tile() + scale_fill_viridis_c(option = "plasma", name = "RMSE") +
+  labs(title = "Random Forest Tuning (Apparent Resampling)",
+    x = "mtry (predictors tried at each split)",
+    y = "min_n (minimum node size)") +  theme_minimal()
+
+```
+This is harder to visualise the the LASSO plot. But we see that the RMSE decreases (better performance) with decreasing min_n and increasing mtry. 
+
+
+####Tuning with CV
+
+Setting the seed again, as before
+```{r}
+set.seed(rngseed)
+```
+
+Setting the CV folds for the models
+```{r}
+cv_folds <- vfold_cv(model_data, v = 5, repeats = 5)
+
+```
+
+
+Running our LASSO and RF tuning models but including the CV resampling steps
+```{r}
+# Run LASSO tuning using CV resamples
+lasso_cv_res <- tune_grid(
+  lasso_tune_workflow,
+  resamples = cv_folds,
+  grid = lasso_grid,
+  metrics = metric_set(rmse))
+
+
+# Run RF tuning using CV resamples
+rf_cv_res <- tune_grid(
+  rf_tune_workflow,
+  resamples = cv_folds,
+  grid = rf_grid,
+  metrics = metric_set(rmse))
+
+```
+
+Plotting the RF and LASSO models with the CV values
+```{r}
+autoplot(lasso_cv_res)  
+autoplot(rf_cv_res)
+
+```
+
+Our LASSO plot is very similar to before and so I will not expand on this again.
+
+The RF plot is different as the RMSE values are much higher than before adding the CV. The RF plot indicates that as the minimal node size increases the rmse value decreases, with the best results seen with a minimal node size of 21. 
+The number of randomly selected parameters also strongly impact the RMSE results, with the strong results seen when we have 4 randomly selected predictors and more.
+
+
+Seeing which parameters give us the best rmse values from the models to compare to top rmse values.
+```{r}
+lasso_cv_res %>% show_best(metric = "rmse", n = 5)
+rf_cv_res %>% show_best(metric = "rmse", n = 5)
+```
+
+We see that the best performing LASSO model has an RMSE of around 610 and the best performing RF model has an RMSE of around 670, which is much highler than the initial tests.
+
+We see that when including CV the LASSO model performs the best.
+This is probably demosntrative of overfitting with the RF model in our initial evaluations. This highlights the need for including CV and also for performing test/trains splits with datasets.
+The LASSO model is simpler and provides more predictable/generalizable performance as seen through the curve, and there seems to be less risk of overfitting. Thus this is likely the best performing and preferred model.
+
+
+

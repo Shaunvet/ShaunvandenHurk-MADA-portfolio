@@ -33,7 +33,7 @@ library(yardstick)
 loading and viewing a preview of the data
 
 ```{r}
-mavoglurant_data <- read.csv(here("fitting-exercise", "Mavoglurant_A2121_nmpk.csv")) #loaddatausingherefunction
+mavoglurant_data <- read.csv(here("fitting-exercise", "Mavoglurant_A2121_nmpk.csv")) #load data using here function
 ```
 
 ```{r}
@@ -82,6 +82,7 @@ We want to delete unwanted columns, done with the select function, and also need
 #using the select function to delete unwanted columns
 merged_mavoglurant_1 <- merged_mavoglurant |> select(-OCC , -EVID, -CMT, -EVI2, -MDV, -LNDV, -ID, -AMT, -RATE, -DV, -TIME) |> mutate(RACE = as.factor(RACE), SEX = as.factor(SEX))
 
+saveRDS(merged_mavoglurant_1, file = "processed_mavoglurant.rds")
 ```
 
 checking our data and comparing two different summaries (summary vs skim) and functions for tables (kable vs pander).
@@ -932,18 +933,6 @@ ggplot(final_pred_data, aes(x = Y, y = Predicted_Y, color = Data_Type, shape = D
 
 Overall Assessment:
 
-- Both of our models performed better than the null model (based on RMSE), although model 2 (with all predictors) performed the best.
-- Based on the calculated figures such as RMSE and AUC model 1 does perform better than the null model, however when we plotted this model we can see distinct limitations that exist as a result of model 1 only using dose as a precictor since dose has three distinct groups which cause the predictions in the model to be similarly limited. Thus this model is probably not of much use for real life applications. 
-- Model 2 with all predictors did improve the results and the results from our various assessments and tests seem to make sense. The model seemed to have similar/comparable results to the real data that was tested. There might be some room for improvement since there seems to be some grouping of training data to the lower left of the plot but this model seems usable.
-
-
-
-
-
-
-
-
-
-
-
-
+-   Both of our models performed better than the null model (based on RMSE), although model 2 (with all predictors) performed the best.
+-   Based on the calculated figures such as RMSE and AUC model 1 does perform better than the null model, however when we plotted this model we can see distinct limitations that exist as a result of model 1 only using dose as a precictor since dose has three distinct groups which cause the predictions in the model to be similarly limited. Thus this model is probably not of much use for real life applications.
+-   Model 2 with all predictors did improve the results and the results from our various assessments and tests seem to make sense. The model seemed to have similar/comparable results to the real data that was tested. There might be some room for improvement since there seems to be some grouping of training data to the lower left of the plot but this model seems usable.
