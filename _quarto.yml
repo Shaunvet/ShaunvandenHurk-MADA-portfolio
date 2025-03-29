@@ -22,6 +22,9 @@ website:
             file: presentation-exercise/presentation-exercise.qmd
           - text: "Fitting Exercise"
             file: fitting-exercise/fitting-exercise.qmd
+          - text: "ML Models Exercise"
+            file: ml-models-exercise/ml-models-exercise.qmd  
+            
     right:
       - icon: github 
         href: https://github.com/Shaunvet/ShaunvandenHurk-MADA-portfolio.git    
